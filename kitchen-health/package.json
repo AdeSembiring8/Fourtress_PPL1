@@ -7,6 +7,7 @@
   "private": true,
   
   "scripts": {
+<<<<<<< HEAD
   
     
   "dev": "next dev",
@@ -52,5 +53,24 @@
     
   "react-dom": "^18.2.0"
   
+=======
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^13.3.1",
+    "next-auth": "^4.22.1"
+  },
+  "devDependencies": {
+    "@types/node": "18.16.3",
+    "@types/react": "18.2.0",
+    "autoprefixer": "^10.4.14",
+    "mongoose": "^7.1.0",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2",
+    "typescript": "5.0.4"
+>>>>>>> 5a526cf4ad2a40d7cf12b037c228413543dac2b0
   }
 }

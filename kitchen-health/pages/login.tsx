@@ -1,6 +1,8 @@
 import React from "react";
 import Head from "next/head";
 import Image from "next/legacy/image";
+import Link from "next/link";
+
 
 function Login() {
   return (
@@ -17,18 +19,18 @@ function Login() {
         objectFit="cover"
       />
 
-
-
-      <div style={{ backgroundImage: 'url("assets/bg/background.png")' }}>
+      <div>
         <div className="kotakPutih">
           <img src="assets/logo/logo.png" alt="logo kitchen health" />
           <div>
             <p className="fontMasuk">Masuk</p>
             <p className="fontBelumPunyaAkun">
               Belum punya akun?
-              <a className="fontDaftar" href="">
+
+              <Link className="fontDaftar" href="/register">
                 Daftar
-              </a>
+              </Link>
+
             </p>
           </div>
           <div>
@@ -42,14 +44,16 @@ function Login() {
                   placeholder="Masukkan email"
                 />
               </div>
+
               <p className="fontForm">Password</p>
               <div className="form">
                 <input
                   className="input"
-                  type="email"
+                  type="password"
                   name="pass"
                   placeholder="Masukkan password"
                 />
+
                 <img src="assets/loginRegisterPage/Hide.png" alt="logo kitchen health" />
               </div>
               <div>
@@ -88,6 +92,7 @@ function Login() {
           </div>
         </div>
       </div>
+
     </>
   )
 

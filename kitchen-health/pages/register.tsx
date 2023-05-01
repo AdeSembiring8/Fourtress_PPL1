@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Image from "next/legacy/image";
+import Link from "next/link";
 
 function Register() {
     return (
@@ -23,9 +24,9 @@ function Register() {
                         <p className="fontDaftar">Daftar</p>
                         <p className="fontBuatAkun">
                             Buat akun atau
-                            <a className="fontLogin" href="">
+                            <Link href="/login" className="fontLogin" >
                                 Login
-                            </a>
+                            </Link>
                         </p>
                     </div>
                     <div>

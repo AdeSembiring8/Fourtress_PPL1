@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/legacy/image";
 
-function Home() {
+function Login() {
   return (
     <>
       <Head>
@@ -48,9 +48,9 @@ function Home() {
                   className="input"
                   type="email"
                   name="pass"
-                  placeholder="Masukkan email"
+                  placeholder="Masukkan password"
                 />
-                <img src="assets/loginPage/Hide.png" alt="logo kitchen health" />
+                <img src="assets/loginRegisterPage/Hide.png" alt="logo kitchen health" />
               </div>
               <div>
                 <table style={{ width: 420, height: 65 }}>
@@ -74,13 +74,13 @@ function Home() {
               <div className="but">
                 <button
                   type="submit"
-                >Submit
+                >Login
                 </button>
               </div>
               <p className="atau">atau</p>
               <div className="google">
                 <a style={{ textDecoration: "none", color: "#389E0D" }} href="">
-                  {/* <img src="assets/loginPage/google.png" alt="" /> */}
+                  {/* <img src="assets/loginRegisterPage/google.png" alt="" /> */}
                   Masuk dengan Google
                 </a>
               </div>
@@ -93,4 +93,4 @@ function Home() {
 
 }
 
-export default Home
+export default Login

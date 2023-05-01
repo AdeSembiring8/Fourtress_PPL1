@@ -1,0 +1,95 @@
+<html>
+
+<head>
+    <title>FORM PEMESANAN TIKET KERETA</title>
+    <link rel="stylesheet" href="styleForm.css">
+
+</head>
+
+<body style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(4.jpg); background-size: cover;">
+    <div>
+        <header>
+            <h1 style="font-size: 60px; font-weight: bold;">JaDul</h1>
+            <p>Jajanan Jaman Dulu</p>
+        </header>
+    </div>
+
+    <form action="hasil_form.php" method="post">
+        <fieldset class="fieldsetLuar">
+            <fieldset class="fieldsetDalam">
+                <legend> DATA DIRI </legend>
+                <table cellpadding="3">
+                    <tr>
+                        <td><label class="judul" for="nama">Nama <span class="required">*</span></label></td>
+                        <td><input class="box" type="text" name=nama class="isi" placeholder="Nama Lengkap yaa!!"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="judul" for="email">Email <span class="required">*</span></label></td>
+                        <td><input class="box" type="email" name=email class="isi"
+                                placeholder="Emailnya Yang Aktif Yaa!!"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="judul" for="hp">Nomor Handphone <span class="required">*</span></label></td>
+                        <td> <input class="box" type=text class="isi" name=nohp size="82"
+                                placeholder="Nomor Hp Yang Aktif!!"> </td>
+                    </tr>
+                    <tr>
+                        <td><label class="judul" for="alamat">Alamat <span class="required">*</span></label></td>
+                        <td><textarea class="box" class="isi" name="alamat"
+                                placeholder="Alamat Rumah Bkn Alamat Palsu"></textarea></td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <fieldset class="fieldsetDalam">
+                <legend>MENU</legend>
+                <table cellspacing="10" cellpadding="8">
+                    <tr>
+                        <td class="judul"> Makakanan </td>
+                        <td><input type="checkbox" name="TelurGulung" value="Telur Gulung"> Telur Gulung
+                            <input type="checkbox" name="PermenGulali" value="Permen Gulali"> Permen Gulali
+                            <input type="checkbox" name="CirengIsi" value="Cireng Isi"> Cireng Isi <br>
+                            <input type="checkbox" name="Cimol" value="Cimol"> Cimol
+                            <input type="checkbox" name="Cilung" value="Cilung"> Cilung
+                            <input type="checkbox" name="KuePukis" value="Kue Pukis"> Kue Pukis
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="judul"> Minuman </td>
+                        <td><input type="checkbox" name="EsMambo" value="Es Mambo"> Es Mambo
+                            <input type="checkbox" name="PopIce" value="Pop Ice"> Pop Ice
+                            <input type="checkbox" name="EsKulkul" value="Es Kulkul"> Es Kulkul
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="judul" for="pembayaran">Pembayaran <span class="required">*</span></label>
+                        </td>
+                        <td>
+                            <input type=radio class="option" name=pembayaran value="Cash"> Cash
+                            <br>
+                            <input type=radio class="option" name=pembayaran value="E-Wallet"> W-Wallet
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <fieldset class="fieldsetBtn" style="border: transparent;">
+                <table>
+                    <tr>
+                    <tr id="btna">
+                        <td><input type=submit name=submit class="but" value="Submit">
+                            <input type="reset" class="but" value="Reset">
+                        </td>
+                    </tr>
+                    </tr>
+                </table>
+            </fieldset>
+        </fieldset>
+    </form>
+
+    <footer>
+        <p> @ Della Fauziyyah Husna - 140810200012</p>
+    </footer>
+</body>
+
+</html>

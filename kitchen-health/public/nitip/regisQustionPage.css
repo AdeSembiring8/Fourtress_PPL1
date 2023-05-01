@@ -1,0 +1,88 @@
+
+
+
+body {
+    background-image: url('background.png');
+}
+
+.kotakPutih {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px;
+    gap: 28px;
+
+    position: absolute;
+    width: 480px;
+    height: 744px;
+    left: 500px;
+    top: 117px;
+
+    background: #FFFFFF;
+    /* login register card */
+
+    box-shadow: 2px 4px 20px 5px rgba(130, 0, 20, 0.62);
+    border-radius: 40px;
+}
+
+.fontRegis {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    text-align: justify;
+    line-height: 40px;
+    /* identical to box height */
+    color: #000000;
+    width: 450px;
+    padding-left: 20px;
+}
+
+input[type=checkbox] {
+
+    transform: scale(2);
+
+}
+
+.tr{
+    line-height: 50px;
+    padding-left: 450px;
+   
+}
+
+/* Might want to wrap a span around your checkbox text */
+.checkboxtext {
+    font-family: 'Roboto';
+    font-style: normal;
+
+    font-size: 15px;
+
+}
+
+input[type=checkbox]{
+    accent-color: #389E0D ;
+}
+
+.but {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 20px;
+    gap: 50px;
+    font-family: 'Roboto';
+    font-style: normal;
+    
+    
+    font-size: 18px;
+    color: #FFFFFF;
+
+    width: 450px;
+    height: 45px;
+
+    background: #389E0D;
+    border-radius: 8px;
+    border: transparent;
+
+
+}

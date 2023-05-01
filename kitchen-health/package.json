@@ -1,11 +1,56 @@
 {
+  
   "name": "kitchen-health",
+  
   "version": "0.1.0",
+  
   "private": true,
+  
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+  
+    
+  "dev": "next dev",
+  
+    
+  "build": "next build",
+  
+    
+  "start": "next start",
+  
+    
+  "lint": "next lint"
+  
+  },
+  
+  "devDependencies": {
+  
+    
+  "@types/node": "18.16.3",
+  
+    
+  "@types/react": "^18.2.0",
+  
+    
+  "@types/react-dom": "^18.2.1",
+  
+    
+  "typescript": "5.0.4"
+  
+  },
+  
+  "dependencies": {
+  
+    
+  "antd": "^5.4.6",
+  
+    
+  "next": "^13.3.1",
+  
+    
+  "react": "^18.2.0",
+  
+    
+  "react-dom": "^18.2.0"
+  
   }
 }

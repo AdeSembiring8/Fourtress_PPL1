@@ -1,7 +1,9 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import connectMongo from "../../../database/conn";
+import GoogleProvider from "next-auth/providers/google";
+import connectMongo from "../../../db/conn";
 import khaccount from "../../../model/Schema";
+import { compare } from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -15,30 +17,35 @@ export const authOptions: NextAuthOptions = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "username" },
+        email: { label: "Email", type: "text", placeholder: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const { username, password } = credentials as any;
+        const { username, password, email } = credentials as any;
         connectMongo().catch((error) => {
-          error: "Connection Failed";
+          error: "Connection Failed...!";
         });
-        const result = await khaccount.findOne({ username: username, password: password });
+
+        // check user existance
+        const result = await khaccount.findOne({ email: email });
         if (!result) {
-          throw new Error("No user found");
+          throw new Error("No user Found with Email Please Sign Up...!");
         }
-        // need hashing and encryption!!!
-        if (result.username === username, result.password === password) {
-          throw new Error("Login Succeeded");
+
+        // compare()
+        const checkPassword = await compare(password, result.password);
+
+        // incorrect password
+        if (!checkPassword || result.email !== email) {
+          throw new Error("Username or Password doesn't match");
         }
-        return null;
-        // const { username, password } = credentials as any;
-        // // login logic here
-        // if (username !== "truuser" && password !== "trupass") {
-        //   return null;
-        // }
-        // return { id: "1234" };
+
+        return result;
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     // ...add more providers here
   ],

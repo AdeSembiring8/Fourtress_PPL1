@@ -3,18 +3,20 @@ import Head from "next/head";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function Login() {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+  const router = useRouter();
   const onLoginSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const status = await signIn('customSignIn', {
-        redirect: false,
-        email: userInfo.email,
-        password: userInfo.password,
-        callbackUrl: "http://localhost:3000"
-    })
-    console.log(status);
+    const status = await signIn("customSignIn", {
+      redirect: false,
+      email: userInfo.email,
+      password: userInfo.password,
+      callbackUrl: "http://localhost:3000",
+    });
+    if (status.ok) router.push(status.url);
   };
   async function handleGoogleSignin() {
     signIn("google", { callbackUrl: "http://localhost:3000" });

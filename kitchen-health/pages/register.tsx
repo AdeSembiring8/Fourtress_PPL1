@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import Head from "next/head";
 import Image from "next/legacy/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function Register() {
   const [userInfo, setUserInfo] = useState({
@@ -13,19 +14,20 @@ function Register() {
     last_name: "",
     address: "",
   });
+  const router = useRouter();
   const onRegisterSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const options = {
-        method: "POST",
-        headers : { 'Content-Type': 'application/json'},
-        body: JSON.stringify(userInfo)
-    }
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userInfo),
+    };
 
-    await fetch('http://localhost:3000/api/auth/signup', options)
-        .then(res => res.json())
-        .then((data) => {
-            console.log(data);
-        })
+    await fetch("http://localhost:3000/api/auth/signup", options)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) router.push("http://localhost:3000");
+      });
   };
   return (
     <>

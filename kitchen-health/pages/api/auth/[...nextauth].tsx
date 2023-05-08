@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const { username, password, email } = credentials as any;
+        const { password, email } = credentials as any;
         connectMongo().catch((error) => {
           error: "Connection Failed...!";
         });
@@ -49,6 +49,10 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
+  secret: "vJg5kMZNT3xLFWybDqNX+zob6ap2XJZcycdierBUoKE=",
+  session: {
+    strategy: "jwt",
+  },
 };
 
 export default NextAuth(authOptions);

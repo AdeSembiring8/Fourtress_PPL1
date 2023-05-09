@@ -10,13 +10,8 @@ function Register() {
                 <title>Kitchen Health</title>
                 <link rel="stylesheet" href="css/RegisterPage.css" />
             </Head>
-            <Image
-                src="/background.png"
-                alt="bg"
-                width="1833"
-                height="1400"
-                objectFit="cover"
-            />
+            
+            <img src="assets/bg/background.png" alt="logo kitchen health" className="img" />
             <div>
                 <div className="kotakPutih">
                     <img src="assets/logo/logo.png" alt="logo kitchen health" />

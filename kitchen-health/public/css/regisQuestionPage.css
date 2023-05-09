@@ -2,6 +2,10 @@ body {
     background-image: url('background.png');
 }
 
+.img {
+    object-fit: cover;
+}
+
 .kotakPutih {
     display: flex;
     flex-direction: column;

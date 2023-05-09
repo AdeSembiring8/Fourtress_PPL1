@@ -187,3 +187,7 @@ input[type=checkbox]{
     font-style: normal;
 
 }
+
+.img{
+    object-fit: cover;
+}

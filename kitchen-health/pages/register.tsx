@@ -5,119 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 function Register() {
-    return (
-        <>
-            <Head>
-                <title>Kitchen Health</title>
-                <link rel="stylesheet" href="css/RegisterPage.css" />
-            </Head>
-            
-            <img src="assets/bg/background.png" alt="logo kitchen health" className="img" />
-            <div>
-                <div className="kotakPutih">
-                    <img src="assets/logo/logo.png" alt="logo kitchen health" />
-                    <div>
-                        <p className="fontDaftar">Daftar</p>
-                        <p className="fontBuatAkun">
-                            Buat akun atau
-                            <Link href="/login" className="fontLogin" >
-                                Login
-                            </Link>
-                        </p>
-                    </div>
-                    <div>
-                        <form action="" method="post">
-                            <p className="fontForm">Nama Lengkap</p>
-                            <div className="form">
-                                <input
-                                    className="input"
-                                    type="text"
-                                    name="nama"
-                                    placeholder="Masukkan nama lengkap"
-                                />
-                            </div>
-                            <p className="fontForm">Nama Pengguna</p>
-                            <div className="form">
-                                <input
-                                    className="input"
-                                    type="text"
-                                    name="np"
-                                    placeholder="Masukkan nama pengguna"
-                                />
-                            </div>
-                            <p className="fontForm">Email</p>
-                            <div className="form">
-                                <input
-                                    className="input"
-                                    type="email"
-                                    name="email"
-                                    placeholder="Masukkan email"
-                                />
-                            </div>
-                            <table className="tablePass">
-                                <tbody>
-                                    <tr>
-                                        <td className="fontForm">Password</td>
-                                        <td className="fontForm" style={{ textAlign: "right" }}>
-                                            Konfirmasi Password
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table style={{ width: 480, height: 20 }}>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div className="formPass">
-                                                <input
-                                                    className="inputPass"
-                                                    type="password"
-                                                    name="pass"
-                                                    placeholder="Masukkan password"
-                                                />
-                                                <img src="assets/loginRegisterPage/Hide.png" alt="logo kitchen health" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="formPass">
-                                                <input
-                                                    className="inputPass"
-                                                    type="password"
-                                                    name="pass"
-                                                    placeholder="Konfirmasi password"
-                                                />
-                                                <img src="assets/loginRegisterPage/Hide.png" alt="logo kitchen health" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div className="butt">
-                                <div className="but">
-                                    <button
-                                        type="submit"
-                                    >Daftar
-                                    </button>
-                                </div>
-                            </div>
-                            <p className="atau">atau</p>
-                            <div className="google">
-                                <a style={{ textDecoration: "none", color: "#389E0D" }} href="">
-                                    <img src="google.png" alt="" />
-                                    Daftar dengan Google
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-        </>
-    )
-
   const [userInfo, setUserInfo] = useState({
     username: "",
     password: "",
@@ -140,6 +27,7 @@ function Register() {
       .then((res) => res.json())
       .then((data) => {
         if (data) router.push("http://localhost:3000");
+        else console.log(data)
       });
   };
   return (
@@ -148,12 +36,10 @@ function Register() {
         <title>Kitchen Health</title>
         <link rel="stylesheet" href="css/RegisterPage.css" />
       </Head>
-      <Image
-        src="/background.png"
-        alt="bg"
-        width="1833"
-        height="1400"
-        objectFit="cover"
+      <img
+        src="assets/bg/background.png"
+        alt="logo kitchen health"
+        className="img"
       />
       <div>
         <div className="kotakPutih">

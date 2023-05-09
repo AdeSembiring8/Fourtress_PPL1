@@ -1,10 +1,26 @@
-import React from "react";
+import { FormEvent, useState } from "react";
 import Head from "next/head";
 import Image from "next/legacy/image";
 import Link from "next/link";
-
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function Login() {
+  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+  const router = useRouter();
+  const onLoginSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    const status = await signIn("customSignIn", {
+      redirect: false,
+      email: userInfo.email,
+      password: userInfo.password,
+      callbackUrl: "http://localhost:3000",
+    });
+    if (status.ok) router.push(status.url);
+  };
+  async function handleGoogleSignin() {
+    signIn("google", { callbackUrl: "http://localhost:3000" });
+  }
   return (
     <>
       <Head>
@@ -21,18 +37,20 @@ function Login() {
             <p className="fontMasuk">Masuk</p>
             <p className="fontBelumPunyaAkun">
               Belum punya akun?
-
               <Link className="fontDaftar" href="/register">
                 Daftar
               </Link>
-
             </p>
           </div>
           <div>
-            <form action="" method="post">
+            <form onSubmit={onLoginSubmit}>
               <p className="fontForm">Email</p>
               <div className="form">
                 <input
+                  value={userInfo.email}
+                  onChange={({ target }) =>
+                    setUserInfo({ ...userInfo, email: target.value })
+                  }
                   className="input"
                   type="text"
                   name="email"
@@ -43,13 +61,20 @@ function Login() {
               <p className="fontForm">Password</p>
               <div className="form">
                 <input
+                  value={userInfo.password}
+                  onChange={({ target }) =>
+                    setUserInfo({ ...userInfo, password: target.value })
+                  }
                   className="input"
                   type="password"
                   name="pass"
                   placeholder="Masukkan password"
                 />
 
-                <img src="assets/loginRegisterPage/Hide.png" alt="logo kitchen health" />
+                <img
+                  src="assets/loginRegisterPage/Hide.png"
+                  alt="logo kitchen health"
+                />
               </div>
               <div>
                 <table style={{ width: 420, height: 65 }}>
@@ -61,7 +86,10 @@ function Login() {
                       <td>
                         <label className="checkboxtext">Remember Me</label>
                       </td>
-                      <td style={{ textAlign: "right" }} className="checkboxtext">
+                      <td
+                        style={{ textAlign: "right" }}
+                        className="checkboxtext"
+                      >
                         <a style={{ textDecoration: "none" }} href="">
                           Lupa Password
                         </a>
@@ -71,26 +99,25 @@ function Login() {
                 </table>
               </div>
               <div className="but">
-                <button
-                  type="submit"
-                >Login
-                </button>
+                <button type="submit">Login</button>
               </div>
               <p className="atau">atau</p>
               <div className="google">
-                <a style={{ textDecoration: "none", color: "#389E0D" }} href="">
+                <button
+                  type="button"
+                  style={{ textDecoration: "none", color: "#389E0D" }}
+                  onClick={handleGoogleSignin}
+                >
                   {/* <img src="assets/loginRegisterPage/google.png" alt="" /> */}
                   Masuk dengan Google
-                </a>
+                </button>
               </div>
             </form>
           </div>
         </div>
       </div>
-
     </>
-  )
-
+  );
 }
 
-export default Login
+export default Login;

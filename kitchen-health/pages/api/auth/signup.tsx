@@ -1,5 +1,5 @@
 import connectMongo from "../../../db/conn";
-import khaccount from "../../../model/Schema";
+import { account } from "../../../model/Schema";
 import { hash } from "bcryptjs";
 
 export default async function handler(req: any, res: any) {
@@ -14,20 +14,24 @@ export default async function handler(req: any, res: any) {
       password,
       email,
       profile_name,
-      first_name,
-      last_name,
       address,
     } = req.body;
-
+    const AccountID =
+      Math.floor(Date.now() / Math.pow(10, 3)) -
+      Math.floor(Date.now() / Math.pow(10, 12)) * Math.pow(10, 9);
+    const splitted_first = profile_name.split(" ", 1);
+    const first_name = profile_name.substring(0, splitted_first[0].length);
+    const last_name = profile_name.substring(splitted_first[0].length + 1);
     // check duplicate users
-    const checkexisting = await khaccount.findOne({ email });
+    const checkexisting = await account.findOne({ email });
     if (checkexisting)
       return res.status(422).json({ message: "User Already Exists...!" });
 
     // hash password
-    khaccount
+    account
       .create(
         {
+          AccountID,
           username,
           email,
           profile_name,

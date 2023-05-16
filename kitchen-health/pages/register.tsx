@@ -1,6 +1,5 @@
 import { FormEvent, useState } from "react";
 import Head from "next/head";
-import Image from "next/legacy/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -10,8 +9,6 @@ function Register() {
     password: "",
     email: "",
     profile_name: "",
-    first_name: "",
-    last_name: "",
     address: "",
   });
   const router = useRouter();

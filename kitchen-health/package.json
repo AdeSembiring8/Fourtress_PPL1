@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@headlessui/react": "^1.7.14",
         "antd": "^5.4.6",
         "bcryptjs": "^2.4.3",
         "next": "^13.3.1",

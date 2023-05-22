@@ -28,7 +28,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/auth/login copy"  ],
+, "pages/auth/login copy", "pages/api/auth/[...nextauth].tsx"  ],
   "exclude": [
     "node_modules"
   ]

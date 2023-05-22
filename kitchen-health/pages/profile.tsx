@@ -21,10 +21,10 @@ function Profile() {
 
             <div className="h-auto bg-white ">
                 <div className="w-full h-[1000px]">
-                    <img src="/assets/bg/bg.png" className="w-full relative rounded-tl-lg rounded-tr-lg h-96" />
+                    <img src="/assets/bg/bg.png" className="w-full   relative rounded-tl-lg rounded-tr-lg h-96" />
 
                     {/* <div className="bg-white rounded-lg shadow-xl pb-8 h-full ml-64 mr-64"> */}
-                    <div className="h-auto absolute border-2 bg-white -mt-32 ml-28 pl-96 pr-96  ">
+                    <div className="h-auto absolute border-2 bg-white ml-44 -mt-32 pl-96 pr-96  ">
                         <div className="flex flex-col items-center -mt-20">
                             <img src="/assets/loginRegisterPage/profile.png" alt="" className="w-40 border-4 border-white rounded-full" />
                             <button className="flex items-center  px-4 py-2 mt-12 mb-6 rounded text-sm space-x-2 transition duration-100">

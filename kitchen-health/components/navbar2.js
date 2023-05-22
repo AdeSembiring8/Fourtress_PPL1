@@ -103,7 +103,7 @@ const Navbar2 = () => {
             <img src="/assets/loginRegisterPage/profile.png" />
           </Link>
 
-          <ThemeChanger />
+          {/* <ThemeChanger /> */}
         </div>
       </nav>
     </div>

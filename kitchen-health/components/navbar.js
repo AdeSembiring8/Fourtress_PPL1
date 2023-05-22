@@ -103,7 +103,7 @@ const Navbar = () => {
             Masuk
           </Link>
 
-          <ThemeChanger />
+          {/* <ThemeChanger /> */}
         </div>
       </nav>
     </div>

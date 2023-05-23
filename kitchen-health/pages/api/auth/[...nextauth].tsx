@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import connectMongo from "../../../db/conn";
-import khaccount from "../../../model/Schema";
+import { account } from "../../../model/Schema";
 import { compare } from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
@@ -22,16 +22,17 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         const { password, email } = credentials as any;
+
         connectMongo().catch((error) => {
           error: "Connection Failed...!";
         });
 
         // check user existance
-        const result = await khaccount.findOne({ email: email });
+        const result = await account.findOne({ email: email });
+
         if (!result) {
           throw new Error("No user Found with Email Please Sign Up...!");
         }
-
         // compare()
         const checkPassword = await compare(password, result.password);
 
@@ -39,7 +40,6 @@ export const authOptions: NextAuthOptions = {
         if (!checkPassword || result.email !== email) {
           throw new Error("Username or Password doesn't match");
         }
-
         return result;
       },
     }),
@@ -49,9 +49,24 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
-  secret: "vJg5kMZNT3xLFWybDqNX+zob6ap2XJZcycdierBUoKE=",
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
+    maxAge: 60 * 10,
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        const { AccountID } = user as any;
+        return { token, AccountID };
+      } else {
+        return token;
+      }
+    },
+    async session({ session, token }) {
+      session.user = token as any;
+      return session;
+    },
   },
 };
 

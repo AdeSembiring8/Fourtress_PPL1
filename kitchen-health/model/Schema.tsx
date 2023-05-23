@@ -13,10 +13,26 @@ export const account =
       first_name: String,
       last_name: String,
       address: String,
+      tel: String,
+      gender: String,
+      birth_date: String,
+      prof_pic: String
     })
   );
 
-  export const disease =
+  export const transaction =
+  models.transaction ||
+  model(
+    "transaction",
+    new Schema({
+      TransactionID: Number,
+      AccountID: Number,
+      DishID: Number,
+      date: Number
+    })
+  );
+
+export const disease =
   models.disease ||
   model(
     "disease",
@@ -27,7 +43,17 @@ export const account =
     })
   );
 
-  export const dish =
+export const sufferFrom =
+  models.sufferFrom ||
+  model(
+    "sufferFrom",
+    new Schema({
+      AccountID: Number,
+      DiseaseID: Number,
+    })
+  );
+
+export const dish =
   models.dish ||
   model(
     "dish",
@@ -35,13 +61,13 @@ export const account =
       DishID: Number,
       title: String,
       price: String,
-      qty : Number,
-      desc : String,
-      guide : String,
+      qty: Number,
+      desc: String,
+      guide: String,
     })
   );
 
-  export const ingredient =
+export const ingredient =
   models.ingredient ||
   model(
     "ingredient",
@@ -49,43 +75,43 @@ export const account =
       IngredientID: Number,
       name: String,
       price: String,
-      desc : String,
-      qty : Number,
+      desc: String,
+      qty: Number,
     })
   );
 
-  export const nutrient =
+export const nutrient =
   models.nutrient ||
   model(
     "nutrient",
     new Schema({
       NutrientID: Number,
       name: String,
-      desc : String,
+      desc: String,
     })
   );
 
-  export const discussion =
+export const discussion =
   models.discussion ||
   model(
     "discussion",
     new Schema({
       DiscussionID: Number,
       opID: Number,
-      title : String,
-      subject : String,
-      content : String,
+      title: String,
+      subject: String,
+      content: String,
     })
   );
 
-  export const comment =
+export const comment =
   models.comment ||
   model(
     "comment",
     new Schema({
       CommentID: Number,
       AuthorID: Number,
-      DiscussionID : Number,
-      content : String,
+      DiscussionID: Number,
+      content: String,
     })
   );

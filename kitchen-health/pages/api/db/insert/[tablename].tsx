@@ -1,4 +1,4 @@
-import connectMongo from "../../../db/conn";
+import connectMongo from "../../../../db/conn";
 import {
   dish,
   ingredient,
@@ -6,8 +6,17 @@ import {
   discussion,
   comment,
   nutrient,
-} from "../../../model/Schema";
+  sufferFrom
+} from "../../../../model/Schema";
 
+/**
+ * 
+ * @param req
+ * table columns
+ * 
+ * @param res 
+ * @returns 
+ */
 export default async function handler(req: any, res: any) {
   connectMongo().catch((error) => res.json({ error: "Connection Failed...!" }));
   const { tablename } = req.query;
@@ -15,6 +24,7 @@ export default async function handler(req: any, res: any) {
     ["dish", dish],
     ["ingredient", ingredient],
     ["disease", disease],
+    ["sufferFrom", sufferFrom],
     ["discussion", discussion],
     ["comment", comment],
     ["nutrient", nutrient],

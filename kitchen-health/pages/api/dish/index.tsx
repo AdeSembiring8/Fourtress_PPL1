@@ -1,21 +1,22 @@
-import connectMongo from "../../../db/conn";
-import { dish } from "../../../model/Schema";
+import { getDishes } from "../../../lib/prisma/dish";
 
 /**
- * 
- * @param req 
+ *
+ * @param req
  * param limit (optional)
- * 
- * @param res 
+ *
+ * @param res
  */
 export default async function handler(req: any, res: any) {
   if (req.method === "GET") {
     const { limit } = req.query;
-    connectMongo().catch((error) =>
-      res.json({ error: "Connection Failed...!" })
-    );
-    const result = await dish.find({}, null, { limit: limit || 10 });
-    res.json(result);
+    try {
+      const { dishes, error } = await getDishes();
+      if (error) return res.status(500).json({ error });
+      return res.status(200).json({ dishes });
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
+    }
   } else {
     res.json("Only GET Method");
   }

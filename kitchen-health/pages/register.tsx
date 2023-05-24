@@ -9,7 +9,6 @@ function Register() {
     password: "",
     email: "",
     profile_name: "",
-    address: "",
   });
   const router = useRouter();
   const onRegisterSubmit = async (event: FormEvent) => {
@@ -23,8 +22,12 @@ function Register() {
     await fetch("http://localhost:3000/api/auth/signup", options)
       .then((res) => res.json())
       .then((data) => {
-        if (data) router.push("http://localhost:3000");
-        else console.log(data)
+        if (data) 
+          router.push({
+            pathname: "/regisQuestion",
+            query: { id: data.user.id },
+          });
+         else console.log(data);
       });
   };
   return (

@@ -1,6 +1,4 @@
-import connectMongo from "../../../db/conn";
-import { sufferFrom } from "../../../model/Schema";
-
+import { sufferDisease } from "../../../lib/prisma/account";
 /**
  *
  * @param req
@@ -10,12 +8,16 @@ import { sufferFrom } from "../../../model/Schema";
  * @param res
  */
 export default async function handler(req: any, res: any) {
-  connectMongo().catch((error) => res.json({ error: "Connection Failed...!" }));
   const { Diseases, AccountID } = req.body;
   let arrayRecord = new Array();
   for (let diseaseid of Diseases) {
-    arrayRecord.push({ DiseaseID: diseaseid, AccountID: AccountID });
+    arrayRecord.push({ accountid: AccountID, diseaseid: diseaseid });
   }
-  const result = await sufferFrom.create(arrayRecord);
-  res.json(result);
+  try {
+    const { message, error } = await sufferDisease(arrayRecord);
+    if (error) return res.status(500).json({ error });
+    return res.status(200).json({ message });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
 }

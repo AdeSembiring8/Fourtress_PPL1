@@ -1,22 +1,20 @@
 import { getToken } from "next-auth/jwt";
-import connectMongo from "../../../db/conn";
-import { account } from "../../../model/Schema";
+import { updateAccountById } from "../../../lib/prisma/account";
 
 export default async function handler(req: any, res: any) {
-  // If you don't have NEXTAUTH_SECRET set, you will have to pass your secret as `secret` to `getToken`
   const token = await getToken({ req });
   if (token) {
-    // Signed in
-    connectMongo().catch((error) => {
-      error: "Connection Failed...!";
-    });
     const { ...args } = req.body;
-    const result = await account.findByIdAndUpdate(token.AccountID, {
-      ...args,
-    });
-    res.json(result)
+    try {
+      const { user, error } = await updateAccountById(token.AccObj, {
+        ...args,
+      });
+      if (error) return res.status(500).json({ error });
+      return res.status(200).json({ user });
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
+    }
   } else {
-    // Not Signed in
     res.status(401).json("not signed in");
   }
 }

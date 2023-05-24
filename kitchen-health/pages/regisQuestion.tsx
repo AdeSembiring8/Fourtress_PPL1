@@ -1,113 +1,91 @@
 import React from "react";
 import Head from "next/head";
-import Image from "next/legacy/image";
+import { useRouter } from "next/router";
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 function RegisQuestion() {
-    return (
-        <>
-            <Head>
-                <title>Kitchen Health</title>
-                <link rel="stylesheet" href="css/regisQuestionPage.css" />
-            </Head>
-            
-            <img src="assets/bg/background.png" alt="logo kitchen health" className="img" />
-            <div>
-                <div className="kotakPutih">
-                    <img src="assets/logo/logo.png" alt="logo kitchen health" />
-                    <div style={{ marginBottom: "-10px" }}>
-                        <p className="fontRegis">Apa riwayat penyakit yang pernah kamu alami?</p>
-                    </div>
-                    <div style={{ paddingLeft: 40 }}>
-                        <table style={{ width: 450, height: 65 }}>
-                            <tbody>
-                                <tr className="tr">
-                                    <td>
-                                        <input type="checkbox" name="optiona" id="opta" />{" "}
-                                    </td>
-                                    <td>
-                                        <label className="checkboxtext"> Gerd </label>{" "}
-                                    </td>
-                                </tr>
-                                <tr className="tr">
-                                    <td>
-                                        <input type="checkbox" name="optiona" id="opta" />{" "}
-                                    </td>
-                                    <td>
-                                        {" "}
-                                        <label className="checkboxtext"> Diabetes </label>{" "}
-                                    </td>
-                                </tr>
-                                <tr className="tr">
-                                    <td>
-                                        <input type="checkbox" name="optiona" id="opta" />{" "}
-                                    </td>
-                                    <td>
-                                        {" "}
-                                        <label className="checkboxtext"> Kolestrol </label>{" "}
-                                    </td>
-                                </tr>
-                                <tr className="tr">
-                                    <td>
-                                        <input type="checkbox" name="optiona" id="opta" />{" "}
-                                    </td>
-                                    <td>
-                                        {" "}
-                                        <label className="checkboxtext"> Kanker </label>{" "}
-                                    </td>
-                                </tr>
-                                <tr className="tr">
-                                    <td>
-                                        <input type="checkbox" name="optiona" id="opta" />{" "}
-                                    </td>
-                                    <td>
-                                        {" "}
-                                        <label className="checkboxtext"> Jantung </label>{" "}
-                                    </td>
-                                </tr>
-                                <tr className="tr">
-                                    <td>
-                                        <input type="checkbox" name="optiona" id="opta" />{" "}
-                                    </td>
-                                    <td>
-                                        {" "}
-                                        <label className="checkboxtext"> Obesitas </label>{" "}
-                                    </td>
-                                </tr>
-                                <tr className="tr">
-                                    <td>
-                                        <input type="checkbox" name="optiona" id="opta" />{" "}
-                                    </td>
-                                    <td>
-                                        {" "}
-                                        <label className="checkboxtext">
-                                            {" "}
-                                            Tidak Memiliki riwayat penyakit{" "}
-                                        </label>{" "}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style={{ paddingLeft:10 }}>
-                        <div className="butt">
-                            <div className="but">
-                                <button
-                                    type="submit"
-                                >Simpan
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  const router = useRouter();
+  const { data, error } = useSWR("/api/disease", fetcher);
+  if (error || !data) {
+    return null;
+  }
+  const { diseases } = data;
+  const btnpressed = async () => {
+    const { id } = router.query;
+    const checkbx = document.getElementsByName("optiona") as any;
+    let checkedarr = new Array();
+    for (let i = 0; i < checkbx.length; i++) {
+      if (checkbx[i].checked === true) {
+        checkedarr.push(checkbx[i].value);
+      }
+    }
+    const record = { Diseases: checkedarr, AccountID: id };
+    const result = await fetch("http://localhost:3000/api/auth/regisQ", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(record),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) router.push({ pathname: "/landingPage2" });
+      });
+  };
+  return (
+    <>
+      <Head>
+        <title>Kitchen Health</title>
+        <link rel="stylesheet" href="css/regisQuestionPage.css" />
+      </Head>
+
+      <img
+        src="assets/bg/background.png"
+        alt="logo kitchen health"
+        className="img"
+      />
+      <div>
+        <div className="kotakPutih">
+          <img src="assets/logo/logo.png" alt="logo kitchen health" />
+          <div style={{ marginBottom: "-10px" }}>
+            <p className="fontRegis">
+              Apa riwayat penyakit yang pernah kamu alami?
+            </p>
+          </div>
+          <div style={{ paddingLeft: 40 }}>
+            <table style={{ width: 450, height: 65 }}>
+              <tbody>
+                {diseases.map((row: any) => (
+                  <tr className="tr" key={row.id}>
+                    <td>
+                      <input
+                        type="checkbox"
+                        name="optiona"
+                        id="opta"
+                        value={row.id}
+                      />{" "}
+                    </td>
+                    <td>
+                      <label className="checkboxtext"> {row.name} </label>{" "}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div style={{ paddingLeft: 10 }}>
+            <div className="butt">
+              <div className="but">
+                <button type="submit" onClick={btnpressed}>
+                  Simpan
+                </button>
+              </div>
             </div>
-
-
-
-
-
-        </>
-    )
-
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default RegisQuestion
+export default RegisQuestion;

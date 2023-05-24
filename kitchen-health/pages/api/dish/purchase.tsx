@@ -1,33 +1,28 @@
-import connectMongo from "../../../db/conn";
-import { transaction } from "../../../model/Schema";
 import { getToken } from "next-auth/jwt";
+import { buyDish } from "../../../lib/prisma/account";
 
 /**
- * 
- * @param req 
+ *
+ * @param req
  * DishID: DishID
- * 
- * @param res 
+ *
+ * @param res
  */
 export default async function handler(req: any, res: any) {
   const token = await getToken({ req });
   if (req.method === "POST" && token) {
-    connectMongo().catch((error) =>
-      res.json({ error: "Connection Failed...!" })
-    );
     const { DishID } = req.body;
-    const TransactionID =
-      (Math.floor(Date.now() / Math.pow(10, 3)) -
-        Math.floor(Date.now() / Math.pow(10, 7)) * Math.pow(10, 4)) *
-        Math.pow(10, 2) +
-      DishID;
-    const result = await transaction.create({
-      TransactionID: TransactionID,
-      AccountID: token.AccountID,
-      DishID: DishID,
-      date: Date.now(),
-    });
-    res.json(result);
+    try {
+      const { message, error } = await buyDish({
+        accountid: token.AccObj,
+        dishid: DishID,
+        date: Date.now(),
+      });
+      if (error) return res.status(500).json({ error });
+      return res.status(200).json({ message });
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
+    }
   } else {
     res.json("Cannot Process Request");
   }

@@ -1,8 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import connectMongo from "../../../db/conn";
-import { account } from "../../../model/Schema";
+import { getAccountByEmail } from "../../../lib/prisma/account";
 import { compare } from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
@@ -23,24 +22,25 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         const { password, email } = credentials as any;
 
-        connectMongo().catch((error) => {
-          error: "Connection Failed...!";
-        });
-
-        // check user existance
-        const result = await account.findOne({ email: email });
-
-        if (!result) {
-          throw new Error("No user Found with Email Please Sign Up...!");
+        try {
+          // check user existance
+          const { user, error } = await getAccountByEmail(email);
+          if (error) {
+            throw new Error("Request cannot be processed");
+          }
+          if (!user) {
+            throw new Error("No user Found with Email Please Sign Up...!");
+          }
+          const checkPassword = await compare(password, user.password);
+          if (!checkPassword || user.email !== email) {
+            throw new Error("Username or Password doesn't match");
+          }
+          return user;
+        } catch (error: any) {
+          throw new Error(error.message);
         }
-        // compare()
-        const checkPassword = await compare(password, result.password);
-
         // incorrect password
-        if (!checkPassword || result.email !== email) {
-          throw new Error("Username or Password doesn't match");
-        }
-        return result;
+        return null;
       },
     }),
     GoogleProvider({
@@ -57,8 +57,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        const { AccountID } = user as any;
-        return { token, AccountID };
+        const { id } = user as any;
+        return { token, AccObj: id };
       } else {
         return token;
       }

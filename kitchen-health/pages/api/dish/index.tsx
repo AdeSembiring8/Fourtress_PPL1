@@ -11,7 +11,7 @@ export default async function handler(req: any, res: any) {
   if (req.method === "GET") {
     const { limit } = req.query;
     try {
-      const { dishes, error } = await getDishes();
+      const { dishes, error } = await getDishes(Number(limit));
       if (error) return res.status(500).json({ error });
       return res.status(200).json({ dishes });
     } catch (error: any) {

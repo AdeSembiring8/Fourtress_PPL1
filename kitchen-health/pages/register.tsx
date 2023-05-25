@@ -36,13 +36,10 @@ function Register() {
         <title>Kitchen Health</title>
         <link rel="stylesheet" href="css/RegisterPage.css" />
       </Head>
-      <img
-        src="assets/bg/background.png"
-        alt="logo kitchen health"
-        className="img"
-      />
+      <img src="assets/bg/background.png" alt="logo kitchen health" className="img" />
+
       <div>
-        <div className="kotakPutih">
+        <div className="kotakPutih" style={{ marginBottom: '72px' }}>
           <img src="assets/logo/logo.png" alt="logo kitchen health" />
           <div>
             <p className="fontDaftar">Daftar</p>

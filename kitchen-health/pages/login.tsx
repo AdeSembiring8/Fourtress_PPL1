@@ -30,14 +30,14 @@ function Login() {
       </Head>
       
 
-      <img src="assets/bg/background.png" alt="logo kitchen health" className="img" />
+      <img src="assets/bg/background.png" alt="background kitchen health" className="img" />
       <div>
         <div className="kotakPutih">
           <img src="assets/logo/logo.png" alt="logo kitchen health" />
           <div>
             <p className="fontMasuk">Masuk</p>
             <p className="fontBelumPunyaAkun">
-              Belum punya akun?
+              Belum punya akun? 
               <Link className="fontDaftar" href="/register">
                 Daftar
               </Link>

@@ -7,9 +7,9 @@ import heroImg from "../public/assets/loginRegisterPage/piring.png";
 const Hero = () => {
   return (
     <>
-      <div className="relative">
+      <div className="relative mt-20">
         <img src="/assets/bg/bg.png" alt="Gambar" className="w-full h-auto" />
-        <div className="absolute top-4 left-10 z-10 w-full text-white text-3xl font-bold text-left">
+        <div className="absolute top-4  z-10 w-full text-white text-3xl font-bold text-left">
           <Container className="flex flex-wrap ">
             <div className="flex items-center w-full lg:w-1/2">
               <div className="max-w-2xl mb-48">

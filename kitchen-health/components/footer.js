@@ -34,13 +34,13 @@ export default function Footer() {
               isi deskripsi kitchen Health
             </div>
 
-            
+
           </div>
 
           <div>
             <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
               {navigation.map((item, index) => (
-                <Link key={index} href="/" className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700">
+                <Link key={index} href={item === 'Beranda' ? '/' : item === 'Rekomendasi' ? '/rekomendasi' : item === 'Komunitas' ? '/komunitas' : `/${item.replace(/\s/g, '').toLowerCase()}`} passHref className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-[#389E0D] focus:text-[#389E0D] focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700">
                   {item}
                 </Link>
               ))}
@@ -49,7 +49,8 @@ export default function Footer() {
           <div>
             <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
               {legal.map((item, index) => (
-                <Link key={index} href="/" className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700">
+                <Link key={index} href={item === 'Beranda' ? '/' : item === 'Rekomendasi' ? '/rekomendasi' : item === 'Komunitas' ? '/komunitas' : `/${item.replace(/\s/g, '').toLowerCase()}`} passHref
+                className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-[#389E0D] focus:text-[#389E0D] focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700">
                   {item}
                 </Link>
               ))}
@@ -98,7 +99,7 @@ export default function Footer() {
             rel="noopener">
             Fourtress.
           </a>{" "}
-          
+
         </div>
       </Container>
       {/* Do not remove this */}

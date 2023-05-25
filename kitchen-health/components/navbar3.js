@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useState } from "react";
 import ThemeChanger from "./DarkSwitch";
 import Image from "next/image"
 import { Disclosure } from "@headlessui/react";
@@ -9,20 +8,19 @@ const Navbar = () => {
     "Beranda",
     "Rekomendasi",
     "Komunitas",
-    "Tentang Kami",
   ];
 
 
   return (
-    <div className="w-full " >
-      <nav className="fixed top-0 left-0 right-0 z-50 mb-1 bg-[#ffff] flex flex-wrap items-center justify-between p-2 mx-auto lg:justify-between xl:px-0" style={{ boxShadow: '0px 4px rgba(0, 0, 0, 0.25)' }}>
+    <div className="w-full" >
+      <nav className=" relative flex flex-wrap items-center justify-between p-4 mx-auto lg:justify-between xl:px-0">
         {/* Logo  */}
         < Disclosure >
           {({ open }) => (
             <>
               <div className="flex flex-wrap items-center justify-between w-full lg:w-auto">
                 <Link href="/">
-                  <span className="flex items-center space-x-2 text-17xl font-medium text-[#389E0D] dark:text-gray-100">
+                  <span className="flex items-center space-x-2 text-17xl font-medium text-indigo-500 dark:text-gray-100">
                     <span>
                       <Image
                         src="/assets/logo/logo.png"
@@ -37,7 +35,7 @@ const Navbar = () => {
 
                 <Disclosure.Button
                   aria-label="Toggle Menu"
-                  className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-[#389E0D] focus:text-[#389E0D] focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700">
+                  className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700">
                   <svg
                     className="w-6 h-6 fill-current"
                     xmlns="http://www.w3.org/2000/svg"
@@ -61,16 +59,18 @@ const Navbar = () => {
                 <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
                   <>
                     {navigation.map((item, index) => (
-                      <Link key={index} href={item === 'Beranda' ? '/' : item === 'Rekomendasi' ? '/login' : item === 'Komunitas' ? '/login' : item === 'Tentang Kami' ? '/tentangKami' : `/${item.replace(/\s/g, '').toLowerCase()}`} passHref
-                        className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-[#389E0D] focus:text-[#389E0D]   focus:outline-none">
-                        <div role="button">{item}</div>
+                      <Link key={index} href={item === 'Beranda' ? '/' : item === 'Rekomendasi' ? '/rekomendasi' : item === 'Komunitas' ? '/komunitas' : `/${item.replace(/\s/g, '').toLowerCase()}`} passHref
+                        className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none">
+                        {item}
                       </Link>
 
                     ))}
-                    <Link href="/login" className="w-full px-6 py-2 mt-3 text-center text-white  dark:bg-[#389E0D] rounded-md lg:ml-5">
+                    <Link href="/cart" className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none">
+                      Keranjang Saya
+                    </Link>
+                    <Link href="/login" className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5">
                       Masuk
                     </Link>
-
                   </>
                 </Disclosure.Panel>
               </div>
@@ -78,35 +78,22 @@ const Navbar = () => {
           )}
         </Disclosure>
 
-        <div className="hidden text-center lg:flex lg:items-center">
+        {/* menu  */}
+        <div div className="hidden text-center lg:flex lg:items-center" >
           <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
             {navigation.map((item, index) => (
-              <Link
-                key={index}
-                href={
-                  item === 'Beranda'
-                    ? '/'
-                    : item === 'Rekomendasi'
-                      ? '/login'
-                      : item === 'Komunitas'
-                        ? '/login'
-                        : item === 'Tentang Kami'
-                          ? '/tentangKami'
-                          : `/${item.replace(/\s/g, '').toLowerCase()}`
-                }
-                passHref
-              >
-                <div className="inline-block  py-2  text-lg font-normal text-gray-800 no-underline rounded-md dark:text-black  focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800 group pr-12">
+              <Link key={index} href={item === 'Beranda' ? '/' : item === 'Rekomendasi' ? '/rekomendasi' : item === 'Komunitas' ? '/komunitas' : `/${item.replace(/\s/g, '').toLowerCase()}`} passHref>
+                <div className="inline-block px-4 py-2 ml-12 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-black hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800">
                   {item}
-                  <span className="block mx-auto max-w-0 group-hover:max-w-full transition-all duration-500 h-[3px] rounded bg-[#6C894A]"></span>
                 </div>
               </Link>
             ))}
           </ul>
+
         </div>
 
         {/* search */}
-        <div div className=" pt-2 mr-2 hidden lg:flex relative mx-auto text-gray-600" >
+        <div div className="pt-2 mr-12  relative mx-auto text-gray-600" >
           <input className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
             type="" name="" placeholder="Search" />
           <button type="submit" className="absolute right-0 top-0 mt-5 mr-4">
@@ -118,23 +105,26 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
-
         {/* cart */}
-        {/* <div div className="hidden  lg:flex nav__item" >
+        <div div className="hidden  lg:flex nav__item" >
           <Link href="/cart" className="px-4 py-4 text-white w-16 h-16 rounded-md md:ml-5">
             <img src="/assets/navbar/keranjang.png" />
           </Link>
-        </div> */}
-
-
-        <div className="hidden mr-12 space-x-4  lg:flex nav__item">
-          <Link href="/login" className="py-1.5 px-6 bg-white hover:bg-[#389E0D] border-2 border-[#389E0D] text-[#389E0D] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5">
+        </div>
+        <div className="hidden mr-12 space-x-4 lg:flex nav__item">
+          <Link href="/login" className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5">
             Masuk
           </Link>
+
+
           {/* <ThemeChanger /> */}
         </div>
       </nav >
     </div >
+
+
+
+
 
   );
 }

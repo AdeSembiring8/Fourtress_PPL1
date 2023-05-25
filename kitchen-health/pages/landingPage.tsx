@@ -1,11 +1,11 @@
 import React from "react";
 import Head from "next/head";
-import Navbar from "../components/navbar";
+import Navbar from "../components/navbar2";
 import Hero from "../components/hero";
 import Card from "../components/card";
 import Footer from "../components/footer";
 
-function LandingPage() {
+function LandingPage2() {
     return (
         <>
             <Head>
@@ -19,7 +19,7 @@ function LandingPage() {
 
             <Navbar />
             <Hero />
-
+            
             <Card />
             <Footer />
 
@@ -31,4 +31,4 @@ function LandingPage() {
 
 }
 
-export default LandingPage
+export default LandingPage2

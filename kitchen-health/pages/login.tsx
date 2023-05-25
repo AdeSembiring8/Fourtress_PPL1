@@ -17,7 +17,7 @@ function Login() {
       callbackUrl: "http://localhost:3000/landingPage2",
     });
     if (status.ok) router.push(status.url);
-    else console.log(status);
+    else router.push("http://localhost:3000/login");
   };
   async function handleGoogleSignin() {
     signIn("google", { callbackUrl: "http://localhost:3000" });

@@ -1,9 +1,14 @@
-body {
+/* body {
     background-image: url('background.png');
-}
+} */
 
 .img {
-    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-size: cover;    
 }
 
 .kotakPutih {
@@ -15,9 +20,9 @@ body {
 
     position: absolute;
     width: 500px;
-    height: 744px;
-    left: 500px;
-    top: 117px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     background: #FFFFFF;
     /* login register card */

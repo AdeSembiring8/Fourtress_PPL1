@@ -1,8 +1,10 @@
 import Link from "next/link";
 import ThemeChanger from "./DarkSwitch";
-import Image from "next/image"
+import Image from "next/image";
 import { Disclosure } from "@headlessui/react";
 
+const Navbar2 = ({ user }) => {
+  const navigation = ["Beranda", "Rekomendasi", "Komunitas"];
 const Navbar2 = () => {
   const navigation = [
     "Beranda",
@@ -36,11 +38,13 @@ const Navbar2 = () => {
 
                 <Disclosure.Button
                   aria-label="Toggle Menu"
-                  className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-[#389E0D] focus:text-[#389E0D] focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700">
+                  className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-[#389E0D] focus:text-[#389E0D] focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700"
+                >
                   <svg
                     className="w-6 h-6 fill-current"
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24">
+                    viewBox="0 0 24 24"
+                  >
                     {open && (
                       <path
                         fillRule="evenodd"
@@ -109,11 +113,17 @@ const Navbar2 = () => {
           <input className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
             type="" name="" placeholder="Search" />
           <button type="submit" className="absolute right-0 top-0 mt-5 mr-4">
-            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
+            <svg
+              class="w-5 h-5 text-gray-500 dark:text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clip-rule="evenodd"></path>
+                clip-rule="evenodd"
+              ></path>
             </svg>
           </button>
         </div>
@@ -127,8 +137,11 @@ const Navbar2 = () => {
 
 
         <div className="hidden mr-22 space-x-4 lg:flex nav__item">
-          <Link href="/profile" className="px-4 py-2 text-white w-24 rounded-md md:ml-5">
-            <img src="/assets/loginRegisterPage/profile.png" />
+          <Link
+            href="/"
+            className="px-4 py-2 text-white w-24 rounded-md md:ml-5"
+          >
+            <img src={user.prof_pic} />
           </Link>
 
           {/* <ThemeChanger /> */}
@@ -137,13 +150,6 @@ const Navbar2 = () => {
     </div >
 
   );
-}
+};
 
 export default Navbar2;
-
-
-
-
-
-
-

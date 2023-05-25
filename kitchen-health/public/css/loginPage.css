@@ -1,10 +1,3 @@
-
-
-
-Head {
-    background-image: url('background.png');
-}
-
 .kotakPutih {
     /* Auto layout */
 
@@ -12,14 +5,13 @@ Head {
     flex-direction: column;
     align-items: flex-start;
     padding: 32px;
-    gap: 28px;
 
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 480px;
-    height: 744px;
-    left: 500px;
-    top: 117px;
-
+        
     background: #FFFFFF;
     /* login register card */
 
@@ -33,6 +25,8 @@ Head {
     font-weight: 600;
     font-size: 32px;
     
+    margin-top: 20px;
+    
     line-height: 35px;
     /* identical to box height */
     color: #000000;
@@ -44,6 +38,7 @@ Head {
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
+    margin-bottom: 16px;
     line-height: 45px;
     /* identical to box height */
     color: #7F7E7E;
@@ -73,7 +68,7 @@ Head {
     background: #FFFFFF;
     /* Grey */
     border-radius: 8px;
-    border: transparent;
+    border: #DADADA;
     
 }
 
@@ -94,6 +89,7 @@ Head {
     /* Grey */
     border: 1px solid #DADADA;
     border-radius: 8px;
+    margin-bottom: 16px;
 }
 
 ::placeholder {
@@ -120,7 +116,6 @@ input[type=checkbox] {
     font-style: normal;
 
     font-size: 15px;
-
 }
 
 input[type=checkbox]{
@@ -135,6 +130,7 @@ input[type=checkbox]{
     align-items: center;
     padding: 12px 20px;
     gap: 50px;
+    margin-top: 12px;
     font-family: 'Roboto';
     font-style: normal;
     
@@ -175,7 +171,7 @@ input[type=checkbox]{
     width: 420px;
     height: 45px;
     background: #FFFFFF;
-    border: 4px solid #389E0D;
+    border: 2px solid #389E0D;
     border-radius: 8px;
 
     display: flex;
@@ -189,5 +185,10 @@ input[type=checkbox]{
 }
 
 .img{
-    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-size: cover;   
 }

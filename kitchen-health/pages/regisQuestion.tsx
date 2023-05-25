@@ -29,7 +29,7 @@ function RegisQuestion() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data) router.push({ pathname: "/landingPage2" });
+        if (data) router.push({ pathname: "/" });
       });
   };
   return (

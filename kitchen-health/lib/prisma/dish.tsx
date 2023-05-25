@@ -1,8 +1,10 @@
 import prisma from ".";
 
-export async function getDishes() {
+export async function getDishes(limit: number) {
   try {
-    const dishes = await prisma.dish.findMany();
+    const dishes = await prisma.dish.findMany({
+      take: limit ? limit : 10,
+    });
     return { dishes };
   } catch (error) {
     return { error };
@@ -12,7 +14,7 @@ export async function getDishes() {
 export async function createDish(dish: any) {
   try {
     const dishForDB = await prisma.dish.create({ data: dish });
-    return { dish: dishForDB };
+    return { dishForDB: dishForDB };
   } catch (error) {
     return { error };
   }

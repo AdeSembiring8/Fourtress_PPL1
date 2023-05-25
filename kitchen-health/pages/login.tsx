@@ -14,7 +14,7 @@ function Login() {
       redirect: false,
       email: userInfo.email,
       password: userInfo.password,
-      callbackUrl: "http://localhost:3000/landingPage2",
+      callbackUrl: "/",
     });
     if (status.ok) router.push(status.url);
     else router.push("http://localhost:3000/login");

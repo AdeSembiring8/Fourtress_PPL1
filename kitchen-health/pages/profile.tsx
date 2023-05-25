@@ -25,7 +25,7 @@ function Profile() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
+      <Navbar user={user} />
 
       <div className="h-auto bg-white ">
         <div className="w-full h-[1000px]">

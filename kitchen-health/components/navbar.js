@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { useState } from "react";
-import ThemeChanger from "./DarkSwitch";
 import Image from "next/image"
 import { Disclosure } from "@headlessui/react";
 

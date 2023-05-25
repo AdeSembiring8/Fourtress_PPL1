@@ -11,13 +11,12 @@ const Card = ({ dishes }) => {
         <div className="relative mx-auto w-full">
           {/* <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">  */}
           {dishes.map((dish) => (
-            <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm ">
+            <div
+              className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm "
+              key={dish.id}
+            >
               <a href="#">
-                <img
-                  className="w-full"
-                  src={dish.prof_img}
-                  alt=""
-                />
+                <img className="w-full" src={dish.prof_img} alt="" />
               </a>
 
               <div className="p-5">

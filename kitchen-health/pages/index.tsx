@@ -30,11 +30,6 @@ function LandingPage({ dishes }: any) {
 
 export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, authOptions);
-  const { dishes } = await fetch("http://localhost:3000/api/dish", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => res.json());
-  
   if (session) {
     return {
       redirect: {
@@ -43,6 +38,10 @@ export async function getServerSideProps(context: any) {
       },
     };
   }
+  const { dishes } = await fetch("http://localhost:3000/api/dish", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  }).then((res) => res.json());
 
   return {
     props: {

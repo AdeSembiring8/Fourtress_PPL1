@@ -4,26 +4,11 @@ import Navbar from "../components/navbar2";
 import Hero from "../components/hero";
 import Card from "../components/card";
 import Footer from "../components/footer";
-import { useSession, getSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import useSWR from "swr";
+import { authOptions } from "./api/auth/[...nextauth]";
+import { getServerSession } from "next-auth/next";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
-function LandingPage2() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-  if (status === "unauthenticated") {
-    router.push({ pathname: "/login" });
-  }
-
-  const { data: dishdata, error: disherr } = useSWR("/api/dish", fetcher);
-  const { data: userdata, error: usererr } = useSWR("/api/profile", fetcher);
-  if (disherr || !dishdata || usererr || !userdata) {
-    return null;
-  }
-  const { dishes } = dishdata;
-  const { user } = userdata;
+function LandingPage2({ dishes, userprof }: any) {
+  const { user } = userprof;
   return (
     <>
       <Head>
@@ -44,32 +29,33 @@ function LandingPage2() {
   );
 }
 
-// export async function getServerSideProps(context: any) {
-//   const session = await getServerSession(context.req, context.res, authOptions);
-//   const { dishes } = await fetch("http://localhost:3000/api/dish", {
-//     method: "GET",
-//     headers: { "Content-Type": "application/json" },
-//   }).then((res) => res.json());
-//   const user = await fetch("http://localhost:3000/api/profile", {
-//     method: "GET",
-//     headers: { "Content-Type": "application/json" },
-//   }).then((res) => res.json());
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: "/login",
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: {
-//       session,
-//       dishes,
-//       user,
-//     },
-//   };
-// }
+export async function getServerSideProps(context: any) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  const { user } = session;
+  const { dishes } = await fetch("http://localhost:3000/api/dish", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  }).then((res) => res.json());
+  const userprof = await fetch("http://localhost:3000/api/profile", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user),
+  }).then((res) => res.json());
+  return {
+    props: {
+      session,
+      dishes,
+      userprof,
+    },
+  };
+}
 
 export default LandingPage2;

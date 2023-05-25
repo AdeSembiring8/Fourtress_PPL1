@@ -14,10 +14,10 @@ function Login() {
       redirect: false,
       email: userInfo.email,
       password: userInfo.password,
-      callbackUrl: "/",
+      callbackUrl: "/dashboard",
     });
     if (status.ok) router.push(status.url);
-    else router.push("http://localhost:3000/login");
+    else console.log(status);
   };
   async function handleGoogleSignin() {
     signIn("google", { callbackUrl: "http://localhost:3000" });
@@ -28,23 +28,26 @@ function Login() {
         <title>Kitchen Health</title>
         <link rel="stylesheet" href="css/loginPage.css" />
       </Head>
-      
 
-      <img src="assets/bg/background.png" alt="background kitchen health" className="img" />
+      <img
+        src="assets/bg/background.png"
+        alt="background kitchen health"
+        className="img"
+      />
       <div>
         <div className="kotakPutih">
           <img src="assets/logo/logo.png" alt="logo kitchen health" />
           <div>
             <p className="fontMasuk">Masuk</p>
             <p className="fontBelumPunyaAkun">
-              Belum punya akun? 
+              Belum punya akun?
               <Link className="fontDaftar" href="/register">
                 Daftar
               </Link>
             </p>
           </div>
           <div>
-            <form onSubmit={onLoginSubmit}>
+            <form>
               <p className="fontForm">Email</p>
               <div className="form">
                 <input
@@ -100,7 +103,7 @@ function Login() {
                 </table>
               </div>
               <div className="but">
-                <button type="submit">Login</button>
+                <button type="submit" onClick={onLoginSubmit}>Login</button>
               </div>
               <p className="atau">atau</p>
               <div className="google">

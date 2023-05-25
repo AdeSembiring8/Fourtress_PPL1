@@ -4,17 +4,11 @@ import Image from "next/legacy/image";
 import Link from "next/link";
 import Navbar from "../components/navbar2";
 import Footer from "../components/footer";
-import useSWR from "swr";
+import { authOptions } from "./api/auth/[...nextauth]";
+import { getServerSession } from "next-auth/next";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
-function Profile() {
-  const { data, error } = useSWR("/api/profile", fetcher);
-  if (error || !data) {
-    return null;
-  }
-  console.log(data);
-  const { user, diseases } = data;
+function Profile({ userprof }: any) {
+  const { user, diseases } = userprof;
   return (
     <>
       <Head>
@@ -27,9 +21,12 @@ function Profile() {
       </Head>
       <Navbar user={user} />
 
-            <div className="h-auto bg-white ">
-                <div className="w-full h-[1200px]">
-                    <img src="/assets/bg/bg.png" className="w-full   relative rounded-tl-lg rounded-tr-lg h-96" />
+      <div className="h-auto bg-white ">
+        <div className="w-full h-[1200px]">
+          <img
+            src="/assets/bg/bg.png"
+            className="w-full   relative rounded-tl-lg rounded-tr-lg h-96"
+          />
 
           {/* <div className="bg-white rounded-lg shadow-xl pb-8 h-full ml-64 mr-64"> */}
           <div className="h-auto absolute border-2 bg-white ml-44 -mt-32 pl-96 pr-96  ">
@@ -115,11 +112,33 @@ function Profile() {
         </div>
       </div>
 
-            <Footer />
-        </>
+      <Footer />
+    </>
+  );
+}
 
-    )
-
+export async function getServerSideProps(context: any) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  const { user } = session;
+  const userprof = await fetch("http://localhost:3000/api/profile", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user),
+  }).then((res) => res.json());
+  return {
+    props: {
+      session,
+      userprof,
+    },
+  };
 }
 
 export default Profile;

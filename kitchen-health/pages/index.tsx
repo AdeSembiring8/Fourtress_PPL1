@@ -6,6 +6,7 @@ import Card from "../components/card";
 import Footer from "../components/footer";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
+import { serverurl } from "./server";
 
 function LandingPage({ dishes }: any) {
   return (
@@ -38,7 +39,7 @@ export async function getServerSideProps(context: any) {
       },
     };
   }
-  const { dishes } = await fetch("http://localhost:3000/api/dish", {
+  const { dishes } = await fetch(serverurl + "/api/dish", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   }).then((res) => res.json());

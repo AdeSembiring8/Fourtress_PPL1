@@ -2,32 +2,43 @@ import { FormEvent, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
+import { serverurl } from "./server";
 
 function Register() {
   const [userInfo, setUserInfo] = useState({
     username: "",
     password: "",
+    val_pass: "",
     email: "",
     profile_name: "",
   });
   const router = useRouter();
   const onRegisterSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const options = {
+    if (Object.values(userInfo).every((x) => x === null || x === "")) {
+      //validasi form kosong
+      return null;
+    }
+    if (userInfo.password !== userInfo.val_pass) {
+      //validasi password tidak sama
+      return null;
+    }
+
+    await fetch(serverurl + "/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userInfo),
-    };
-
-    await fetch("http://localhost:3000/api/auth/signup", options)
+    })
       .then((res) => res.json())
       .then((data) => {
-        if (data) 
+        if (data)
           router.push({
             pathname: "/regisQuestion",
             query: { id: data.user.id },
           });
-         else console.log(data);
+        else console.log(data);
       });
   };
   return (
@@ -36,10 +47,14 @@ function Register() {
         <title>Kitchen Health</title>
         <link rel="stylesheet" href="css/RegisterPage.css" />
       </Head>
-      <img src="assets/bg/background.png" alt="logo kitchen health" className="img" />
+      <img
+        src="assets/bg/background.png"
+        alt="logo kitchen health"
+        className="img"
+      />
 
       <div>
-        <div className="kotakPutih" style={{ marginBottom: '72px' }}>
+        <div className="kotakPutih" style={{ marginBottom: "72px" }}>
           <img src="assets/logo/logo.png" alt="logo kitchen health" />
           <div>
             <p className="fontDaftar">Daftar</p>
@@ -125,9 +140,9 @@ function Register() {
                     <td>
                       <div className="formPass">
                         <input
-                          value={userInfo.password}
+                          value={userInfo.val_pass}
                           onChange={({ target }) =>
-                            setUserInfo({ ...userInfo, password: target.value })
+                            setUserInfo({ ...userInfo, val_pass: target.value })
                           }
                           className="inputPass"
                           type="password"
@@ -150,7 +165,7 @@ function Register() {
               </div>
               <p className="atau">atau</p>
               <div className="google">
-                <a style={{ textDecoration: "none", color: "#389E0D" }} href="">
+                <a style={{ textDecoration: "none", color: "#389E0D" }} href="/_index">
                   <img src="google.png" alt="" />
                   Daftar dengan Google
                 </a>
@@ -161,6 +176,24 @@ function Register() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }
 
 export default Register;

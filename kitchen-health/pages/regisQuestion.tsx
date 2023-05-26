@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { serverurl } from "./server";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -22,7 +23,7 @@ function RegisQuestion() {
       }
     }
     const record = { Diseases: checkedarr, AccountID: id };
-    const result = await fetch("http://localhost:3000/api/auth/regisQ", {
+    const result = await fetch(serverurl + "/api/auth/regisQ", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(record),

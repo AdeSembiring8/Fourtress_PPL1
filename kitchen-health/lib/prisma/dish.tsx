@@ -20,10 +20,14 @@ export async function createDish(dish: any) {
   }
 }
 
-export async function getDishById(id: any) {
+export async function getDishesById(id: any) {
   try {
-    const dish = await prisma.dish.findUnique({
-      where: { id },
+    const dish = await prisma.dish.findMany({
+      where: {
+        id: {
+          in: id,
+        },
+      },
     });
     return { dish };
   } catch (error) {
@@ -41,6 +45,31 @@ export async function updateDishById(id: any, data: any) {
   } catch (error) {
     return { error };
   }
+}
+
+export async function setDishNutrient(data: any) {
+  for (let row of data) {
+    try {
+      const nutrients = await prisma.dish.update({
+        where: { id: row.dishid },
+        data: {
+          containswith: {
+            create: {
+              amount: row.amount,
+              nutrient: {
+                connect: {
+                  id: row.nutrientid,
+                },
+              },
+            },
+          },
+        },
+      });
+    } catch (error) {
+      return { error };
+    }
+  }
+  return { message: "Query OK" };
 }
 
 // export async function getAccountDiseases(accid: any) {

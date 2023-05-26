@@ -72,6 +72,17 @@ export async function getAccountDiseases(accid: any) {
 }
 
 export async function sufferDisease(suffer: any) {
+  try {
+    const deletedis = await prisma.sufferFrom.deleteMany({
+      where: {
+        account: {
+          id: suffer[0].accountid,
+        },
+      },
+    });
+  } catch (error) {
+    return { error };
+  }
   for (let row of suffer) {
     try {
       const sufferres = await prisma.account.update({

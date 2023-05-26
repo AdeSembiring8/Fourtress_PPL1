@@ -3,6 +3,8 @@ import Head from "next/head";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 
 function Login() {
@@ -11,16 +13,14 @@ function Login() {
   const onLoginSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const status = await signIn("customSignIn", {
-      redirect: false,
+      redirect: true,
       email: userInfo.email,
       password: userInfo.password,
       callbackUrl: "/dashboard",
     });
-    if (status.ok) router.push(status.url);
-    else console.log(status);
   };
-  async function handleGoogleSignin() {
-    signIn("google", { callbackUrl: "http://localhost:3000" });
+  async function lockedfeature() {
+    router.push({pathname:"_index"});
   }
   return (
     <>
@@ -110,7 +110,7 @@ function Login() {
                 <button
                   type="button"
                   style={{ textDecoration: "none", color: "#389E0D" }}
-                  onClick={handleGoogleSignin}
+                  onClick={lockedfeature}
                 >
                   {/* <img src="assets/loginRegisterPage/google.png" alt="" /> */}
                   Masuk dengan Google
@@ -123,5 +123,23 @@ function Login() {
     </>
   );
 }
+
+export async function getServerSideProps(context: any) {
+    const session = await getServerSession(context.req, context.res, authOptions);
+    if (session) {
+      return {
+        redirect: {
+          destination: "/dashboard",
+          permanent: false,
+        },
+      };
+    }
+  
+    return {
+      props: {
+        session,
+      },
+    };
+  }
 
 export default Login;

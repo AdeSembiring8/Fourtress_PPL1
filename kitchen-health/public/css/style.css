@@ -1,0 +1,137 @@
+html,
+body {
+    height: 100%;
+}
+
+.bg-utama {
+    background-image: url(landingPage.png);
+    background-size: cover;
+    background-position: center;
+    height: 810px;
+    width: 100%;
+    display: table;
+}
+
+h1,
+p {
+    color: white;
+    font-family: 'roboto', sans-serif;
+}
+
+h1 {
+
+    font-size: 48px;
+    line-height: 57.6px;
+    font-weight: 900;
+    margin-top: 0px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    margin-top: 30px;
+}
+
+.konten-ditengah {
+    /* display: table-cell; */
+    margin-left: 135px;
+    margin-top: 250px;
+    width: 526px;
+    height: 226px;
+}
+
+.form {
+    width: 450px;
+    top: 631px;
+    height: 68px;
+    left: 135px;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 50px;
+}
+
+.form::-webkit-input-placeholder {
+    font-size: 20px;
+}
+
+.sec2 {
+    margin-top: 95px;
+    margin-left: 135px;
+}
+
+.p1 {
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 700;
+    font-family: 'roboto', sans-serif;
+}
+
+.lingkaran {
+    width: 170px;
+    height: 170px;
+    background: #52C41A;
+    ;
+    border-radius: 100%;
+    margin-top: 16px;
+    margin-right: 30px;
+    margin-bottom: 40px;
+    /* display: flex;
+            align-items: center;
+            justify-content: center; */
+
+}
+
+.penyakit {
+    margin-left: 25px;
+    margin-top: 25px;
+    align-items: center;
+}
+
+.lingkaran2 {
+    width: 170px;
+    height: 170px;
+    background: #F5222D;
+    border-radius: 100%;
+    margin-top: 16px;
+    margin-right: 30px;
+    margin-bottom: 40px;
+
+}
+
+table {
+    margin-left: 135px;
+}
+
+.ketPenyakit {
+    margin-left: 50px;
+}
+
+.sec3 {
+    margin-left: 135px;
+    margin-top: 220px;
+    margin-right: 135px;
+}
+
+.p4 {
+    font-family: sans-serif;
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: lighter;
+}
+
+h5 {
+    font-weight: bolder;
+}
+
+h6 {
+    font-family: 'roboto';
+    color: #52C41A;
+    font-size: 16px;
+}
+
+h6.card-body {
+    padding: 0px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}

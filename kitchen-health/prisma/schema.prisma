@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+model account {
+    id           String        @id @default(auto()) @map("_id") @db.ObjectId
+    username     String
+    password     String
+    email        String
+    profile_name String
+    first_name   String
+    last_name    String
+    address      String
+    tel          String
+    gender       String
+    birth_date   String
+    prof_pic     String
+    sufferfrom   sufferFrom[]
+    transaction  transaction[]
+}
+
+model sufferFrom {
+    id        String  @id @default(auto()) @map("_id") @db.ObjectId
+    account   account @relation(fields: [accountid], references: [id])
+    accountid String  @db.ObjectId
+    disease   disease @relation(fields: [diseaseid], references: [id])
+    diseaseid String  @db.ObjectId
+}
+
+model disease {
+    id         String       @id @default(auto()) @map("_id") @db.ObjectId
+    name       String
+    desc       String
+    sufferfrom sufferFrom[]
+    tolerance  tolerance[]
+}
+
+model transaction {
+    id        String  @id @default(auto()) @map("_id") @db.ObjectId
+    account   account @relation(fields: [accountid], references: [id])
+    accountid String  @db.ObjectId
+    dish      dish    @relation(fields: [dishid], references: [id])
+    dishid    String  @db.ObjectId
+    date      String
+}
+
+model dish {
+    id           String         @id @default(auto()) @map("_id") @db.ObjectId
+    title        String
+    price        Int
+    qty          Int
+    desc         String
+    recipe       String
+    guide        String
+    prof_img     String
+    transaction  transaction[]
+    containswith containswith[]
+}
+
+model containswith {
+    id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    nutrient   nutrient @relation(fields: [nutrientid], references: [id])
+    nutrientid String   @db.ObjectId
+    dish       dish     @relation(fields: [dishid], references: [id])
+    dishid     String   @db.ObjectId
+    amount     Float
+}
+
+model nutrient {
+    id           String         @id @default(auto()) @map("_id") @db.ObjectId
+    name         String
+    desc         String
+    containswith containswith[]
+    tolerance    tolerance[]
+}
+
+model tolerance {
+    id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    nutrient   nutrient @relation(fields: [nutrientid], references: [id])
+    nutrientid String   @db.ObjectId
+    disease    disease  @relation(fields: [diseaseid], references: [id])
+    diseaseid  String   @db.ObjectId
+    amount     Float
+}

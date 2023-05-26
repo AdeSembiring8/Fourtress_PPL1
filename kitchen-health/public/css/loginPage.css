@@ -1,0 +1,194 @@
+.kotakPutih {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 480px;
+        
+    background: #FFFFFF;
+    /* login register card */
+
+    box-shadow: 2px 4px 20px 5px rgba(130, 0, 20, 0.62);
+    border-radius: 40px;
+}
+
+.fontMasuk {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    
+    margin-top: 20px;
+    
+    line-height: 35px;
+    /* identical to box height */
+    color: #000000;
+    
+}
+
+.fontBelumPunyaAkun {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 16px;
+    line-height: 45px;
+    /* identical to box height */
+    color: #7F7E7E;
+}
+
+.fontDaftar {
+    text-decoration-line: underline;
+    /* Dark green */
+    color: #389E0D;
+    
+}
+
+.fontForm {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 40px;
+    
+    color: #000000;
+}
+
+.input {
+    width: 500px;
+    height: 20px;
+    
+    background: #FFFFFF;
+    /* Grey */
+    border-radius: 8px;
+    border: #DADADA;
+    
+}
+
+.form {
+    /* Frame 1 */
+    box-sizing: border-box;
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 10px 10px;
+
+
+    width: 420px;
+    height: 40px;
+
+    background: #FFFFFF;
+    /* Grey */
+    border: 1px solid #DADADA;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+::placeholder {
+    width: 436px;
+    height: 21px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #878787;
+}
+
+
+input[type=checkbox] {
+
+    transform: scale(2);
+
+}
+
+/* Might want to wrap a span around your checkbox text */
+.checkboxtext {
+    font-family: 'Roboto';
+    font-style: normal;
+
+    font-size: 15px;
+}
+
+input[type=checkbox]{
+    accent-color: #389E0D ;
+}
+
+
+.but {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 20px;
+    gap: 50px;
+    margin-top: 12px;
+    font-family: 'Roboto';
+    font-style: normal;
+    
+    
+    font-size: 18px;
+    color: #FFFFFF;
+
+    width: 420px;
+    height: 45px;
+
+    background: #389E0D;
+    border-radius: 8px;
+    border: transparent;
+
+
+}
+
+.atau {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 16px;
+
+    width: 420px;
+    height: 46px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 50px;
+    color: #878787;
+}
+
+.google {
+    width: 420px;
+    height: 45px;
+    background: #FFFFFF;
+    border: 2px solid #389E0D;
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Roboto';
+    font-style: normal;
+
+}
+
+.img{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-size: cover;   
+}

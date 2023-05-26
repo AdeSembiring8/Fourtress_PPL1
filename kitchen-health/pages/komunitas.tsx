@@ -6,6 +6,7 @@ import Navbar from "../components/navbar2";
 
 
 function Komunitas() {
+  
   return (
     <>
     <Navbar />

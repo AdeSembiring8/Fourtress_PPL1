@@ -7,12 +7,12 @@ const Card = ({ dishes }) => {
       <div div className="mb-10 text-xl text-left text-black dark:text-black">
         Kamu mau jaga pola makan untuk apa ?
       </div>
-      <div className="flex justify-center  left-56 mb-56 ">
-        <div className="relative mx-auto w-full">
+      <div className="flex flex-wrap  ">
+        {/* <div className="relative mx-auto w-full"> */}
           {/* <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">  */}
           {dishes.map((dish) => (
             <div
-              className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm "
+              className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mx-4 my-4"
               key={dish.id}
             >
               <a href="#">
@@ -52,7 +52,7 @@ const Card = ({ dishes }) => {
               </div>
             </div>
           ))}
-        </div>
+        {/* </div> */}
       </div>
     </Container>
   );

@@ -36,35 +36,24 @@ function Profile({ userprof }: any) {
                 alt=""
                 className="w-40 border-4 border-white rounded-full"
               />
-              <button className="flex items-center  px-4 py-2 mt-12 mb-6 rounded text-sm space-x-2 transition duration-100">
-                <img src="/assets/profilePage/edit.png" alt="" />
-              </button>
-              <button className="flex items-center  px-4 py-2 my-3 rounded text-sm space-x-2 transition duration-100">
-                <img src="/assets/profilePage/pesanan.png" alt="" />
-              </button>
               <div className="flex items-center space-x-2 mt-2">
                 <p className="text-2xl">{user.profile_name}</p>
-                <span className="bg-blue-500 rounded-full p-1" title="Verified">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="text-gray-100 h-2.5 w-2.5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="4"
-                      d="M5 13l4 4L19 7"
-                    ></path>
-                  </svg>
-                </span>
+
               </div>
-              <p className="text-gray-700">
-                Senior Software Engineer at Tailwind CSS
-              </p>
-              <p className="text-sm text-gray-500">New York, USA</p>
+
+              <p className="text-sm text-gray-500">username</p>
+              <a href="/login" className="mt-12 mr-6 py-2 px-7   bg-white hover:bg-[#389E0D] border-2 border-[#389E0D] text-[#389E0D] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 " style={{ fontSize: '15px' }}>
+                <button type="submit" className="relative right-3  top-1">
+                  <img src="/assets/profilePage/edit.png" className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                </button>
+                Edit Profile
+              </a>
+              <a href="/login" className="mt-5  mr-6 py-2 px-8  bg-white hover:bg-[#389E0D] border-2 border-[#389E0D] text-[#389E0D] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 " style={{ fontSize: '15px' }}>
+                <button type="submit" className="relative right-3  top-1">
+                  <img src="/assets/profilePage/pesanan.png" className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                </button>
+                Pesanan Saya
+              </a>
 
               <ul className="mt-12 text-gray-700">
                 <li className="flex border-y py-4">
@@ -104,13 +93,16 @@ function Profile({ userprof }: any) {
                   </span>
                 </li>
               </ul>
+              <a href="/login" className="mt-12 mb-12 mr-6 py-2 px-7   bg-white hover:bg-[#F5222D] border-2 border-gray-300 text-[#8C8C8C] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 " style={{ fontSize: '15px' }}>
+                Keluar
+              </a>
             </div>
           </div>
         </div>
         <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
           <div className="flex items-center space-x-4 mt-2"></div>
         </div>
-      </div>
+      </div >
 
       <Footer />
     </>

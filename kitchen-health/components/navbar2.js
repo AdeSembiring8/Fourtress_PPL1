@@ -120,18 +120,18 @@ const Navbar2 = ({ user }) => {
 
         {/* search */}
         <div
-          div
-          className=" pt-2 mr-2 hidden lg:flex relative mx-auto text-gray-600"
+          
+          className=" pt-1 mr-2 hidden lg:flex relative mx-auto text-gray-600"
         >
           <input
-            className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+            className="border-2 border-gray-300 bg-white h-10 px-5 pr-16  rounded-lg text-sm focus:outline-none"
             type=""
             name=""
             placeholder="Search"
           />
-          <button type="submit" className="absolute right-0 top-0 mt-5 mr-4">
+          <button type="submit" className=" absolute right-0 top-0 mt-4 mr-4">
             <svg
-              class="w-5 h-5 text-gray-500 dark:text-gray-400"
+              class="w-5 h-5  text-gray-500 dark:text-gray-400"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -144,20 +144,12 @@ const Navbar2 = ({ user }) => {
             </svg>
           </button>
         </div>
-
-        {/* cart */}
-        {/* <div div className="hidden  lg:flex nav__item" >
-          <Link href="/cart" className="px-4 py-4 text-white w-16 h-16 rounded-md md:ml-5">
-            <img src="/assets/navbar/keranjang.png" />
-          </Link>
-        </div> */}
-
-        <div className="hidden mr-22 space-x-4 lg:flex nav__item">
+      <div className="hidden mr-4 ml-4 space-x-4  lg:flex nav__item">
           <Link
             href="/profile"
-            className="px-4 py-2 text-white w-24 rounded-md md:ml-5"
+            className=" "
           >
-            <img src={user.prof_pic} />
+            <img src={user.prof_pic} className="w-16 border-4 border-white rounded-full"/>
           </Link>
 
           {/* <ThemeChanger /> */}

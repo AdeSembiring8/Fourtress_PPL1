@@ -13,25 +13,30 @@ export default function Footer() {
   return (
     <div className="bg-black">
       <Container>
+        <div >
+          {" "}
+          <Link href="/" >
+            <Image
+              src="/assets/logo/logo.png"
+              alt=""
+              width="300"
+              height="300"
+              className="w-180 ml-12"
+              padding="10"
+            />
 
+          </Link>
+        </div>
         <div className="grid max-w-screen-2xl grid-cols-1 gap-10 pt-8 top-auto   dark:border-trueGray-700 lg:grid-cols-5">
           <div className="lg:col-span-2 " >
-            <div >
-              {" "}
-              <Link href="/" >
-                <Image
-                  src="/assets/logo/logo.png"
-                  alt=""
-                  width="300"
-                  height="300"
-                  className="w-180 ml-12"
-                  padding="10"
-                />
 
-              </Link>
-            </div>
-            <div className="max-w-md mt-4 text-gray-500 dark:text-gray-400 pl-12">
-              isi deskripsi kitchen Health
+            <div className="max-w-md mt-4 text-gray-500 dark:text-gray-400 pl-32">
+              <p>FOURTRESS</p>
+              <p>Teknik Informatika</p>
+              <p>Universitas Padjadjaran</p>
+              <p>Email : fourtress@gmail.com</p>
+              <p>Phone : (021) 2212-4702</p>
+              <p>Mobile : 0813-1888-4702</p>
             </div>
 
 
@@ -40,7 +45,8 @@ export default function Footer() {
           <div>
             <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
               {navigation.map((item, index) => (
-                <Link key={index} href={item === 'Beranda' ? '/' : item === 'Rekomendasi' ? '/rekomendasi' : item === 'Komunitas' ? '/komunitas' : `/${item.replace(/\s/g, '').toLowerCase()}`} passHref className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-[#389E0D] focus:text-[#389E0D] focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700">
+                <Link key={index} href={item === 'Beranda' ? '/' : item === 'Rekomendasi' ? '/rekomendasi' : item === 'Komunitas' ? '/komunitas' : `/${item.replace(/\s/g, '').toLowerCase()}`} passHref
+                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-[#389E0D] focus:text-[#389E0D] ">
                   {item}
                 </Link>
               ))}
@@ -49,39 +55,39 @@ export default function Footer() {
           <div>
             <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
               {legal.map((item, index) => (
-                <Link key={index} href={item === 'Beranda' ? '/' : item === 'Rekomendasi' ? '/rekomendasi' : item === 'Komunitas' ? '/komunitas' : `/${item.replace(/\s/g, '').toLowerCase()}`} passHref
-                className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-[#389E0D] focus:text-[#389E0D] focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700">
+                <Link key={index} href={item === 'Tentang Kami' ? '/tentangKami' : item === 'My Profile' ? '/profile' : `/${item.replace(/\s/g, '').toLowerCase()}`} passHref
+                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-[#389E0D] focus:text-[#389E0D]  focus:outline-none ">
                   {item}
                 </Link>
               ))}
             </div>
           </div>
           <div className="">
-            <div>Follow us</div>
+            <div className="w-40  text-gray-500 rounded-md dark:text-gray-300 ">Hubungi Kami</div>
             <div className="flex mt-5 space-x-5 text-gray-400 dark:text-gray-500">
               <a
-                href="https://twitter.com/web3templates"
+                href="https://wa.me/6281318884702"
                 target="_blank"
                 rel="noopener">
                 <span className="sr-only">Twitter</span>
-                <Twitter />
+                <WhatsApp />
               </a>
               <a
-                href="https://facebook.com/web3templates"
+                href="https://mail.google.com/mail/u/0/?view=cm&tf=1&fs=1&to=fourtress@gmail.com"
                 target="_blank"
                 rel="noopener">
-                <span className="sr-only">Facebook</span>
-                <Facebook />
+                <span className="sr-only">Gmail</span>
+                <Gmail />
               </a>
               <a
-                href="https://instagram.com/web3templates"
+                href="https://instagram.com/kitchen_health"
                 target="_blank"
                 rel="noopener">
                 <span className="sr-only">Instagram</span>
                 <Instagram />
               </a>
               <a
-                href="https://linkedin.com/"
+                href="https://www.linkedin.com/in/ade-dwi-fatwa-sembiring-561a38207/"
                 target="_blank"
                 rel="noopener">
                 <span className="sr-only">Linkedin</span>
@@ -92,7 +98,7 @@ export default function Footer() {
         </div>
 
         <div className="my-10 text-sm text-center text-gray-600 dark:text-gray-400">
-          Copyright © {new Date().getFullYear()}. Made with ♥ by{" "}
+          Copyright © {new Date().getFullYear()}. Made with by{" "}
           <a
             href="https://web3templates.com/"
             target="_blank"
@@ -108,27 +114,31 @@ export default function Footer() {
   );
 }
 
-const Twitter = ({ size = 24 }) => (
+const WhatsApp = ({ size = 24 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    viewBox="0 0 24 24"
-    fill="currentColor">
-    <path d="M24 4.37a9.6 9.6 0 0 1-2.83.8 5.04 5.04 0 0 0 2.17-2.8c-.95.58-2 1-3.13 1.22A4.86 4.86 0 0 0 16.61 2a4.99 4.99 0 0 0-4.79 6.2A13.87 13.87 0 0 1 1.67 2.92 5.12 5.12 0 0 0 3.2 9.67a4.82 4.82 0 0 1-2.23-.64v.07c0 2.44 1.7 4.48 3.95 4.95a4.84 4.84 0 0 1-2.22.08c.63 2.01 2.45 3.47 4.6 3.51A9.72 9.72 0 0 1 0 19.74 13.68 13.68 0 0 0 7.55 22c9.06 0 14-7.7 14-14.37v-.65c.96-.71 1.79-1.6 2.45-2.61z" />
-  </svg>
+    fill="currentColor"
+    class="bi bi-whatsapp"
+    viewBox="0 0 16 16">
+    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" /> </svg>
+
+
 );
 
-const Facebook = ({ size = 24 }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="currentColor">
-    <path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07" />
-  </svg>
-);
+const Gmail = ({ size = 28 }) => (
+  <svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  class="icon icon-tabler icon-tabler-brand-gmail" 
+  width={size} 
+  height={size} 
+  viewBox="0 0 24 24" 
+  stroke-width="2" 
+  stroke="currentColor" 
+  fill="none" stroke-linecap="round" stroke-linejoin="round" id="IconChangeColor"> 
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" id="mainIconPathAttribute"></path> <path d="M16 20h3a1 1 0 0 0 1 -1v-14a1 1 0 0 0 -1 -1h-3v16z" id="mainIconPathAttribute"></path> <path d="M5 20h3v-16h-3a1 1 0 0 0 -1 1v14a1 1 0 0 0 1 1z" id="mainIconPathAttribute"></path> <path d="M16 4l-4 4l-4 -4" id="mainIconPathAttribute"></path> <path d="M4 6.5l8 7.5l8 -7.5" id="mainIconPathAttribute"></path> </svg>
+  );
 const Instagram = ({ size = 24 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

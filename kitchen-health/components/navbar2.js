@@ -78,12 +78,12 @@ const Navbar2 = ({ user }) => {
                         <div role="button">{item}</div>
                       </Link>
                     ))}
-                    {/* <Link
+                    <Link
                       href="/login"
                       className="w-full px-6 py-2 mt-3 text-center text-white  dark:bg-[#389E0D] rounded-md lg:ml-5"
                     >
                       Masuk
-                    </Link> */}
+                    </Link>
                   </>
                 </Disclosure.Panel>
               </div>
@@ -129,7 +129,7 @@ const Navbar2 = ({ user }) => {
             name=""
             placeholder="Search"
           />
-          <button type="submit" className=" absolute right-0 top-0 mt-4 mr-4">
+          <button type="submit" className=" absolute right-0 top-0 mt-2 mr-4">
             <svg
               class="w-5 h-5  text-gray-500 dark:text-gray-400"
               fill="currentColor"

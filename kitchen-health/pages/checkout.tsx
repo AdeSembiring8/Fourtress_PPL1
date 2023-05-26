@@ -3,9 +3,14 @@ import Head from "next/head";
 import Navbar from "../components/navbar2";
 import Image from "next/legacy/image";
 import Link from "next/link";
+import { authOptions } from "./api/auth/[...nextauth]";
+import { getServerSession } from "next-auth/next";
 
 
-function Checkout() {
+
+function Checkout({ userprof }: any) {
+    const { user, diseases } = userprof;
+
     return (
         <>
             <Head>
@@ -16,7 +21,7 @@ function Checkout() {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head >
-            <Navbar />
+            <Navbar user={user} />
 
 
             <div className="mx-auto mt-8 max-w-2xl md:mt-12">
@@ -78,7 +83,7 @@ function Checkout() {
                         </div>
                     </div>
                     <div className="mt-6 text-center">
-                        <button type="button" className="group inline-flex w-full items-center justify-center rounded-md bg-[#389E0D] px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-[#389E0D]">
+                        <button type="button" className="group inline-flex w-full items-center justify-center rounded-md bg-[#389E0D] px-6 py-4 text-lg font-medium text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-[#389E0D]">
                             Bayar
                             <svg xmlns="http://www.w3.org/2000/svg" className="group-hover:ml-8 ml-4 h-6 w-6 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -90,5 +95,29 @@ function Checkout() {
 
         </>
     )
+}
+
+export async function getServerSideProps(context: any) {
+    const session = await getServerSession(context.req, context.res, authOptions);
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/login",
+                permanent: false,
+            },
+        };
+    }
+    const { user } = session;
+    const userprof = await fetch("http://localhost:3000/api/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
+    }).then((res) => res.json());
+    return {
+        props: {
+            session,
+            userprof,
+        },
+    };
 }
 export default Checkout

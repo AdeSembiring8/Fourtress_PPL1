@@ -9,11 +9,11 @@ const Hero = () => {
     <>
       <div className="relative mt-20">
         <img src="/assets/bg/bg-header.png" alt="Gambar" className="w-full h-auto" />
-        <div className="absolute top-4 mt-20 sm:mt-12 z-10 w-full text-white text-3xl font-bold text-left">
+        <div className="absolute top-4 mt-2 sm:mt-12 z-10 w-full text-white text-3xl font-bold text-left">
           <Container className="flex flex-wrap ">
             <div className="flex items-center w-1/2">
               <div className="max-w-xl mb-48">
-                <h1 className="text-4xl font-bold leading-snug tracking-tight text-white-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight sm:text-xl dark:text-white" style={{ wordBreak: 'break-word' }}>
+                <h1 className="text-4xl font-bold leading-snug tracking-tight text-white-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight sm:text-sm dark:text-white" style={{ wordBreak: 'break-word' }}>
                   Healthy Food, <br />
                   Cook your own food.
                 </h1>
@@ -22,10 +22,10 @@ const Hero = () => {
                 </p>
 
                 
-                  <div className="pt-2 relative mx-auto text-gray-600">
-                    <input className="border-2 border-gray-300 bg-white h-16 px-5 w-1/2 rounded-lg text-sm focus:outline-none"
+                  <div className="pt-2 relative mx-auto text-gray-600 ">
+                    <input className="border-2 border-gray-300 bg-white h-16 px-5 w-full rounded-lg text-sm focus:outline-none"
                       type="" name="" placeholder="Mau cari resep apa nih?" />
-                    <button type="submit" className="absolute right-0 top-0 mt-5 mr-4">                      
+                    <button type="submit" className="absolute right-0 top-0 mt-5 ">                      
                     </button>
                   </div>
                 
@@ -55,42 +55,30 @@ const Hero = () => {
             Kamu mau jaga pola makan untuk apa?
           </div>
 
-          <div className="flex flex-wrap justify-center gap-5 mt-10 md:justify-around">
+          <div className="flex flex-wrap justify-center text-center gap-5 mt-10 md:justify-around">
             <div className="">
               <img src="../assets/loginRegisterPage/gerd.png" />
-
+              <div className="text-center">Gerd</div>
             </div>
             <div className="">
               <img src="../assets/loginRegisterPage/diabetes.png" />
+              <div className="text-center">Diabetes</div>
             </div>
             <div className="">
               <img src="../assets/loginRegisterPage/kolestrol.png" />
+              <div className="text-center">Kolestrol</div>
             </div>
             <div className="">
               <img src="../assets/loginRegisterPage/kanker.png" />
+              <div className="text-center">Kanker</div>
             </div>
             <div className="">
               <img src="../assets/loginRegisterPage/jantung.png" />
+              <div className="text-center">Jantung</div>
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap justify-center gap-5 mt-10 md:justify-around">
-          <div>
-            Gerd
-          </div>
-          <div>
-            Diabetes
-          </div>
-          <div>
-            kolestrol
-          </div>
-          <div>
-            Kanker
-          </div>
-          <div>
-            Jantung
-          </div>
-        </div>
+        
         
       </Container>
     </>

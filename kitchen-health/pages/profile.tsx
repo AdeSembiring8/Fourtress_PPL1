@@ -27,14 +27,17 @@ function Profile({ userprof }: any) {
       <Navbar user={user} />
 
       <div className="h-auto bg-white ">
-        <div className="w-full h-[1200px]">
+        <div className="h-[1200px]">
           <img
             src="/assets/bg/bg.png"
-            className="w-full   relative rounded-tl-lg rounded-tr-lg h-96"
+            className="relative rounded-tl-lg w-full rounded-tr-lg h-96"
           />
 
           {/* <div className="bg-white rounded-lg shadow-xl pb-8 h-full ml-64 mr-64"> */}
-          <div className="h-auto absolute border-2 bg-white ml-44 -mt-32 pl-96 pr-96  ">
+          {/* <div className="h-auto absolute border-2 bg-white ml-44 -mt-32 pl-96 pr-96  "> */}
+          
+          <div className="w-full h-screen flex items-center justify-center">
+          <div className="w-4/5 h-auto mx-auto ml-3 items-center absolute border-2 bg-white -mt-32">
             <div className="flex flex-col items-center -mt-20">
               <img
                 src={user.prof_pic}
@@ -59,11 +62,7 @@ function Profile({ userprof }: any) {
                 </button>
                 Edit Profile
               </a>
-              <a
-                href="/login"
-                className="mt-5  mr-6 py-2 px-8  bg-white hover:bg-[#389E0D] border-2 border-[#389E0D] text-[#389E0D] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 "
-                style={{ fontSize: "15px" }}
-              >
+              <a href="/pesananSaya" className="mt-5  mr-6 py-2 px-8  bg-white hover:bg-[#389E0D] border-2 border-[#389E0D] text-[#389E0D] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 " style={{ fontSize: '15px' }}>
                 <button type="submit" className="relative right-3  top-1">
                   <img
                     src="/assets/profilePage/pesanan.png"
@@ -119,7 +118,9 @@ function Profile({ userprof }: any) {
                 Keluar
               </a>
             </div>
+            
           </div>
+        </div>
         </div>
         <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
           <div className="flex items-center space-x-4 mt-2"></div>

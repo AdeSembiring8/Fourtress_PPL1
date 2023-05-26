@@ -16,7 +16,7 @@ function Checkout() {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head >
-            <Navbar />
+
 
 
             <div className="mx-auto mt-8 max-w-2xl md:mt-12">

@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (...args: any[]) => fetch(args[0]).then((res) => res.json());
 
 function RegisQuestion() {
   const router = useRouter();

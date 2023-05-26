@@ -15,7 +15,8 @@ function Login() {
       email: userInfo.email,
       password: userInfo.password,
       callbackUrl: "/dashboard",
-    });
+    })as any
+    ;
     if (status.ok) router.push(status.url);
     else console.log(status);
   };

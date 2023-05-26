@@ -78,12 +78,12 @@ const Navbar2 = ({ user }) => {
                         <div role="button">{item}</div>
                       </Link>
                     ))}
-                    <Link
+                    {/* <Link
                       href="/login"
                       className="w-full px-6 py-2 mt-3 text-center text-white  dark:bg-[#389E0D] rounded-md lg:ml-5"
                     >
                       Masuk
-                    </Link>
+                    </Link> */}
                   </>
                 </Disclosure.Panel>
               </div>

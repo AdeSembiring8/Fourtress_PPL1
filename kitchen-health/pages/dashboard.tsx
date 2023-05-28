@@ -23,7 +23,7 @@ function LandingPage2({ dishes, userprof, diseases }: any) {
 
       <Navbar user={user} />
       <Hero diseases={diseases}/>
-      <div className="mb-10 text-xl text-left text-black dark:text-black">
+      <div className=" mt-12 ml-20 text-xl text-left text-black dark:text-black">
         Kamu mau jaga pola makan untuk apa ?
       </div>
       <Card dishes={dishes} />

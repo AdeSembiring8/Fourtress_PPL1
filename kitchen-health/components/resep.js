@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const Resep = ({ dishes }) => {
+const Resep = () => {
 
 
     return (
@@ -12,7 +12,7 @@ const Resep = ({ dishes }) => {
             />
 
             <div className="flex justify-center items-center">
-                {dishes.map((dish) => (
+                
                     <div className="max-w-8xl mx-14">
                         <div className=" relative bg-white border border-gray-200 rounded-lg shadow w-full my-4 p-4 -mt-40">
                             <div className=" px-16 py-10 ">
@@ -87,8 +87,7 @@ const Resep = ({ dishes }) => {
                             </div>
                         </div>
                     </div>
-                ))}
-            </div>
+                           </div>
             <div className="max-w-8xl my-40 mx-14">
                 <h1 className="text-2xl font-bold text-left -mb-48">Resep yang mungkin kamu suka</h1>
 

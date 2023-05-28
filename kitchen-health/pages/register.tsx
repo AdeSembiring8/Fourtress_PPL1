@@ -14,16 +14,41 @@ function Register() {
     email: "",
     profile_name: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [passwordMismatch, setPasswordMismatch] = useState(false); // State untuk melacak kesalahan password tidak sama
+
   const router = useRouter();
   const onRegisterSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    if (Object.values(userInfo).every((x) => x === null || x === "")) {
-      //validasi form kosong
-      return null;
+
+    setPasswordMismatch(false);
+
+    // if (
+    //   Object.values(userInfo).every((x) => x === null || x === "")) {
+    //   //validasi form kosong
+    //   return null;
+    // }
+    // if (userInfo.password !== userInfo.val_pass) {
+    //   //validasi password tidak sama
+
+    //   setPasswordMismatch(true);
+
+    //   return null;
+    // }
+
+    // Validasi form kosong
+    if (
+      Object.values(userInfo).some((value) => value === null || value === "")
+    ) {
+      alert("Harap isi semua field.");
+      return;
     }
+
+    // Validasi password tidak sama
     if (userInfo.password !== userInfo.val_pass) {
-      //validasi password tidak sama
-      return null;
+      setPasswordMismatch(true);
+      return;
     }
 
     await fetch(serverurl + "/api/auth/signup", {
@@ -41,6 +66,10 @@ function Register() {
         else console.log(data);
       });
   };
+
+  async function lockedfeature() {
+    router.push({ pathname: "_index" });
+  }
   return (
     <>
       <Head>
@@ -60,15 +89,15 @@ function Register() {
             <p className="fontDaftar">Daftar</p>
             <p className="fontBuatAkun">
               Buat akun atau
-              <Link href="/login" className="fontLogin">
+              <Link href="/login" className="fontLogin" style={{ textDecoration: "underline" }}>
                 Login
               </Link>
             </p>
           </div>
           <div>
             <form onSubmit={onRegisterSubmit}>
-              <p className="fontForm">Nama Lengkap</p>
-              <div className="form">
+              <p className="fontForm pt-3">Nama Lengkap</p>
+              <div className="">
                 <input
                   value={userInfo.profile_name}
                   onChange={({ target }) =>
@@ -81,7 +110,7 @@ function Register() {
                 />
               </div>
               <p className="fontForm">Nama Pengguna</p>
-              <div className="form">
+              <div className="">
                 <input
                   value={userInfo.username}
                   onChange={({ target }) =>
@@ -94,7 +123,7 @@ function Register() {
                 />
               </div>
               <p className="fontForm">Email</p>
-              <div className="form">
+              <div className="">
                 <input
                   value={userInfo.email}
                   onChange={({ target }) =>
@@ -116,43 +145,84 @@ function Register() {
                   </tr>
                 </tbody>
               </table>
+              {passwordMismatch && <p style={{ color: "red" }}>Password tidak sama dengan konfirmasi password.</p>} {/* Menampilkan pesan kesalahan jika passwordMismatch adalah true */}
               <table style={{ width: 480, height: 20 }}>
                 <tbody>
                   <tr>
                     <td>
-                      <div className="formPass">
+                      <div className="passwordContainer w-56">
                         <input
                           value={userInfo.password}
                           onChange={({ target }) =>
                             setUserInfo({ ...userInfo, password: target.value })
                           }
-                          className="inputPass"
-                          type="password"
+                          className={`input ${showPassword ? "showPassword" : ""}`}
+                          type={showPassword ? "text" : "password"}
                           name="pass"
                           placeholder="Masukkan password"
                         />
-                        <img
-                          src="assets/loginRegisterPage/Hide.png"
-                          alt="logo kitchen health"
-                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="togglePasswordButton"
+                        >
+                          <img
+                            src="assets/loginRegisterPage/Show.png"
+                            alt="Tampilkan Password"
+                            className={`passwordIcon ${showPassword ? "hidden" : ""}`}
+                            style={{ width: "32px", height: "28px", marginLeft: "5px" }}
+                          />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="togglePasswordButton"
+                        >
+                          <img
+                            src="assets/loginRegisterPage/Hide.png"
+                            alt="Sembunyikan Password"
+                            className={`passwordIcon ${showPassword ? "" : "hidden"}`}
+                            style={{ width: "28px", height: "18px", marginLeft: "5px" }}
+                          />
+                        </button>
                       </div>
                     </td>
                     <td>
-                      <div className="formPass">
+                      <div className="passwordContainer w-56">
                         <input
                           value={userInfo.val_pass}
                           onChange={({ target }) =>
                             setUserInfo({ ...userInfo, val_pass: target.value })
                           }
-                          className="inputPass"
-                          type="password"
+                          className={`input ${showPassword ? "showPassword" : ""}`}
+                          type={showPassword ? "text" : "password"}
                           name="pass"
-                          placeholder="Konfirmasi password"
+                          placeholder="Masukkan password"
                         />
-                        <img
-                          src="assets/loginRegisterPage/Hide.png"
-                          alt="logo kitchen health"
-                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="togglePasswordButton"
+                        >
+                          <img
+                            src="assets/loginRegisterPage/Show.png"
+                            alt="Tampilkan Password"
+                            className={`passwordIcon ${showPassword ? "hidden" : ""}`}
+                            style={{ width: "32px", height: "28px", marginLeft: "5px" }}
+                          />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="togglePasswordButton"
+                        >
+                          <img
+                            src="assets/loginRegisterPage/Hide.png"
+                            alt="Sembunyikan Password"
+                            className={`passwordIcon ${showPassword ? "" : "hidden"}`}
+                            style={{ width: "28px", height: "18px", marginLeft: "5px" }}
+                          />
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -160,15 +230,28 @@ function Register() {
               </table>
               <div className="butt">
                 <div className="but">
-                  <button type="submit">Daftar</button>
+                  <button
+                    type="submit"
+                    style={{ width: "450px", height: "45px" }}
+                    className="py-2 px- bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D] text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150 duration-300 rounded-md"
+                  >
+                    Daftar</button>
                 </div>
               </div>
               <p className="atau">atau</p>
-              <div className="google">
-                <a style={{ textDecoration: "none", color: "#389E0D" }} href="/_index">
+              <div className="">
+                <button
+                  className="py-2  bg-white text-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D] text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150 duration-300 rounded-md"
+                  onClick={lockedfeature}
+                  // href="/_index"
+                  style={{ width: "450px", height: "45px" }}
+                >
+                  Daftar dengan Google
+                </button>
+                {/* <a style={{ textDecoration: "none", color: "#389E0D" }} href="/_index">
                   <img src="google.png" alt="" />
                   Daftar dengan Google
-                </a>
+                </a> */}
               </div>
             </form>
           </div>
@@ -183,7 +266,7 @@ export async function getServerSideProps(context: any) {
   if (session) {
     return {
       redirect: {
-        destination: "/dashboard",
+        destination: "/login",
         permanent: false,
       },
     };

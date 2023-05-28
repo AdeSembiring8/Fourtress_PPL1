@@ -166,24 +166,27 @@ function EditProfile({ userprof, diseases }: any) {
             Riwayat Penyakit
           </span>
           <div>
-            {diseases.map((row: any) => (
-              <label
-                htmlFor="gerd"
-                className="inline-flex items-center ml-5 mr-5"
-                key={row.id}
-              >
-                <input
-                  id={row.name}
-                  type="checkbox"
-                  name="disoption"
-                  className="text-gray-700 mr-2"
-                  value={row.id}
-                />
-                {row.name}
-              </label>
-            ))}
+            <div className="flex flex-col">
+              {diseases.map((row: any) => (
+                <label
+                  htmlFor={row.name}
+                  className="inline-flex items-center ml-5 mr-5"
+                  key={row.id}
+                >
+                  <input
+                    id={row.name}
+                    type="checkbox"
+                    name="disoption"
+                    className="text-gray-700 mr-2"
+                    value={row.id}
+                  />
+                  {row.name}
+                </label>
+              ))}
+            </div>
           </div>
         </div>
+
         <a
           href="/editProfile"
           className="mt-6 mb-12 mr-6 py-2 px-7   bg-white hover:bg-[#389E0D] border-2 border-[#389E0D] text-[#389E0D] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 "

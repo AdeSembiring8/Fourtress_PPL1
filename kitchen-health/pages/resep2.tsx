@@ -21,7 +21,7 @@ function Recipe({ dishes, userprof }: any) {
       </Head>
 
       <Navbar user={user} />
-      <Resep />
+      <Resep dishes={dishes}/>
 
       <Card dishes={dishes} />
       <Footer />

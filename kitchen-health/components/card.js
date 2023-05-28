@@ -6,15 +6,12 @@ const Card = ({ dishes }) => {
 
   return (
     <Container>
-      {/* <div div className="mb-10 text-xl text-left text-black dark:text-black">
-        Kamu mau jaga pola makan untuk apa ?
-      </div> */}
-      <div className="flex flex-wrap  ">
-        {dishes.map((dish) => (
+      <div className="flex flex-wrap justify-center">
+        {limitedDishes.map((dish) => (
           <div
             className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mx-4 my-4"
             key={dish.id}
-            style={{ width: "calc(25% - 2rem)" }} // Set the width to 25% minus the horizontal margin
+            style={{ width: "18rem" }} // Set a fixed width for the cards
           >
             <a href="#">
               <img

@@ -13,12 +13,12 @@ const Card = ({ dishes }) => {
             className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm  mx-4 my-4"
             key={dish.id}
           >
-            <a href="#">
+            <a href={"/resep?dishname="+ dish.title.replace(" ", "_")}>
               <img className="w-full relative rounded-tl-lg rounded-tr-lg h-40 object-cover" src={dish.prof_img} alt="" />
             </a>
 
             <div className="grid grid-cols-1 gap-2 pt-8 p-8">
-              <a href="#">
+              <a href={"/resep?dishname="+ dish.title.replace(" ", "_")}>
                 <h5 className="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-black">
                   {dish.title}
                 </h5>

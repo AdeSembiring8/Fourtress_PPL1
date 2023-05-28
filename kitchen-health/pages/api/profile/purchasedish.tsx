@@ -1,4 +1,3 @@
-import { getToken } from "next-auth/jwt";
 import { buyDish } from "../../../lib/prisma/account";
 
 /**
@@ -9,17 +8,15 @@ import { buyDish } from "../../../lib/prisma/account";
  * @param res
  */
 export default async function handler(req: any, res: any) {
-  const token = await getToken({ req });
-  if (req.method === "POST" && token) {
-    const { DishID } = req.body;
+  if (req.method === "POST") {
+    const { dishid, accid } = req.body;
     try {
-      const { message, error } = await buyDish({
-        accountid: token.AccObj,
-        dishid: DishID,
-        date: Date.now(),
+      const { transaction, error } = await buyDish({
+        accountid: accid,
+        dishid: dishid,
       });
       if (error) return res.status(500).json({ error });
-      return res.status(200).json({ message });
+      return res.status(200).json({ transaction });
     } catch (error: any) {
       return res.status(500).json({ error: error.message });
     }

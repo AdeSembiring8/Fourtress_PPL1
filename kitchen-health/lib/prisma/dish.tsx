@@ -35,6 +35,26 @@ export async function getDishesById(id: any) {
   }
 }
 
+export async function getDishByName(name: any) {
+  try {
+    const dish = await prisma.dish.findFirst({
+      where: {
+        title: name,
+      },
+      include: {
+        containswith: {
+            include: {
+                nutrient: true
+            }
+        }
+      }
+    });
+    return { dish };
+  } catch (error) {
+    return { error };
+  }
+}
+
 export async function updateDishById(id: any, data: any) {
   try {
     const dish = await prisma.dish.update({

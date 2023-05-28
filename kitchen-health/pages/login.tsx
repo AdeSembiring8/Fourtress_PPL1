@@ -7,12 +7,11 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 
-
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const router = useRouter();
-  
+
   const onLoginSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const status = await signIn("customSignIn", {
@@ -21,17 +20,17 @@ function Login() {
       password: userInfo.password,
       callbackUrl: "/dashboard",
     });
-  
+
     if (status.error) {
       alert("Email atau password salah"); // Menampilkan pesan kesalahan jika terjadi kesalahan saat login
       return;
     }
-  
+
     if (status.ok) {
       router.push("/dashboard"); // Redirect ke halaman dashboard jika login berhasil
     }
   };
-  
+
   // const onLoginSubmit = async (event: FormEvent) => {
   //   event.preventDefault();
   //   const status = await signIn("customSignIn", {
@@ -42,7 +41,6 @@ function Login() {
   //   });
   // };
 
-  
   async function lockedfeature() {
     router.push({ pathname: "_index" });
   }
@@ -60,13 +58,18 @@ function Login() {
       />
       <div>
         <div className="kotakPutih">
-          <img src="assets/logo/logo.png" alt="logo kitchen health" />
+          <a href="/">
+            <img src="assets/logo/logo.png" alt="logo kitchen health" />
+          </a>
           <div>
-
             <p className="fontMasuk">Masuk</p>
             <p className="fontBelumPunyaAkun">
               Belum punya akun?
-              <Link className="fontDaftar" href="/register" style={{ textDecoration: "underline" }}>
+              <Link
+                className="fontDaftar"
+                href="/register"
+                style={{ textDecoration: "underline" }}
+              >
                 Daftar
               </Link>
             </p>
@@ -74,8 +77,7 @@ function Login() {
           <div>
             <form>
               <p className="fontForm">Email</p>
-              <div className=""
-              >
+              <div className="">
                 <input
                   value={userInfo.email}
                   onChange={({ target }) =>
@@ -109,7 +111,7 @@ function Login() {
                     src="assets/loginRegisterPage/Show.png"
                     alt="Tampilkan Password"
                     className={`passwordIcon ${showPassword ? "hidden" : ""}`}
-                    style={{ width: "32px", height: "28px",  marginLeft: "5px" }}
+                    style={{ width: "32px", height: "28px", marginLeft: "5px" }}
                   />
                 </button>
                 <button
@@ -121,12 +123,10 @@ function Login() {
                     src="assets/loginRegisterPage/Hide.png"
                     alt="Sembunyikan Password"
                     className={`passwordIcon ${showPassword ? "" : "hidden"}`}
-                    style={{ width: "28px", height: "18px", marginLeft: "5px"}}
+                    style={{ width: "28px", height: "18px", marginLeft: "5px" }}
                   />
                 </button>
               </div>
-
-
 
               {/* <div>
                 <table style={{ width: 420, height: 65 }}>
@@ -150,9 +150,12 @@ function Login() {
                   </tbody>
                 </table>
               </div> */}
-              <button type="submit" onClick={onLoginSubmit} 
-              style={{ width: "420px", height:"45px" }} 
-              className="py-2 mt-10  bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md ">
+              <button
+                type="submit"
+                onClick={onLoginSubmit}
+                style={{ width: "420px", height: "45px" }}
+                className="py-2 mt-10  bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "
+              >
                 Login
               </button>
 
@@ -161,7 +164,9 @@ function Login() {
                 <button
                   type="button"
                   onClick={lockedfeature}
-                  style={{ width: "420px", height:"45px" }} className="py-2 px- bg-white text-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md ">
+                  style={{ width: "420px", height: "45px" }}
+                  className="py-2 px- bg-white text-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "
+                >
                   {/* </button> */}
                   {/* <button
                   type="button"

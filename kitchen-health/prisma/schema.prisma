@@ -25,6 +25,7 @@ model account {
     prof_pic     String
     sufferfrom   sufferFrom[]
     transaction  transaction[]
+    discussion   discussion[]
 }
 
 model sufferFrom {
@@ -44,12 +45,12 @@ model disease {
 }
 
 model transaction {
-    id        String  @id @default(auto()) @map("_id") @db.ObjectId
-    account   account @relation(fields: [accountid], references: [id])
-    accountid String  @db.ObjectId
-    dish      dish    @relation(fields: [dishid], references: [id])
-    dishid    String  @db.ObjectId
-    date      String
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    account   account  @relation(fields: [accountid], references: [id])
+    accountid String   @db.ObjectId
+    dish      dish     @relation(fields: [dishid], references: [id])
+    dishid    String   @db.ObjectId
+    date      DateTime @default(now()) @db.Date
 }
 
 model dish {
@@ -60,6 +61,7 @@ model dish {
     desc         String
     recipe       String
     guide        String
+    tools        String
     prof_img     String
     transaction  transaction[]
     containswith containswith[]
@@ -89,4 +91,12 @@ model tolerance {
     disease    disease  @relation(fields: [diseaseid], references: [id])
     diseaseid  String   @db.ObjectId
     amount     Float
+}
+
+model discussion {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    account   account  @relation(fields: [accountid], references: [id])
+    accountid String   @db.ObjectId
+    content   String
+    createdat DateTime @default(now()) @db.Date
 }

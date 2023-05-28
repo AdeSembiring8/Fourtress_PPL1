@@ -86,7 +86,7 @@ const Navbar3 = ({ user }) => {
                         key={index}
                         href={
                           item === "Beranda"
-                            ? "/"
+                            ? "/dashboard"
                             : item === "Rekomendasi"
                               ? "/rekomendasi"
                               : item === "Komunitas"

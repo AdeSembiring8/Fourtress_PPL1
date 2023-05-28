@@ -99,7 +99,7 @@ const Navbar = () => {
             {navigation.map((item, index) => {
               const itemPath =
                 item === "Beranda"
-                  ? "/dashboard"
+                  ? "/"
                   : item === "Rekomendasi"
                     ? "/login"
                     : item === "Komunitas"

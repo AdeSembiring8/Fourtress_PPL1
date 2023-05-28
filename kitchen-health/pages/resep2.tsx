@@ -1,13 +1,13 @@
 import React from "react";
 import Head from "next/head";
 import Navbar from "../components/navbar2";
-import Hero from "../components/hero";
+import Resep from "../components/resep";
 import Card from "../components/card";
 import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 
-function LandingPage2({ dishes, userprof }: any) {
+function Recipe({ dishes, userprof }: any) {
   const { user } = userprof;
   return (
     <>
@@ -21,10 +21,8 @@ function LandingPage2({ dishes, userprof }: any) {
       </Head>
 
       <Navbar user={user} />
-      <Hero />
-      <div className="mb-10 text-xl text-left text-black dark:text-black">
-        Kamu mau jaga pola makan untuk apa ?
-      </div>
+      <Resep />
+
       <Card dishes={dishes} />
       <Footer />
     </>
@@ -60,4 +58,4 @@ export async function getServerSideProps(context: any) {
   };
 }
 
-export default LandingPage2;
+export default Recipe;

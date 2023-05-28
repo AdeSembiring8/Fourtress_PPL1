@@ -4,9 +4,9 @@ import Container from "./container";
 const Card = ({ dishes }) => {
   return (
     <Container>
-      <div div className="mb-10 text-xl text-left text-black dark:text-black">
+      {/* <div div className="mb-10 text-xl text-left text-black dark:text-black">
         Kamu mau jaga pola makan untuk apa ?
-      </div>
+      </div> */}
       <div className="flex flex-wrap  ">
         {/* <div className="relative mx-auto w-full"> */}
           {/* <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">  */}

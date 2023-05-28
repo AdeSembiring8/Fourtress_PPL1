@@ -22,6 +22,9 @@ function LandingPage({ dishes }: any) {
       <Navbar />
       <Hero />
 
+      <div className="mb-10 text-xl text-left text-black dark:text-black">
+        Kamu mau jaga pola makan untuk apa ?
+      </div>
       <Card dishes={dishes} />
       <Footer />
     </>

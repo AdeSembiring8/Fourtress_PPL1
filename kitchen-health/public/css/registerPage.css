@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-size: cover;    
+    background-size: cover;
 }
 
 .kotakPutih {
@@ -50,11 +50,20 @@
     color: #7F7E7E;
 }
 
-.fontLogin {
-    text-decoration-line: underline;
-    /* Dark green */
+.fontBuatAkun a {
     color: #389E0D;
 
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.fontBuatAkun a:hover {
+    color: #298403
+        /* Ganti dengan warna yang diinginkan saat dihover */
+}
+
+.fontLogin {
+    text-decoration: underline;
 }
 
 .fontForm {
@@ -67,34 +76,42 @@
     color: #000000;
 }
 
+.passwordContainer {
+    display: flex;
+    align-items: center;
+}
+
 .input {
-    width: 500px;
-    height: 20px;
-
-    background: #FFFFFF;
-    /* Grey */
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    border: 1px solid #DADADA;
     border-radius: 8px;
-    border: transparent;
-
+    font-size: 16px;
+    background-color: #FFFFFF;
+    outline: none;
 }
 
 .form {
-    /* Frame 1 */
-    box-sizing: border-box;
-    /* Auto layout */
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 10px 10px;
+    align-items: center;
+    padding: 10px;
+    width: 420px;
+    height: 60px;
+    background-color: #FFFFFF;
 
-
-    width: 450px;
-    height: 40px;
-
-    background: #FFFFFF;
-    /* Grey */
-    border: 1px solid #DADADA;
     border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.togglePasswordButton {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
 }
 
 .tablePass {

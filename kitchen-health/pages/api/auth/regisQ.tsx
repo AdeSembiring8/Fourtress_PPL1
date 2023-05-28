@@ -10,6 +10,9 @@ import { sufferDisease } from "../../../lib/prisma/account";
 export default async function handler(req: any, res: any) {
   const { Diseases, AccountID } = req.body;
   let arrayRecord = new Array();
+  if(!Diseases[0]){
+    arrayRecord.push({ accountid: AccountID, diseaseid: null });
+  }
   for (let diseaseid of Diseases) {
     arrayRecord.push({ accountid: AccountID, diseaseid: diseaseid });
   }

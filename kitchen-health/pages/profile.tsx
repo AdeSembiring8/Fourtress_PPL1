@@ -6,9 +6,14 @@ import Navbar from "../components/navbar2";
 import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
+import { signOut } from "next-auth/react";
+import { serverurl } from "./server";
 
 function Profile({ userprof }: any) {
   const { user, diseases } = userprof;
+  const logoutclicked = async () => {
+    const status = await signOut({ redirect: true, callbackUrl: "/" });
+  };
   return (
     <>
       <Head>
@@ -41,19 +46,28 @@ function Profile({ userprof }: any) {
               />
               <div className="flex items-center space-x-2 mt-2">
                 <p className="text-2xl">{user.profile_name}</p>
-
               </div>
 
-              <p className="text-sm text-gray-500">username</p>
-              <a href="/editProfile" className="mt-12 mr-6 py-2 px-7   bg-white hover:bg-[#389E0D] border-2 border-[#389E0D] text-[#389E0D] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 " style={{ fontSize: '15px' }}>
+              <p className="text-sm text-gray-500">{user.username}</p>
+              <a
+                href="/editProfile"
+                className="mt-12 mr-6 py-2 px-7   bg-white hover:bg-[#389E0D] border-2 border-[#389E0D] text-[#389E0D] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 "
+                style={{ fontSize: "15px" }}
+              >
                 <button type="submit" className="relative right-3  top-1">
-                  <img src="/assets/profilePage/edit.png" className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                  <img
+                    src="/assets/profilePage/edit.png"
+                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  />
                 </button>
                 Edit Profile
               </a>
               <a href="/pesananSaya" className="mt-5  mr-6 py-2 px-8  bg-white hover:bg-[#389E0D] border-2 border-[#389E0D] text-[#389E0D] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 " style={{ fontSize: '15px' }}>
                 <button type="submit" className="relative right-3  top-1">
-                  <img src="/assets/profilePage/pesanan.png" className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                  <img
+                    src="/assets/profilePage/pesanan.png"
+                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  />
                 </button>
                 Pesanan Saya
               </a>
@@ -96,7 +110,11 @@ function Profile({ userprof }: any) {
                   </span>
                 </li>
               </ul>
-              <a href="/login" className="mt-12 mb-12 mr-6 py-2 px-7   bg-white hover:bg-[#F5222D] border-2 border-gray-300 text-[#8C8C8C] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 " style={{ fontSize: '15px' }}>
+              <a
+                onClick={logoutclicked}
+                className="mt-12 mb-12 mr-6 py-2 px-7   bg-white hover:bg-[#F5222D] border-2 border-gray-300 text-[#8C8C8C] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 "
+                style={{ fontSize: "15px" }}
+              >
                 Keluar
               </a>
             </div>
@@ -107,7 +125,7 @@ function Profile({ userprof }: any) {
         <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
           <div className="flex items-center space-x-4 mt-2"></div>
         </div>
-      </div >
+      </div>
 
       <Footer />
     </>
@@ -125,7 +143,7 @@ export async function getServerSideProps(context: any) {
     };
   }
   const { user } = session;
-  const userprof = await fetch("http://localhost:3000/api/profile", {
+  const userprof = await fetch(serverurl + "/api/profile", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user),

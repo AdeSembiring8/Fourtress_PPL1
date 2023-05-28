@@ -1,13 +1,17 @@
-import React from "react";
+import React ,{ useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { serverurl } from "./server";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 function RegisQuestion() {
   const router = useRouter();
   const { data, error } = useSWR("/api/disease", fetcher);
+  const [checkboxError, setCheckboxError] = useState(false); // State untuk melacak kesalahan checkbox
+
+  
   if (error || !data) {
     return null;
   }
@@ -21,8 +25,15 @@ function RegisQuestion() {
         checkedarr.push(checkbx[i].value);
       }
     }
+
+    if (checkedarr.length === 0) {
+      setCheckboxError(true); // Set state checkboxError menjadi true jika tidak ada checkbox yang dicentang
+      return;
+    }
+
+
     const record = { Diseases: checkedarr, AccountID: id };
-    const result = await fetch("http://localhost:3000/api/auth/regisQ", {
+    const result = await fetch(serverurl + "/api/auth/regisQ", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(record),
@@ -73,10 +84,19 @@ function RegisQuestion() {
               </tbody>
             </table>
           </div>
+          {checkboxError && (
+            <p style={{ color: "red",paddingLeft:"12px" }}>Pilih minimal satu, jangan dikosongin yaa.</p>
+          )} 
           <div style={{ paddingLeft: 10 }}>
             <div className="butt">
-              <div className="but">
-                <button type="submit" onClick={btnpressed}>
+              <div className="">
+                <button
+                  onClick={btnpressed}
+
+                  type="submit"
+                  style={{ width: "420px", height: "45px" }}
+                  className="py-2 px- bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D] text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150 duration-300 rounded-md"
+                >
                   Simpan
                 </button>
               </div>

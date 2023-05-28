@@ -3,24 +3,48 @@ import Head from "next/head";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 
+
 function Login() {
+  const [showPassword, setShowPassword] = useState(false);
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const router = useRouter();
+  
   const onLoginSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const status = await signIn("customSignIn", {
-      redirect: false,
+      redirect: false, // Mengubah nilai redirect menjadi false untuk menangani penanganan kesalahan secara manual
       email: userInfo.email,
       password: userInfo.password,
       callbackUrl: "/dashboard",
     });
-    if (status.ok) router.push(status.url);
-    else console.log(status);
+  
+    if (status.error) {
+      alert("Email atau password salah"); // Menampilkan pesan kesalahan jika terjadi kesalahan saat login
+      return;
+    }
+  
+    if (status.ok) {
+      router.push("/dashboard"); // Redirect ke halaman dashboard jika login berhasil
+    }
   };
-  async function handleGoogleSignin() {
-    signIn("google", { callbackUrl: "http://localhost:3000" });
+  
+  // const onLoginSubmit = async (event: FormEvent) => {
+  //   event.preventDefault();
+  //   const status = await signIn("customSignIn", {
+  //     redirect: true,
+  //     email: userInfo.email,
+  //     password: userInfo.password,
+  //     callbackUrl: "/dashboard",
+  //   });
+  // };
+
+  
+  async function lockedfeature() {
+    router.push({ pathname: "_index" });
   }
   return (
     <>
@@ -38,10 +62,11 @@ function Login() {
         <div className="kotakPutih">
           <img src="assets/logo/logo.png" alt="logo kitchen health" />
           <div>
+
             <p className="fontMasuk">Masuk</p>
             <p className="fontBelumPunyaAkun">
               Belum punya akun?
-              <Link className="fontDaftar" href="/register">
+              <Link className="fontDaftar" href="/register" style={{ textDecoration: "underline" }}>
                 Daftar
               </Link>
             </p>
@@ -49,7 +74,8 @@ function Login() {
           <div>
             <form>
               <p className="fontForm">Email</p>
-              <div className="form">
+              <div className=""
+              >
                 <input
                   value={userInfo.email}
                   onChange={({ target }) =>
@@ -63,24 +89,46 @@ function Login() {
               </div>
 
               <p className="fontForm">Password</p>
-              <div className="form">
+              <div className="passwordContainer">
                 <input
                   value={userInfo.password}
                   onChange={({ target }) =>
                     setUserInfo({ ...userInfo, password: target.value })
                   }
-                  className="input"
-                  type="password"
+                  className={`input ${showPassword ? "showPassword" : ""}`}
+                  type={showPassword ? "text" : "password"}
                   name="pass"
                   placeholder="Masukkan password"
                 />
-
-                <img
-                  src="assets/loginRegisterPage/Hide.png"
-                  alt="logo kitchen health"
-                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="togglePasswordButton"
+                >
+                  <img
+                    src="assets/loginRegisterPage/Show.png"
+                    alt="Tampilkan Password"
+                    className={`passwordIcon ${showPassword ? "hidden" : ""}`}
+                    style={{ width: "32px", height: "28px",  marginLeft: "5px" }}
+                  />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="togglePasswordButton"
+                >
+                  <img
+                    src="assets/loginRegisterPage/Hide.png"
+                    alt="Sembunyikan Password"
+                    className={`passwordIcon ${showPassword ? "" : "hidden"}`}
+                    style={{ width: "28px", height: "18px", marginLeft: "5px"}}
+                  />
+                </button>
               </div>
-              <div>
+
+
+
+              {/* <div>
                 <table style={{ width: 420, height: 65 }}>
                   <tbody>
                     <tr>
@@ -101,17 +149,25 @@ function Login() {
                     </tr>
                   </tbody>
                 </table>
-              </div>
-              <div className="but">
-                <button type="submit" onClick={onLoginSubmit}>Login</button>
-              </div>
+              </div> */}
+              <button type="submit" onClick={onLoginSubmit} 
+              style={{ width: "420px", height:"45px" }} 
+              className="py-2 mt-10  bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md ">
+                Login
+              </button>
+
               <p className="atau">atau</p>
-              <div className="google">
+              <div className="">
                 <button
                   type="button"
+                  onClick={lockedfeature}
+                  style={{ width: "420px", height:"45px" }} className="py-2 px- bg-white text-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md ">
+                  {/* </button> */}
+                  {/* <button
+                  type="button"
                   style={{ textDecoration: "none", color: "#389E0D" }}
-                  onClick={handleGoogleSignin}
-                >
+                  onClick={lockedfeature}
+                > */}
                   {/* <img src="assets/loginRegisterPage/google.png" alt="" /> */}
                   Masuk dengan Google
                 </button>
@@ -122,6 +178,24 @@ function Login() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }
 
 export default Login;

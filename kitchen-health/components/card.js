@@ -6,11 +6,11 @@ const Card = ({ dishes }) => {
 
   return (
     <Container>
-      <div className="mb-10 text-xl text-left text-black dark:text-black">
-        Kamu mau jaga pola makan untuk apa?
-      </div>
-      <div className="flex flex-wrap justify-center">
-        {limitedDishes.map((dish) => (
+      {/* <div div className="mb-10 text-xl text-left text-black dark:text-black">
+        Kamu mau jaga pola makan untuk apa ?
+      </div> */}
+      <div className="flex flex-wrap  ">
+        {dishes.map((dish) => (
           <div
             className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mx-4 my-4"
             key={dish.id}

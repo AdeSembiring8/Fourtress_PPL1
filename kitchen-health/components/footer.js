@@ -13,33 +13,35 @@ export default function Footer() {
   return (
     <div className="bg-black">
       <Container>
-        <div >
+        
+        <div className="grid max-w-screen-2xl grid-cols-1 gap-10 pt-8 top-auto   dark:border-trueGray-700 lg:grid-cols-5">
+        <div className="flex flex-wrap w-full -mt-2 -ml-8 lg:ml-0">
           {" "}
-          <Link href="/" >
+          <Link href="/"  >
             <Image
               src="/assets/logo/logo.png"
               alt=""
               width="300"
               height="300"
-              className="w-180 ml-12"
-              padding="10"
+              className="w-full px-4 py-2 text-gray-500 rounded-md"
+              
             />
 
           </Link>
         </div>
-        <div className="grid max-w-screen-2xl grid-cols-1 gap-10 pt-8 top-auto   dark:border-trueGray-700 lg:grid-cols-5">
-          <div className="lg:col-span-2 " >
 
-            <div className="max-w-md mt-4 text-gray-500 dark:text-gray-400 pl-32">
-              <p>FOURTRESS</p>
-              <p>Teknik Informatika</p>
-              <p>Universitas Padjadjaran</p>
-              <p>Email : fourtress@gmail.com</p>
-              <p>Phone : (021) 2212-4702</p>
-              <p>Mobile : 0813-1888-4702</p>
+        <div>
+            <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
+              <div className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 focus:text-[#389E0D] ">
+                <p>FOURTRESS</p>
+                <p>Teknik Informatika</p>
+                <p>Universitas Padjadjaran</p>
+                <p>Email : fourtress@gmail.com</p>
+                <p>Phone : (021) 2212-4702</p>
+                <p>Mobile : 0813-1888-4702</p>
+              </div>
+
             </div>
-
-
           </div>
 
           <div>
@@ -52,6 +54,7 @@ export default function Footer() {
               ))}
             </div>
           </div>
+
           <div>
             <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
               {legal.map((item, index) => (

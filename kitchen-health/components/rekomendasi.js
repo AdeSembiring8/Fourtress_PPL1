@@ -7,11 +7,12 @@ const Card = ({ dishes }) => {
             <div className="mt-28 ml-5  text-xl text-left text-black dark:text-black" >
                 Rekomendasi Resep Untukmu
             </div>
-            <div className=" flex flex-wrap  ">
+            <div className=" flex flex-wrap justify-center ">
                 {dishes.map((dish) => (
                     <div
-                        className=" shadow-md border w-68 border-gray-200 rounded-lg mx-4 my-4"
+                        className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mx-4 my-4"
                         key={dish.id}
+                        style={{ width: "calc(25% - 2rem)" }}
                     >
                         <a href="#">
                             <img className="w-full relative rounded-tl-lg rounded-tr-lg h-40 object-cover" src={dish.prof_img} alt="" />

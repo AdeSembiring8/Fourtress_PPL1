@@ -19,7 +19,7 @@ function EditProfile({ userprof, diseases }: any) {
     gender: user.gender ? user.gender : "Laki-laki",
     birth_date: user.birth_date,
   });
-  const userdisarr: Array<String> = userdis.map((dis: any) => dis.id);
+//   const userdisarr: Array<String> = userdis.map((dis: any) => dis.id);
   const router = useRouter();
   const bttnpressed = async (event: FormEvent) => {
     event.preventDefault();

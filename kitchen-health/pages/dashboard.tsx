@@ -8,7 +8,7 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import { serverurl } from "./server";
 
-function LandingPage2({ dishes, userprof }: any) {
+function LandingPage2({ dishes, userprof, diseases }: any) {
   const { user } = userprof;
   return (
     <>
@@ -22,7 +22,7 @@ function LandingPage2({ dishes, userprof }: any) {
       </Head>
 
       <Navbar user={user} />
-      <Hero />
+      <Hero diseases={diseases}/>
       <div className="mb-10 text-xl text-left text-black dark:text-black">
         Kamu mau jaga pola makan untuk apa ?
       </div>
@@ -52,11 +52,16 @@ export async function getServerSideProps(context: any) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user),
   }).then((res) => res.json());
+  const { diseases } = await fetch(serverurl + "/api/disease", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  }).then((res) => res.json());
   return {
     props: {
       session,
       dishes,
       userprof,
+      diseases
     },
   };
 }

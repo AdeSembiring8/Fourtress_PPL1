@@ -15,9 +15,9 @@ export default async function handler(req: any, res: any) {
       if(!result){
         return res.status(200).json(null);
       }
-      const { dish, error: disherr } = await getDishesById(result);
+      const { dishes, error: disherr } = await getDishesById(result);
       if (diserr || disherr) return res.status(500).json({ diserr, disherr });
-      return res.status(200).json(dish);
+      return res.status(200).json(dishes);
     } catch (error: any) {
       return res.status(500).json({ error: error.message });
     }

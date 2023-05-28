@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { serverurl } from "./server";
 
-function LandingPage({ dishes }: any) {
+function LandingPage({ dishes, diseases }: any) {
   return (
     <>
       <Head>
@@ -21,7 +21,7 @@ function LandingPage({ dishes }: any) {
       </Head>
 
       <Navbar />
-      <Hero />
+      <Hero diseases={diseases}/>
 
       <div className="mb-10 text-xl text-left text-black dark:text-black">
         Kamu mau jaga pola makan untuk apa ?
@@ -46,11 +46,15 @@ export async function getServerSideProps(context: any) {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   }).then((res) => res.json());
-
+  const { diseases } = await fetch(serverurl + "/api/disease", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  }).then((res) => res.json());
   return {
     props: {
       session,
       dishes,
+      diseases
     },
   };
 }

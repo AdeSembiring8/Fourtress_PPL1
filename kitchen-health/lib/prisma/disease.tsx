@@ -20,6 +20,19 @@ export async function getDiseaseById(id: any) {
   }
 }
 
+export async function getDiseaseByName(name: any) {
+  try {
+    const disease = await prisma.disease.findFirst({
+      where: {
+        name: name,
+      },
+    });
+    return { disease };
+  } catch (error) {
+    return { error };
+  }
+}
+
 export async function createDisease(disease: any) {
   try {
     const diseasecreate = await prisma.disease.create({ data: disease });

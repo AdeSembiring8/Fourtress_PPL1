@@ -30,7 +30,7 @@ const Card = ({ dishes }) => {
                 {dish.desc}
               </p>
               <a
-                href="#"
+                href={"/resep?dishname="+ dish.title.replace(" ", "_")}
                 // className="group inline-flex w-full items-center justify-center rounded-md bg-[#389E0D] px-6 py-4 text-lg font-medium text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-[#389E0D]"
                 className="group inline-flex px-3 py-2 w-44 rounded-lg text-sm items-center   bg-[#389E0D]  font-medium text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-[#389E0D]"
               // className="text-white bg-[#389E0D]  transition-all duration-200 ease-in-out focus:shadow hover:bg-[#389E0D] focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

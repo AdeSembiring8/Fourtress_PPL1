@@ -22,14 +22,14 @@ export async function createDish(dish: any) {
 
 export async function getDishesById(id: any) {
   try {
-    const dish = await prisma.dish.findMany({
+    const dishes = await prisma.dish.findMany({
       where: {
         id: {
           in: id,
         },
       },
     });
-    return { dish };
+    return { dishes };
   } catch (error) {
     return { error };
   }

@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import Navbar from "../components/navbar2";
+import Navbar2 from "../components/navbar";
 import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
@@ -68,7 +69,7 @@ function AboutPage({ userprof }: any) {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Navbar user={user} />
+            {user === null ? <Navbar2/> : <Navbar user={user} />}
             <div className="container mx-auto py-8" style={{
                 backgroundImage: "url('/assets/bg/bg2.png')",
             }}>
@@ -110,9 +111,11 @@ export async function getServerSideProps(context: any) {
     const session = await getServerSession(context.req, context.res, authOptions);
     if (!session) {
         return {
-            redirect: {
-                destination: "/login",
-                permanent: false,
+            props: {
+                session,
+                userprof: {
+                    user: null
+                },
             },
         };
     }

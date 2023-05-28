@@ -69,7 +69,9 @@ function AboutPage({ userprof }: any) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar user={user} />
-            <div className="container mx-auto py-8">
+            <div className="container mx-auto py-8" style={{
+                backgroundImage: "url('/assets/bg/bg2.png')",
+            }}>
                 <h1 className="text-4xl font-bold mb-4 text-center mt-20">Tentang Kami</h1>
                 <p className="text-center mt-9 font-normal ml-44 mr-44 pr-48 pl-48">Kitchen Health merupakan platform yang menyediakan resep masakan sehat sesuai kebutuhanmu. Kami juga menyediakan fitur pembelian bahan masakan  yang kamu butuhkan. Selamat menjelajah!</p>
                 <h1 className="text-4xl font-bold text-center mt-20">Tim Pengembang</h1>

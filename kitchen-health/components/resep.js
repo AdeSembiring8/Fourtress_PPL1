@@ -1,8 +1,12 @@
 import React from "react";
 
-const GridCards: React.FC = () => {
+const Resep = () => {
     return (
         <div className="justify-center items-center">
+            <img
+                src="/assets/makanan/salad.png"
+                className="w-full relative rounded-tl-lg rounded-tr-lg h-96 object-cover"
+            />
             <img
                 src="/assets/makanan/salad.png"
                 className="w-full relative rounded-tl-lg rounded-tr-lg h-96 object-cover"
@@ -85,11 +89,11 @@ const GridCards: React.FC = () => {
                 </div>
             </div>
             <div className="max-w-8xl my-40 mx-14">
-                <h1 className="text-2xl font-bold text-left">Resep yang mungkin kamu suka</h1>
+                <h1 className="text-2xl font-bold text-left -mb-48">Resep yang mungkin kamu suka</h1>
                 
             </div>
         </div>
     );
 };
 
-export default GridCards;
+export default Resep;

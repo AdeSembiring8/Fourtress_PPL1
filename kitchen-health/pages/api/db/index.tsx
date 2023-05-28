@@ -1,22 +1,23 @@
-import { createNutrient, getNutrients } from "../../../lib/prisma/nutrient";
+import { getDiseases } from "../../../lib/prisma/disease";
 
 export default async function handler(req: any, res: any) {
-  if (req.method === "POST") {
-    if (!req.body)
-      return res.status(404).json({ error: "Don't have form data...!" });
+//   if (req.method === "POST") {
+//     if (!req.body)
+//       return res.status(404).json({ error: "Don't have form data...!" });
+//     try {
+//       const { dishForDB, error } = await getDiseases(req.body);
+//       if (error) return res.status(500).json({ error });
+//       return res.status(200).json({ dishForDB });
+//     } catch (error: any) {
+//       return res.status(500).json({ error: error.message });
+//     }
+//   }else
+  if (req.method == "GET") {
     try {
-      const { nutrient, error } = await createNutrient(req.body);
+    //   const { limit } = req.query;
+      const { diseases, error } = await getDiseases();
       if (error) return res.status(500).json({ error });
-      return res.status(200).json({ nutrient });
-    } catch (error: any) {
-      return res.status(500).json({ error: error.message });
-    }
-  } else if (req.method == "GET") {
-    try {
-      const { limit } = req.query;
-      const { nutrient, error } = await getNutrients(Number(limit));
-      if (error) return res.status(500).json({ error });
-      return res.status(200).json({ nutrient });
+      return res.status(200).json({ diseases });
     } catch (error: any) {
       return res.status(500).json({ error: error.message });
     }

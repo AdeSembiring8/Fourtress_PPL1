@@ -55,43 +55,40 @@ export async function setDiseaseTolerant(data: any) {
 }
 
 export async function getDiseaseDish(diseasesid: any) {
+  if (!diseasesid.length) {
+    diseasesid = ["646dd932f023558beeb7dd4d"];
+  }
   try {
-    const distl = await prisma.nutrient.findMany({
-      select: {
-        id: true,
-        tolerance: {
-          take: 1,
-          orderBy: {
-            amount: "asc",
-          },
-          select: {
-            amount: true,
-          },
+    const distl = await prisma.tolerance.groupBy({
+      by: ["nutrientid"],
+      where: {
+        diseaseid: {
+          in: diseasesid,
         },
       },
-      where: {
-        tolerance: {
-          some: {
-            disease: {
-              id: {
-                in: diseasesid,
-              },
-            },
-          },
-        },
+      _min: {
+        amount: true,
       },
     });
-    let dishid = new Array();
-    for (let row of distl) {
+    const nutrid = distl.map((row) => ({
+      id: row.nutrientid,
+      tolerance_amount: row._min.amount as number,
+    }));
+    const dishesid = await prisma.dish.findMany({ select: { id: true } });
+    let result = dishesid.map((row) => row.id);
+    for (let row of nutrid) {
       const dishdis = await prisma.dish.findMany({
         select: {
           id: true,
         },
         where: {
+          id: {
+            in: result,
+          },
           containswith: {
             some: {
               amount: {
-                lte: row.tolerance[0].amount,
+                lte: row.tolerance_amount,
               },
               nutrient: {
                 id: row.id,
@@ -100,13 +97,12 @@ export async function getDiseaseDish(diseasesid: any) {
           },
         },
       });
-      if (dishdis[0]) {
-        for (let rowj of dishdis) {
-          dishid.push(rowj.id);
-        }
+      if (!dishdis.length) {
+        return { result: null };
       }
+      result = dishdis.map((rowid) => rowid.id);
     }
-    return { dishid };
+    return { result };
   } catch (error) {
     return { error };
   }

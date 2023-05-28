@@ -16,7 +16,7 @@ function EditProfile({ userprof, diseases }: any) {
     email: user.email,
     tel: user.tel,
     address: user.address,
-    gender: user.gender ? user.gender : "male",
+    gender: user.gender ? user.gender : "Laki-laki",
     birth_date: user.birth_date,
   });
   const userdisarr: Array<String> = userdis.map((dis: any) => dis.id);
@@ -143,8 +143,8 @@ function EditProfile({ userprof, diseases }: any) {
               setUserInfo({ ...userInfo, gender: target.value })
             }
           >
-            <option value="male">Laki-laki</option>
-            <option value="female">Perempuan</option>
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
           </select>
         </div>
         <div className="flex border-b border-gray-400 py-3">

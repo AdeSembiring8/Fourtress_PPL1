@@ -22,11 +22,11 @@ function LandingPage2({ dishes, userprof, diseases }: any) {
       </Head>
 
       <Navbar user={user} />
-      <Hero diseases={diseases}/>
+      <Hero diseases={diseases} />
       <div className=" mt-12 ml-20 text-xl text-left text-black dark:text-black">
         Kamu mau jaga pola makan untuk apa ?
       </div>
-      
+
       <Card dishes={dishes} />
       <Footer />
     </>
@@ -44,6 +44,7 @@ export async function getServerSideProps(context: any) {
     };
   }
   const { user } = session;
+  const { AccObj } = user as any;
   const { dishes } = await fetch(serverurl + "/api/dish", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
@@ -51,7 +52,7 @@ export async function getServerSideProps(context: any) {
   const userprof = await fetch(serverurl + "/api/profile", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
+    body: JSON.stringify(AccObj),
   }).then((res) => res.json());
   const { diseases } = await fetch(serverurl + "/api/disease", {
     method: "GET",
@@ -62,7 +63,7 @@ export async function getServerSideProps(context: any) {
       session,
       dishes,
       userprof,
-      diseases
+      diseases,
     },
   };
 }

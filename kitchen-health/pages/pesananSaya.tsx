@@ -5,7 +5,7 @@ import Image from "next/legacy/image";
 import Link from "next/link";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { serverurl } from "./server";
+import { serverurl } from "../lib/prisma/server";
 
 function PesananSaya({ userprof, transaction }: any) {
   const { user } = userprof;

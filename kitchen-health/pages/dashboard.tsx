@@ -6,7 +6,7 @@ import Card from "../components/card";
 import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { serverurl } from "./server";
+import { serverurl } from "../lib/prisma/server";
 
 function LandingPage2({ dishes, userprof, diseases }: any) {
   const { user } = userprof;
@@ -22,11 +22,11 @@ function LandingPage2({ dishes, userprof, diseases }: any) {
       </Head>
 
       <Navbar user={user} />
-      <Hero diseases={diseases}/>
+      <Hero diseases={diseases} />
       <div className=" mt-12 ml-20 text-xl text-left text-black dark:text-black">
         Kamu mau jaga pola makan untuk apa ?
       </div>
-      
+
       <Card dishes={dishes} />
       <Footer />
     </>

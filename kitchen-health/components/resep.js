@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { serverurl } from "../pages/server";
+import { serverurl } from "../lib/prisma/server";
 
 const Resep = ({ pagedish, user }) => {
   const guide = pagedish.guide.split(";");
@@ -99,9 +99,9 @@ const Resep = ({ pagedish, user }) => {
               </div>
               <div className="mt-3">
                 <ul className="list-disc px-4 " style={{ columnCount: 1 }}>
-                    {tools.map((row)=>(
-                        <li className=" my-5">{row}</li>
-                    ))}
+                  {tools.map((row) => (
+                    <li className=" my-5">{row}</li>
+                  ))}
                 </ul>
               </div>
             </div>

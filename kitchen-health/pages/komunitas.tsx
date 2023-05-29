@@ -5,7 +5,7 @@ import Link from "next/link";
 import Navbar from "../components/navbar2";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { serverurl } from "./server";
+import { serverurl } from "../lib/prisma/server";
 import { useState } from "react";
 import { useRouter } from "next/router";
 

@@ -7,7 +7,7 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { serverurl } from "./server";
+import { serverurl } from "../lib/prisma/server";
 
 interface TeamMember {
   name: string;

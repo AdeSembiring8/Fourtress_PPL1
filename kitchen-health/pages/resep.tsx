@@ -8,7 +8,7 @@ import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import { getDishByName } from "../lib/prisma/dish";
-import { serverurl } from "./server";
+import { serverurl } from "../lib/prisma/server";
 
 function Recipe({ dishes, userprof, pagedish }: any) {
   const { user } = userprof;

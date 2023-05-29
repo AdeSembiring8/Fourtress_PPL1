@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
-import { serverurl } from "./server";
+import { serverurl } from "../lib/prisma/server";
 import { stat } from "fs";
 
 function Register() {
@@ -165,9 +165,8 @@ function Register() {
                           onChange={({ target }) =>
                             setUserInfo({ ...userInfo, password: target.value })
                           }
-                          className={`input ${
-                            showPassword ? "showPassword" : ""
-                          }`}
+                          className={`input ${showPassword ? "showPassword" : ""
+                            }`}
                           type={showPassword ? "text" : "password"}
                           name="pass"
                           placeholder="Masukkan password"
@@ -180,9 +179,8 @@ function Register() {
                           <img
                             src="assets/loginRegisterPage/Show.png"
                             alt="Tampilkan Password"
-                            className={`passwordIcon ${
-                              showPassword ? "hidden" : ""
-                            }`}
+                            className={`passwordIcon ${showPassword ? "hidden" : ""
+                              }`}
                             style={{
                               width: "32px",
                               height: "28px",
@@ -198,9 +196,8 @@ function Register() {
                           <img
                             src="assets/loginRegisterPage/Hide.png"
                             alt="Sembunyikan Password"
-                            className={`passwordIcon ${
-                              showPassword ? "" : "hidden"
-                            }`}
+                            className={`passwordIcon ${showPassword ? "" : "hidden"
+                              }`}
                             style={{
                               width: "28px",
                               height: "18px",
@@ -217,9 +214,8 @@ function Register() {
                           onChange={({ target }) =>
                             setUserInfo({ ...userInfo, val_pass: target.value })
                           }
-                          className={`input ${
-                            showPassword ? "showPassword" : ""
-                          }`}
+                          className={`input ${showPassword ? "showPassword" : ""
+                            }`}
                           type={showPassword ? "text" : "password"}
                           name="pass"
                           placeholder="Masukkan password"
@@ -232,9 +228,8 @@ function Register() {
                           <img
                             src="assets/loginRegisterPage/Show.png"
                             alt="Tampilkan Password"
-                            className={`passwordIcon ${
-                              showPassword ? "hidden" : ""
-                            }`}
+                            className={`passwordIcon ${showPassword ? "hidden" : ""
+                              }`}
                             style={{
                               width: "32px",
                               height: "28px",
@@ -250,9 +245,8 @@ function Register() {
                           <img
                             src="assets/loginRegisterPage/Hide.png"
                             alt="Sembunyikan Password"
-                            className={`passwordIcon ${
-                              showPassword ? "" : "hidden"
-                            }`}
+                            className={`passwordIcon ${showPassword ? "" : "hidden"
+                              }`}
                             style={{
                               width: "28px",
                               height: "18px",

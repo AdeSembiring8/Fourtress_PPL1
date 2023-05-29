@@ -7,6 +7,7 @@ import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import { serverurl } from "../lib/prisma/server";
+import { getAccountDiseases, getAccountById } from "../lib/prisma/account";
 
 function LandingPage2({ dishes, userprof, diseases }: any) {
   const { user } = userprof;
@@ -49,11 +50,11 @@ export async function getServerSideProps(context: any) {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   }).then((res) => res.json());
-  const userprof = await fetch(serverurl + "/api/profile", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ AccObj: AccObj }),
-  }).then((res) => res.json());
+  const userprof = {
+    user: await getAccountById(AccObj),
+    diseases: await getAccountDiseases(AccObj),
+  };
+
   const { diseases } = await fetch(serverurl + "/api/disease", {
     method: "GET",
     headers: { "Content-Type": "application/json" },

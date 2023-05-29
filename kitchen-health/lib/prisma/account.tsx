@@ -11,7 +11,12 @@ export async function getAccounts() {
 
 export async function createAccount(user: any) {
   try {
-    const userFromDB = await prisma.account.create({ data: user });
+    const userFromDB = await prisma.account.create({
+      data: user,
+      select: {
+        id: true,
+      },
+    });
     return { user: userFromDB };
   } catch (error) {
     return { error };
@@ -150,7 +155,7 @@ export async function buyDish(data: any) {
       data: {
         transaction: {
           create: {
-            date: new Date(),
+            date: data.date,
             dish: {
               connect: {
                 id: data.dishid,
@@ -169,7 +174,6 @@ export async function buyDish(data: any) {
 export async function postDiscussion(data: any) {
   try {
     const { accid, content, createdat } = data;
-    console.log(data);
     const discussion = await prisma.account.update({
       where: {
         id: accid,
@@ -178,7 +182,7 @@ export async function postDiscussion(data: any) {
         discussion: {
           create: {
             content: content,
-            createdat: new Date(),
+            createdat: createdat,
           },
         },
       },

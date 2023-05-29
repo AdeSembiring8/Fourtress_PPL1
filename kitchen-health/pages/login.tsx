@@ -21,12 +21,12 @@ function Login() {
       callbackUrl: "/dashboard",
     });
 
-    if (status.error) {
+    if (status?.error) {
       alert("Email atau password salah"); // Menampilkan pesan kesalahan jika terjadi kesalahan saat login
       return;
     }
 
-    if (status.ok) {
+    if (status?.ok) {
       router.push("/dashboard"); // Redirect ke halaman dashboard jika login berhasil
     }
   };

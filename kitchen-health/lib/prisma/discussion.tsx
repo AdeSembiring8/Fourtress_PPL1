@@ -2,13 +2,15 @@ import prisma from ".";
 
 export async function getDiscussions() {
   try {
-    const discussion = await prisma.discussion.findMany({
+    const discussions = await prisma.discussion.findMany({
       select: {
+        id: true,
         content: true,
         createdat: true,
         account: {
           select: {
             profile_name: true,
+            prof_pic: true,
           },
         },
       },
@@ -16,7 +18,7 @@ export async function getDiscussions() {
         createdat: "desc",
       },
     });
-    return { discussion };
+    return { discussions };
   } catch (error) {
     return { error };
   }

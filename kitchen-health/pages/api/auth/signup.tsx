@@ -25,7 +25,7 @@ export default async function handler(req: any, res: any) {
     try {
       const { user, error } = await getAccountByEmail(email);
       if (error) return res.status(500).json({ error });
-      if (user) return res.json({ message: "User Already Exist!" });
+      if (user) return res.json({ message: "User already exist!" });
     } catch (error: any) {
       return res.status(500).json({ error: error.message });
     }

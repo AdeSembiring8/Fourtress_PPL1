@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { serverurl } from "./server";
+import { stat } from "fs";
 
 function Register() {
   const [userInfo, setUserInfo] = useState({
@@ -42,29 +43,28 @@ function Register() {
       Object.values(userInfo).some((value) => value === null || value === "")
     ) {
       alert("Harap isi semua field.");
-      return;
+      return null;
     }
 
     // Validasi password tidak sama
     if (userInfo.password !== userInfo.val_pass) {
       setPasswordMismatch(true);
-      return;
+      return null;
     }
 
-    await fetch(serverurl + "/api/auth/signup", {
+    const status = await fetch(serverurl + "/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userInfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data)
-          router.push({
-            pathname: "/regisQuestion",
-            query: { id: data.user.id },
-          });
-        else console.log(data);
-      });
+    }).then((res) => res.json());
+    if (status.message || status.error) {
+      alert(status.message || status.error);
+      return null;
+    }
+    router.push({
+      pathname: "/regisQuestion",
+      query: { id: status.user.id },
+    });
   };
 
   async function lockedfeature() {
@@ -89,7 +89,11 @@ function Register() {
             <p className="fontDaftar">Daftar</p>
             <p className="fontBuatAkun">
               Buat akun atau
-              <Link href="/login" className="fontLogin" style={{ textDecoration: "underline" }}>
+              <Link
+                href="/login"
+                className="fontLogin"
+                style={{ textDecoration: "underline" }}
+              >
                 Login
               </Link>
             </p>
@@ -145,7 +149,12 @@ function Register() {
                   </tr>
                 </tbody>
               </table>
-              {passwordMismatch && <p style={{ color: "red" }}>Password tidak sama dengan konfirmasi password.</p>} {/* Menampilkan pesan kesalahan jika passwordMismatch adalah true */}
+              {passwordMismatch && (
+                <p style={{ color: "red" }}>
+                  Password tidak sama dengan konfirmasi password.
+                </p>
+              )}{" "}
+              {/* Menampilkan pesan kesalahan jika passwordMismatch adalah true */}
               <table style={{ width: 480, height: 20 }}>
                 <tbody>
                   <tr>
@@ -156,7 +165,9 @@ function Register() {
                           onChange={({ target }) =>
                             setUserInfo({ ...userInfo, password: target.value })
                           }
-                          className={`input ${showPassword ? "showPassword" : ""}`}
+                          className={`input ${
+                            showPassword ? "showPassword" : ""
+                          }`}
                           type={showPassword ? "text" : "password"}
                           name="pass"
                           placeholder="Masukkan password"
@@ -169,8 +180,14 @@ function Register() {
                           <img
                             src="assets/loginRegisterPage/Show.png"
                             alt="Tampilkan Password"
-                            className={`passwordIcon ${showPassword ? "hidden" : ""}`}
-                            style={{ width: "32px", height: "28px", marginLeft: "5px" }}
+                            className={`passwordIcon ${
+                              showPassword ? "hidden" : ""
+                            }`}
+                            style={{
+                              width: "32px",
+                              height: "28px",
+                              marginLeft: "5px",
+                            }}
                           />
                         </button>
                         <button
@@ -181,8 +198,14 @@ function Register() {
                           <img
                             src="assets/loginRegisterPage/Hide.png"
                             alt="Sembunyikan Password"
-                            className={`passwordIcon ${showPassword ? "" : "hidden"}`}
-                            style={{ width: "28px", height: "18px", marginLeft: "5px" }}
+                            className={`passwordIcon ${
+                              showPassword ? "" : "hidden"
+                            }`}
+                            style={{
+                              width: "28px",
+                              height: "18px",
+                              marginLeft: "5px",
+                            }}
                           />
                         </button>
                       </div>
@@ -194,7 +217,9 @@ function Register() {
                           onChange={({ target }) =>
                             setUserInfo({ ...userInfo, val_pass: target.value })
                           }
-                          className={`input ${showPassword ? "showPassword" : ""}`}
+                          className={`input ${
+                            showPassword ? "showPassword" : ""
+                          }`}
                           type={showPassword ? "text" : "password"}
                           name="pass"
                           placeholder="Masukkan password"
@@ -207,8 +232,14 @@ function Register() {
                           <img
                             src="assets/loginRegisterPage/Show.png"
                             alt="Tampilkan Password"
-                            className={`passwordIcon ${showPassword ? "hidden" : ""}`}
-                            style={{ width: "32px", height: "28px", marginLeft: "5px" }}
+                            className={`passwordIcon ${
+                              showPassword ? "hidden" : ""
+                            }`}
+                            style={{
+                              width: "32px",
+                              height: "28px",
+                              marginLeft: "5px",
+                            }}
                           />
                         </button>
                         <button
@@ -219,8 +250,14 @@ function Register() {
                           <img
                             src="assets/loginRegisterPage/Hide.png"
                             alt="Sembunyikan Password"
-                            className={`passwordIcon ${showPassword ? "" : "hidden"}`}
-                            style={{ width: "28px", height: "18px", marginLeft: "5px" }}
+                            className={`passwordIcon ${
+                              showPassword ? "" : "hidden"
+                            }`}
+                            style={{
+                              width: "28px",
+                              height: "18px",
+                              marginLeft: "5px",
+                            }}
                           />
                         </button>
                       </div>
@@ -235,7 +272,8 @@ function Register() {
                     style={{ width: "450px", height: "45px" }}
                     className="py-2 px- bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D] text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150 duration-300 rounded-md"
                   >
-                    Daftar</button>
+                    Daftar
+                  </button>
                 </div>
               </div>
               <p className="atau">atau</p>

@@ -2,14 +2,12 @@ import React from "react";
 import { useRouter } from "next/router";
 import { serverurl } from "../pages/server";
 
-
 const Resep = ({ pagedish, user }) => {
-  const guide = pagedish.guide.split(", ");
-  let caramasak = new Array();
-  for (let i = 1; i < guide.length; i++) {
-    caramasak.push(guide[i]);
-  }
-  const recipe = pagedish.recipe.split(", ");
+  const guide = pagedish.guide.split(";");
+  const duration = guide[0];
+  guide.shift();
+  const recipe = pagedish.recipe.split(";");
+  const tools = pagedish.tools.split(";");
   const compound = pagedish.containswith;
   const router = useRouter();
   const pesanbttn = async () => {
@@ -22,10 +20,10 @@ const Resep = ({ pagedish, user }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ dishid: pagedish.id, accid: user.id }),
     }).then((res) => res.json());
-    if(transaction.error){
-        alert("Gagal membeli makanan!")
-    }else{
-        router.push({pathname: "/pesananSaya"})
+    if (transaction.error) {
+      alert("Gagal membeli makanan!");
+    } else {
+      router.push({ pathname: "/pesananSaya" });
     }
   };
   return (
@@ -58,7 +56,7 @@ const Resep = ({ pagedish, user }) => {
                 <h3 className=" text-xl font-semibold "> Waktu Masak</h3>
                 <h4 className=" text-lg font-light text-right ml-3">
                   {" "}
-                  {guide[0]}
+                  {duration}
                 </h4>
                 <h3 className=" text-xl font-semibold ml-32">
                   {" "}
@@ -101,11 +99,9 @@ const Resep = ({ pagedish, user }) => {
               </div>
               <div className="mt-3">
                 <ul className="list-disc px-4 " style={{ columnCount: 1 }}>
-                  <li className=" my-5">panci</li>
-                  <li className=" my-5">kkompor</li>
-                  <li className=" my-5">Pisau</li>
-                  <li className=" my-5">Talenan</li>
-                  <li className=" my-5">Sendok Sayur</li>
+                    {tools.map((row)=>(
+                        <li className=" my-5">{row}</li>
+                    ))}
                 </ul>
               </div>
             </div>
@@ -118,7 +114,7 @@ const Resep = ({ pagedish, user }) => {
               </div>
               <div className="mt-3">
                 <ul className=" list-decimal px-4 " style={{ columnCount: 1 }}>
-                  {caramasak.map((row) => (
+                  {guide.map((row) => (
                     <li className=" my-5">{row} </li>
                   ))}
                 </ul>

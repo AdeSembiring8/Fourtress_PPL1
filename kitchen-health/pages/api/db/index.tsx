@@ -1,4 +1,4 @@
-import { getDiseases } from "../../../lib/prisma/disease";
+import { updateDishTools } from "../../../lib/prisma/dish";
 
 export default async function handler(req: any, res: any) {
 //   if (req.method === "POST") {
@@ -12,12 +12,12 @@ export default async function handler(req: any, res: any) {
 //       return res.status(500).json({ error: error.message });
 //     }
 //   }else
-  if (req.method == "GET") {
+  if (req.method == "POST") {
     try {
-    //   const { limit } = req.query;
-      const { diseases, error } = await getDiseases();
+      const { tools } = req.body;
+      const { dish, error } = await updateDishTools(tools);
       if (error) return res.status(500).json({ error });
-      return res.status(200).json({ diseases });
+      return res.status(200).json({ dish });
     } catch (error: any) {
       return res.status(500).json({ error: error.message });
     }

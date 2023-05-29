@@ -1,21 +1,13 @@
-import React ,{ useState } from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import useSWR from "swr";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
 import { serverurl } from "./server";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
-function RegisQuestion() {
+function RegisQuestion({ diseases }: any) {
   const router = useRouter();
-  const { data, error } = useSWR("/api/disease", fetcher);
   const [checkboxError, setCheckboxError] = useState(false); // State untuk melacak kesalahan checkbox
-
-  
-  if (error || !data) {
-    return null;
-  }
-  const { diseases } = data;
   const btnpressed = async () => {
     const { id } = router.query;
     const checkbx = document.getElementsByName("optiona") as any;
@@ -31,7 +23,6 @@ function RegisQuestion() {
       return;
     }
 
-
     const record = { Diseases: checkedarr, AccountID: id };
     const result = await fetch(serverurl + "/api/auth/regisQ", {
       method: "POST",
@@ -40,7 +31,7 @@ function RegisQuestion() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data) router.push({ pathname: "/" });
+        if (data) router.push({ pathname: "/login" });
       });
   };
   return (
@@ -85,14 +76,15 @@ function RegisQuestion() {
             </table>
           </div>
           {checkboxError && (
-            <p style={{ color: "red",paddingLeft:"12px" }}>Pilih minimal satu, jangan dikosongin yaa.</p>
-          )} 
+            <p style={{ color: "red", paddingLeft: "12px" }}>
+              Pilih minimal satu, jangan dikosongin yaa.
+            </p>
+          )}
           <div style={{ paddingLeft: 10 }}>
             <div className="butt">
               <div className="">
                 <button
                   onClick={btnpressed}
-
                   type="submit"
                   style={{ width: "420px", height: "45px" }}
                   className="py-2 px- bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D] text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150 duration-300 rounded-md"
@@ -106,6 +98,20 @@ function RegisQuestion() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  const { diseases, error } = await fetch(serverurl + "/api/disease", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  }).then((res) => res.json());
+  return {
+    props: {
+      session,
+      diseases,
+    },
+  };
 }
 
 export default RegisQuestion;

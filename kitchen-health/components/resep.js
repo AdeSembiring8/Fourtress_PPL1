@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 import { serverurl } from "../pages/server";
 
 const Resep = ({ pagedish, user }) => {
-  const guide = pagedish.guide.split(", ");
+  const guide = pagedish.guide.split(";");
   const duration = guide[0];
   guide.shift();
-  const recipe = pagedish.recipe.split(", ");
-  const tools = pagedish.tools.split(", ");
+  const recipe = pagedish.recipe.split(";");
+  const tools = pagedish.tools.split(";");
   const compound = pagedish.containswith;
   const router = useRouter();
   const pesanbttn = async () => {

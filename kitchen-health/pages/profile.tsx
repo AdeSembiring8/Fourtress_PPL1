@@ -7,7 +7,7 @@ import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import { signOut } from "next-auth/react";
-import { serverurl } from "../lib/prisma/server";
+import { getAccountDiseases, getAccountById } from "../lib/prisma/account";
 
 function Profile({ userprof }: any) {
   const { user, diseases } = userprof;
@@ -62,7 +62,11 @@ function Profile({ userprof }: any) {
                   </button>
                   Edit Profile
                 </a>
-                <a href="/pesananSaya" className="mt-5  mr-6 py-2 px-8  bg-white hover:bg-[#389E0D] border-2 border-[#389E0D] text-[#389E0D] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 " style={{ fontSize: '15px' }}>
+                <a
+                  href="/pesananSaya"
+                  className="mt-5  mr-6 py-2 px-8  bg-white hover:bg-[#389E0D] border-2 border-[#389E0D] text-[#389E0D] hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5 "
+                  style={{ fontSize: "15px" }}
+                >
                   <button type="submit" className="relative right-3  top-1">
                     <img
                       src="/assets/profilePage/pesanan.png"
@@ -74,7 +78,9 @@ function Profile({ userprof }: any) {
 
                 <ul className="mt-12 text-gray-700">
                   <li className="flex border-y py-4">
-                    <span className="font-bold w-44 pr-8 text-right">Email</span>
+                    <span className="font-bold w-44 pr-8 text-right">
+                      Email
+                    </span>
                     <span className="text-gray-700">{user.email}</span>
                   </li>
                   <li className="flex border-b py-2">
@@ -84,7 +90,9 @@ function Profile({ userprof }: any) {
                     <span className="text-gray-700">{user.tel}</span>
                   </li>
                   <li className="flex border-b py-2">
-                    <span className="font-bold w-44 pr-8 text-right">Alamat</span>
+                    <span className="font-bold w-44 pr-8 text-right">
+                      Alamat
+                    </span>
                     <span className="text-gray-700">{user.address}</span>
                   </li>
                   <li className="flex border-b py-2">
@@ -118,7 +126,6 @@ function Profile({ userprof }: any) {
                   Keluar
                 </a>
               </div>
-
             </div>
           </div>
         </div>
@@ -143,11 +150,15 @@ export async function getServerSideProps(context: any) {
     };
   }
   const { user } = session;
-  const userprof = await fetch(serverurl + "/api/profile", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-  }).then((res) => res.json());
+  const { AccObj } = user as any;
+  const { user: userdata, error: usererror } = await getAccountById(AccObj);
+  const { diseases: userdisease, error: userdiserr } = await getAccountDiseases(
+    AccObj
+  );
+  const userprof = {
+    user: userdata,
+    diseases: userdisease,
+  };
   return {
     props: {
       session,

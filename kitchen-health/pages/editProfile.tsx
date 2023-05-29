@@ -8,6 +8,8 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import { useRouter } from "next/router";
 import { serverurl } from "../lib/prisma/server";
+import { getAccountDiseases, getAccountById } from "../lib/prisma/account";
+import { getDiseases } from "../lib/prisma/disease";
 
 function EditProfile({ userprof, diseases }: any) {
   const { user, diseases: userdis } = userprof;
@@ -212,15 +214,16 @@ export async function getServerSideProps(context: any) {
     };
   }
   const { user } = session;
-  const userprof = await fetch(serverurl + "/api/profile", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-  }).then((res) => res.json());
-  const { diseases } = await fetch(serverurl + "/api/disease", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => res.json());
+  const { AccObj } = user as any;
+  const { user: userdata, error: usererror } = await getAccountById(AccObj);
+  const { diseases: userdisease, error: userdiserr } = await getAccountDiseases(
+    AccObj
+  );
+  const userprof = {
+    user: userdata,
+    diseases: userdisease,
+  };
+  const { diseases, error: diseaseserr } = await getDiseases();
   return {
     props: {
       session,

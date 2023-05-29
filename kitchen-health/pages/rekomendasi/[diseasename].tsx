@@ -8,7 +8,9 @@ import Card from "../../components/rekomendasi";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import { getDiseaseByName } from "../../lib/prisma/disease";
-import { serverurl } from "../../lib/prisma/server";
+import { getAccountDiseases, getAccountById } from "../../lib/prisma/account";
+import { getDiseaseDish } from "../../lib/prisma/disease";
+import { getDishesById } from "../../lib/prisma/dish";
 
 function Rekomendasi({ dishes, userprof }: any) {
   const { user } = userprof;
@@ -38,22 +40,23 @@ export async function getServerSideProps(context: any) {
     };
   }
   const { user } = session;
-  const userprof = await fetch(serverurl + "/api/profile", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-  }).then((res) => res.json());
+  const { AccObj } = user as any;
+  const { user: userdata, error: usererror } = await getAccountById(AccObj);
+  const { diseases: userdisease, error: userdiserr } = await getAccountDiseases(
+    AccObj
+  );
+  const userprof = {
+    user: userdata,
+    diseases: userdisease,
+  };
   const { disease, error } = await getDiseaseByName(
     context.query.diseasename.replace("_", " ")
   );
   if (!disease) {
     return null;
   }
-  const dishes = await fetch(serverurl + "/api/disease/dish", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ diseasesid: disease.id }),
-  }).then((res) => res.json());
+  const { result, error: diserr } = await getDiseaseDish(disease.id);
+  const { dishes, error: disherr } = await getDishesById(result);
   return {
     props: {
       session,

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { serverurl } from "../lib/prisma/server";
+import { getDiseases } from "../lib/prisma/disease";
 
 function RegisQuestion({ diseases }: any) {
   const router = useRouter();
@@ -102,10 +103,7 @@ function RegisQuestion({ diseases }: any) {
 
 export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, authOptions);
-  const { diseases, error } = await fetch(serverurl + "/api/disease", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => res.json());
+  const { diseases, error: diseaseserr } = await getDiseases();
   return {
     props: {
       session,

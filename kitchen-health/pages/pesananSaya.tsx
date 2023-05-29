@@ -5,7 +5,7 @@ import Image from "next/legacy/image";
 import Link from "next/link";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { serverurl } from "../lib/prisma/server";
+import { getAccountDiseases, getAccountById, getTransactions } from "../lib/prisma/account";
 
 function PesananSaya({ userprof, transaction }: any) {
   const { user } = userprof;
@@ -65,16 +65,16 @@ export async function getServerSideProps(context: any) {
     };
   }
   const { user } = session;
-  const userprof = await fetch(serverurl + "/api/profile", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-  }).then((res) => res.json());
-  const transaction = await fetch(serverurl + "/api/profile/transaction", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-  }).then((res) => res.json());
+  const { AccObj } = user as any;
+  const { user: userdata, error: usererror } = await getAccountById(AccObj);
+  const { diseases: userdisease, error: userdiserr } = await getAccountDiseases(
+    AccObj
+  );
+  const userprof = {
+    user: userdata,
+    diseases: userdisease,
+  };
+  const { transaction, error: trerr } = await getTransactions(AccObj);
   return {
     props: {
       session,

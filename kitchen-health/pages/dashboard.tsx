@@ -6,8 +6,9 @@ import Card from "../components/card";
 import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { serverurl } from "../lib/prisma/server";
 import { getAccountDiseases, getAccountById } from "../lib/prisma/account";
+import { getDishes } from "../lib/prisma/dish";
+import { getDiseases } from "../lib/prisma/disease";
 
 function LandingPage2({ dishes, userprof, diseases }: any) {
   const { user } = userprof;
@@ -46,19 +47,17 @@ export async function getServerSideProps(context: any) {
   }
   const { user } = session;
   const { AccObj } = user as any;
-  const { dishes } = await fetch(serverurl + "/api/dish", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => res.json());
+  const { dishes, error: disheserr } = await getDishes(10);
+  const { user: userdata, error: usererror } = await getAccountById(AccObj);
+  const { diseases: userdisease, error: userdiserr } = await getAccountDiseases(
+    AccObj
+  );
   const userprof = {
-    user: await getAccountById(AccObj),
-    diseases: await getAccountDiseases(AccObj),
+    user: userdata,
+    diseases: userdisease,
   };
 
-  const { diseases } = await fetch(serverurl + "/api/disease", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => res.json());
+  const { diseases, error: diseaseserr } = await getDiseases();
   return {
     props: {
       session,

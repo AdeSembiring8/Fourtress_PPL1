@@ -7,8 +7,8 @@ import Card from "../components/card";
 import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { getDishByName } from "../lib/prisma/dish";
-import { serverurl } from "../lib/prisma/server";
+import { getDishByName, getDishes } from "../lib/prisma/dish";
+import { getAccountDiseases, getAccountById } from "../lib/prisma/account";
 
 function Recipe({ dishes, userprof, pagedish }: any) {
   const { user } = userprof;
@@ -37,10 +37,7 @@ export async function getServerSideProps(context: any) {
   const { dish: pagedish } = await getDishByName(
     context.query.dishname.replace("_", " ")
   );
-  const { dishes } = await fetch(serverurl + "/api/dish", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => res.json());
+  const { dishes, error: disheserr } = await getDishes(10);
   if (!session) {
     return {
       props: {
@@ -52,11 +49,15 @@ export async function getServerSideProps(context: any) {
     };
   }
   const { user } = session;
-  const userprof = await fetch(serverurl + "/api/profile", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-  }).then((res) => res.json());
+  const { AccObj } = user as any;
+  const { user: userdata, error: usererror } = await getAccountById(AccObj);
+  const { diseases: userdisease, error: userdiserr } = await getAccountDiseases(
+    AccObj
+  );
+  const userprof = {
+    user: userdata,
+    diseases: userdisease,
+  };
   return {
     props: {
       session,

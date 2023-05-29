@@ -6,7 +6,8 @@ import Card from "../components/card";
 import Footer from "../components/footer";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
-import { serverurl } from "../lib/prisma/server";
+import { getDishes } from "../lib/prisma/dish";
+import { getDiseases } from "../lib/prisma/disease";
 
 function LandingPage({ dishes, diseases }: any) {
   return (
@@ -42,14 +43,8 @@ export async function getServerSideProps(context: any) {
       },
     };
   }
-  const { dishes } = await fetch(serverurl + "/api/dish", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => res.json());
-  const { diseases } = await fetch(serverurl + "/api/disease", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => res.json());
+  const { dishes, error: disheserr } = await getDishes(10);
+  const { diseases, error: diseaseserr } = await getDiseases();
   return {
     props: {
       session,

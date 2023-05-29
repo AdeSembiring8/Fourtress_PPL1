@@ -8,6 +8,9 @@ import { getServerSession } from "next-auth/next";
 import { serverurl } from "../lib/prisma/server";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { getAccountDiseases, getAccountById } from "../lib/prisma/account";
+import { getDiscussions } from "../lib/prisma/discussion";
+
 
 function Komunitas({ userprof, discussions }: any) {
   const { user } = userprof;
@@ -99,7 +102,7 @@ function Komunitas({ userprof, discussions }: any) {
                         month: "long",
                         year: "numeric",
                         hour: "numeric",
-                        minute: "numeric"
+                        minute: "numeric",
                       })}
                     </h1>
                   </div>
@@ -124,15 +127,16 @@ export async function getServerSideProps(context: any) {
     };
   }
   const { user } = session;
-  const userprof = await fetch(serverurl + "/api/profile", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-  }).then((res) => res.json());
-  const { discussions } = await fetch(serverurl + "/api/discussion", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => res.json());
+  const { AccObj } = user as any;
+  const { user: userdata, error: usererror } = await getAccountById(AccObj);
+  const { diseases: userdisease, error: userdiserr } = await getAccountDiseases(
+    AccObj
+  );
+  const userprof = {
+    user: userdata,
+    diseases: userdisease,
+  };
+  const { discussions, error: discussionerr } = await getDiscussions();
   return {
     props: {
       session,

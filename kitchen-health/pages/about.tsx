@@ -48,7 +48,7 @@ const AboutPage: React.FC = () => {
                         <div className="border-0 border-gray-200 rounded-3xl overflow-hidden">
                             <img className="w-full mb-4 rounded-none" src={member.image} alt={member.name} />
                         </div>
-                        <h2 className="text-center mb-2 text-gray-900 font-bold text-2xl mt-7">{member.name}</h2>
+                        <h2 className="text-center mb-2 text-gray-900 font-bold text-2xl  mt-7">{member.name}</h2>
                         <p className="text-center text-gray-700 mb-10 font-normal text-2xl leading-6 font-roboto mt-2">{member.position}</p>
                     </div>
                 ))}

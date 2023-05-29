@@ -6,10 +6,29 @@ import Navbar from "../components/navbar2";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import { serverurl } from "./server";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 function Komunitas({ userprof, discussions }: any) {
   const { user } = userprof;
-  const postbtnn = async () => {};
+  const [textContent, setTextContent] = useState({ content: "" });
+  const router = useRouter();
+  const postbtnn = async () => {
+    const { discussion, error } = await fetch(serverurl + "/api/discussion", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        accid: user.id,
+        content: textContent.content,
+      }),
+    }).then((res) => res.json());
+    if (error) {
+      alert("Discussion cannot be uploaded!");
+    }
+    if (discussion) {
+      router.reload();
+    }
+  };
   return (
     <>
       <Head>
@@ -36,15 +55,19 @@ function Komunitas({ userprof, discussions }: any) {
                   className="w-full h-14 mx-6 border border-gray-200 p-3 rounded-lg"
                   type="text"
                   placeholder="Apa yang ingin kamu diskusikan ?"
+                  value={textContent.content}
+                  onChange={({ target }) =>
+                    setTextContent({ ...textContent, content: target.value })
+                  }
                 />
                 <div className="hidden  space-x-4  lg:flex nav__item">
                   <button
                     type="submit"
                     className="py-1.5 px-6  bg-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D] text-white hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "
+                    onClick={postbtnn}
                   >
                     Posting
                   </button>
-                  
                 </div>
               </div>
             </div>
@@ -75,6 +98,8 @@ function Komunitas({ userprof, discussions }: any) {
                         day: "2-digit",
                         month: "long",
                         year: "numeric",
+                        hour: "numeric",
+                        minute: "numeric"
                       })}
                     </h1>
                   </div>

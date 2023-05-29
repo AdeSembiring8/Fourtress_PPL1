@@ -38,12 +38,13 @@ function Komunitas({ userprof }: any) {
                   placeholder="Apa yang ingin kamu diskusikan ?"
                 />
                 <div className="hidden  space-x-4  lg:flex nav__item">
-                  <Link
-                    href="/"
+                  <button
+                    type="submit"
                     className="py-1.5 px-6  bg-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D] text-white hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "
                   >
                     Posting
-                  </Link>
+                  </button>
+                  
                 </div>
               </div>
             </div>

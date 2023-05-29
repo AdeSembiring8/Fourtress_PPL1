@@ -8,7 +8,7 @@ const Card = ({ dishes }) => {
             <div className="mt-28 ml-5  text-xl text-left text-black dark:text-black" >
                 Rekomendasi Resep Untukmu
             </div>
-            <div className=" flex flex-wrap justify-center ">
+            <div className=" flex flex-wrap  ">
                 {dishes.map((dish) => (
                     <div
                         className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mx-4 my-4"
@@ -23,12 +23,12 @@ const Card = ({ dishes }) => {
 
                         <div className="p-5  ">
                             <ul className="mb-6">
-                                <li >
+                                <li className="flex justify-between">
                                     <span className="text-gray-900 font-bold text-2xl tracking-tight  dark:text-black">
                                         {dish.title}
                                     </span>
                                     {/* masukin waktu masak */}
-                                    <span className="ml-12 font-normal text-black-700 mb-3 dark:text-[#8C8C8C]">
+                                    <span className="text-right  ml-12 font-normal text-black-700 mb-3 dark:text-[#8C8C8C]">
                                         {dish.guide.split(", ")[0]}
                                     </span>
                                 </li>

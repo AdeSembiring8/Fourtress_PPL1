@@ -3,7 +3,7 @@ import prisma from ".";
 export async function getDishes(limit: number) {
   try {
     const dishes = await prisma.dish.findMany({
-      take: limit ? limit : 10,
+      take: limit ? limit : 12,
     });
     return { dishes };
   } catch (error) {
@@ -43,11 +43,11 @@ export async function getDishByName(name: any) {
       },
       include: {
         containswith: {
-            include: {
-                nutrient: true
-            }
-        }
-      }
+          include: {
+            nutrient: true,
+          },
+        },
+      },
     });
     return { dish };
   } catch (error) {
@@ -90,6 +90,19 @@ export async function setDishNutrient(data: any) {
     }
   }
   return { message: "Query OK" };
+}
+
+export async function updateDishTools(data: any) {
+  try {
+    const dish = await prisma.dish.updateMany({
+      data: {
+        tools: data,
+      },
+    });
+    return { dish };
+  } catch (error) {
+    return { error };
+  }
 }
 
 // export async function getAccountDiseases(accid: any) {

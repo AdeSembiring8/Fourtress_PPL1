@@ -12,7 +12,6 @@ const Hero = ({ diseases }) => {
       data.push(row);
     }
   }
-  console.log(data);
   return (
     <>
       <div className="relative mt-20">

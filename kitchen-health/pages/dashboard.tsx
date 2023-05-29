@@ -52,7 +52,7 @@ export async function getServerSideProps(context: any) {
   const userprof = await fetch(serverurl + "/api/profile", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(AccObj),
+    body: JSON.stringify({ AccObj: AccObj }),
   }).then((res) => res.json());
   const { diseases } = await fetch(serverurl + "/api/disease", {
     method: "GET",

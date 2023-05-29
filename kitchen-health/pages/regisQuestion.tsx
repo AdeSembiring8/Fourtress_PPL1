@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
-import { serverurl } from "./server";
+import { serverurl } from "../lib/prisma/server";
 
 function RegisQuestion({ diseases }: any) {
   const router = useRouter();

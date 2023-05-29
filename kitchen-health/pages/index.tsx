@@ -6,7 +6,7 @@ import Card from "../components/card";
 import Footer from "../components/footer";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
-import { serverurl } from "./server";
+import { serverurl } from "../lib/prisma/server";
 
 function LandingPage({ dishes, diseases }: any) {
   return (
@@ -21,7 +21,7 @@ function LandingPage({ dishes, diseases }: any) {
       </Head>
 
       <Navbar />
-      <Hero diseases={diseases}/>
+      <Hero diseases={diseases} />
 
       <div className="mb-10 text-xl text-left text-black dark:text-black">
         Kamu mau jaga pola makan untuk apa ?

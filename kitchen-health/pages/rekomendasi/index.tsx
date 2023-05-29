@@ -7,7 +7,7 @@ import Footer from "../../components/footer";
 import Card from "../../components/rekomendasi";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { serverurl } from "../server";
+import { serverurl } from "../../lib/prisma/server";
 
 function Rekomendasi({ dishes, userprof }: any) {
   const { user } = userprof;

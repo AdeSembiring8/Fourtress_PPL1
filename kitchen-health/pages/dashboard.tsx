@@ -6,7 +6,7 @@ import Card from "../components/card";
 import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { serverurl } from "./server";
+import { serverurl } from "../lib/prisma/server";
 
 function LandingPage2({ dishes, userprof, diseases }: any) {
   const { user } = userprof;

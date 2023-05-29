@@ -8,7 +8,7 @@ import Card from "../../components/rekomendasi";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import { getDiseaseByName } from "../../lib/prisma/disease";
-import { serverurl } from "../server";
+import { serverurl } from "../../lib/prisma/server";
 
 function Rekomendasi({ dishes, userprof }: any) {
   const { user } = userprof;

@@ -7,7 +7,7 @@ import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import { useRouter } from "next/router";
-import { serverurl } from "./server";
+import { serverurl } from "../lib/prisma/server";
 
 function EditProfile({ userprof, diseases }: any) {
   const { user, diseases: userdis } = userprof;
@@ -19,7 +19,7 @@ function EditProfile({ userprof, diseases }: any) {
     gender: user.gender ? user.gender : "Laki-laki",
     birth_date: user.birth_date,
   });
-//   const userdisarr: Array<String> = userdis.map((dis: any) => dis.id);
+  //   const userdisarr: Array<String> = userdis.map((dis: any) => dis.id);
   const router = useRouter();
   const bttnpressed = async (event: FormEvent) => {
     event.preventDefault();

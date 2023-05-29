@@ -26,7 +26,7 @@ const Card = ({ dishes }) => {
                     </span>
                     {/* masukin waktu masak */}
                     <span className="text-right ml-12 font-normal text-black-700 mb-3 dark:text-[#8C8C8C]">
-                      waktu
+                      {dish.guide.split(";")[0]}
                     </span>
                   </li>
 

@@ -22,29 +22,29 @@ function AboutPage({ userprof }: any) {
     {
       name: "Ade Dwi Fatwa Sembiring",
       position: "Product manager",
-      image: "/assets/team/ade.png",
+      image: "/assets/team/Ade.png",
     },
     {
       name: "Indah Sutriyati",
       position: "UI/UX Designer",
-      image: "/assets/team/indah.png",
+      image: "/assets/team/Indah.png",
     },
     {
       name: "Della Fuziyyah Husna",
       position: "Front-End Developer",
-      image: "/assets/team/della.png",
+      image: "/assets/team/Della.png",
     },
     {
       name: "Mu`az Abdul Rohim",
       position: "Back-End Developer",
-      image: "/assets/team/muaz.png",
+      image: "/assets/team/Muaz.png",
     },
   ];
   const teamSupport: TeamMember[] = [
     {
       name: "Pak Akmal S.Si.,MT.",
       position: "Dosen Pengampu",
-      image: "/assets/team/akmal.png",
+      image: "/assets/team/Akmal.png",
     },
     {
       name: "Dicky Rahma Hermawan",

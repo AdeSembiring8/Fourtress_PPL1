@@ -14,16 +14,41 @@ function Login() {
 
   const onLoginSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const submitbttn = form.querySelector(
+      `button[type="submit"]`
+    ) as HTMLButtonElement;
+    const emailinput = form.querySelector(
+      `input[name="email"]`
+    ) as HTMLInputElement;
+    const passinput = form.querySelector(
+      `input[name="pass"]`
+    ) as HTMLInputElement;
+    if (submitbttn && emailinput && passinput) {
+      submitbttn.disabled = true;
+      emailinput.disabled = true;
+      passinput.disabled = true;
+      submitbttn.style.opacity = "0.3";
+      emailinput.style.opacity = "0.3";
+      passinput.style.opacity = "0.3";
+    }
     const status = await signIn("customSignIn", {
       redirect: false, // Mengubah nilai redirect menjadi false untuk menangani penanganan kesalahan secara manual
       email: userInfo.email,
       password: userInfo.password,
       callbackUrl: "/dashboard",
     });
-
     if (status?.error) {
       alert("Email atau password salah"); // Menampilkan pesan kesalahan jika terjadi kesalahan saat login
-      return;
+      if (submitbttn && emailinput && passinput) {
+        submitbttn.disabled = false;
+        emailinput.disabled = false;
+        passinput.disabled = false;
+        submitbttn.style.opacity = "1";
+        emailinput.style.opacity = "1";
+        passinput.style.opacity = "1";
+      }
+      return null;
     }
 
     if (status?.ok) {
@@ -75,7 +100,7 @@ function Login() {
             </p>
           </div>
           <div>
-            <form>
+            <form onSubmit={onLoginSubmit}>
               <p className="fontForm">Email</p>
               <div className="">
                 <input
@@ -108,7 +133,7 @@ function Login() {
                   className="togglePasswordButton"
                 >
                   <img
-                    src="assets/loginRegisterPage/Show.png"
+                    src="assets/loginRegisterPage/show.png"
                     alt="Tampilkan Password"
                     className={`passwordIcon ${showPassword ? "hidden" : ""}`}
                     style={{ width: "32px", height: "28px", marginLeft: "5px" }}
@@ -152,7 +177,6 @@ function Login() {
               </div> */}
               <button
                 type="submit"
-                onClick={onLoginSubmit}
                 style={{ width: "420px", height: "45px" }}
                 className="py-2 mt-10  bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "
               >

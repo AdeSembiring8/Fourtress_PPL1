@@ -61,6 +61,9 @@ export async function getAccountByEmail(email: any) {
 export async function updateAccountById(id: any, data: any) {
   try {
     const user = await prisma.account.update({
+      select: {
+        id: true,
+      },
       where: { id: id },
       data: data,
     });
@@ -89,37 +92,29 @@ export async function getAccountDiseases(accid: any) {
   }
 }
 
-export async function sufferDisease(suffer: any) {
+export async function sufferDisease(AccountID: any, diseasedata: any) {
   try {
     const deletedis = await prisma.sufferFrom.deleteMany({
       where: {
         account: {
-          id: suffer[0].accountid,
+          id: AccountID,
         },
       },
     });
   } catch (error) {
     return { error };
   }
-  for (let row of suffer) {
-    try {
-      const sufferres = await prisma.account.update({
-        where: { id: row.accountid },
-        data: {
-          sufferfrom: {
-            create: {
-              disease: {
-                connect: {
-                  id: row.diseaseid,
-                },
-              },
-            },
-          },
+  try {
+    const sufferres = await prisma.account.update({
+      where: { id: AccountID },
+      data: {
+        sufferfrom: {
+          create: diseasedata,
         },
-      });
-    } catch (error) {
-      return { error };
-    }
+      },
+    });
+  } catch (error) {
+    return { error };
   }
   return { message: "Query OK" };
 }

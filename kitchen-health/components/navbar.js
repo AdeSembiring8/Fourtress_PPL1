@@ -1,18 +1,13 @@
 import Link from "next/link";
-import Image from "next/image"
+import Image from "next/image";
 import { Disclosure } from "@headlessui/react";
-import { useState } from 'react';
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 const Navbar = () => {
-  const navigation = [
-    "Beranda",
-    "Rekomendasi",
-    "Komunitas",
-    "Tentang Kami",
-  ];
+  const navigation = ["Beranda", "Rekomendasi", "Komunitas", "Tentang Kami"];
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const router = useRouter();
@@ -29,11 +24,26 @@ const Navbar = () => {
     setIsInputFocused(false);
   };
 
+  const handleSearch = async (e) => {
+    if (e.key) {
+      if (e.key !== "Enter") {
+        return null;
+      }
+    }
+    router.push({
+      pathname: "/",
+      query: { searchq: searchTerm.replace(" ", "_") },
+    });
+  };
+
   return (
-    <div className="w-full " >
-      <nav className="fixed top-0 left-0 right-0 z-50 mb-1 bg-[#ffff] flex flex-wrap items-center justify-between p-2 mx-auto lg:justify-between xl:px-0" style={{ boxShadow: '0px 4px rgba(0, 0, 0, 0.25)' }}>
+    <div className="w-full ">
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 mb-1 bg-[#ffff] flex flex-wrap items-center justify-between p-2 mx-auto lg:justify-between xl:px-0"
+        style={{ boxShadow: "0px 4px rgba(0, 0, 0, 0.25)" }}
+      >
         {/* Logo  */}
-        < Disclosure >
+        <Disclosure>
           {({ open }) => (
             <>
               <div className="flex flex-wrap items-center justify-between w-full lg:w-auto">
@@ -53,11 +63,13 @@ const Navbar = () => {
 
                 <Disclosure.Button
                   aria-label="Toggle Menu"
-                  className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-[#389E0D] focus:text-[#389E0D] focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700">
+                  className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-[#389E0D] focus:text-[#389E0D] focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700"
+                >
                   <svg
                     className="w-6 h-6 fill-current"
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24">
+                    viewBox="0 0 24 24"
+                  >
                     {open && (
                       <path
                         fillRule="evenodd"
@@ -77,16 +89,31 @@ const Navbar = () => {
                 <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
                   <>
                     {navigation.map((item, index) => (
-                      <Link key={index} href={item === 'Beranda' ? '/' : item === 'Rekomendasi' ? '/login' : item === 'Komunitas' ? '/login' : item === 'Tentang Kami' ? '/tentangKami' : `/${item.replace(/\s/g, '').toLowerCase()}`} passHref
-                        className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-[#389E0D] focus:text-[#389E0D]   focus:outline-none">
+                      <Link
+                        key={index}
+                        href={
+                          item === "Beranda"
+                            ? "/"
+                            : item === "Rekomendasi"
+                            ? "/login"
+                            : item === "Komunitas"
+                            ? "/login"
+                            : item === "Tentang Kami"
+                            ? "/tentangKami"
+                            : `/${item.replace(/\s/g, "").toLowerCase()}`
+                        }
+                        passHref
+                        className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-[#389E0D] focus:text-[#389E0D]   focus:outline-none"
+                      >
                         <div role="button">{item}</div>
                       </Link>
-
                     ))}
-                    <Link href="/login" className="w-full px-6 py-2 mt-3 text-center text-white  dark:bg-[#389E0D] rounded-md lg:ml-5">
+                    <Link
+                      href="/login"
+                      className="w-full px-6 py-2 mt-3 text-center text-white  dark:bg-[#389E0D] rounded-md lg:ml-5"
+                    >
                       Masuk
                     </Link>
-
                   </>
                 </Disclosure.Panel>
               </div>
@@ -101,20 +128,21 @@ const Navbar = () => {
                 item === "Beranda"
                   ? "/"
                   : item === "Rekomendasi"
-                    ? "/login"
-                    : item === "Komunitas"
-                      ? "/login"
-                      : item === "Tentang Kami"
-                        ? "/tentangKami"
-                        : `/${item.replace(/\s/g, "").toLowerCase()}`;
+                  ? "/login"
+                  : item === "Komunitas"
+                  ? "/login"
+                  : item === "Tentang Kami"
+                  ? "/tentangKami"
+                  : `/${item.replace(/\s/g, "").toLowerCase()}`;
 
               const isActive = router.pathname === itemPath;
 
               return (
                 <Link key={index} href={itemPath} passHref>
                   <div
-                    className={`inline-block py-2 text-lg font-normal no-underline rounded-md focus:bg-indigo-100 focus:outline-none group pr-12 ${isActive ? "text-[#6C894A] text-underline" : "text-black"
-                      }`}
+                    className={`inline-block py-2 text-lg font-normal no-underline rounded-md focus:bg-indigo-100 focus:outline-none group pr-12 ${
+                      isActive ? "text-[#6C894A] text-underline" : "text-black"
+                    }`}
                   >
                     {item}
                     <span className="block mx-auto max-w-0 group-hover:max-w-full transition-all duration-500 h-[3px] rounded bg-[#6C894A]"></span>
@@ -129,7 +157,9 @@ const Navbar = () => {
 
         <div className=" mr-2 hidden lg:flex relative mx-auto text-gray-600">
           <input
-            className={`border-2 ${isInputFocused ? 'border-[#389E0D]' : 'border-gray-300'} bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none`}
+            className={`border-2 ${
+              isInputFocused ? "border-[#389E0D]" : "border-gray-300"
+            } bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none`}
             type="text"
             name="search"
             placeholder="Search"
@@ -137,8 +167,13 @@ const Navbar = () => {
             onChange={handleInputChange}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
+            onKeyDown={handleSearch}
           />
-          <button type="submit" className="absolute right-0 top-0 mt-2.5 mr-4">
+          <button
+            type="submit"
+            className="absolute right-0 top-0 mt-2.5 mr-4"
+            onClick={handleSearch}
+          >
             <svg
               className="w-5 h-5 text-gray-500 dark:text-gray-400"
               fill="currentColor"
@@ -161,17 +196,18 @@ const Navbar = () => {
           </Link>
         </div> */}
 
-
         <div className="hidden mr-12 space-x-4  lg:flex nav__item">
-          <Link href="/login" className="py-1.5 px-6 bg-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D] text-white hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5">
+          <Link
+            href="/login"
+            className="py-1.5 px-6 bg-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D] text-white hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md md:ml-5"
+          >
             Masuk
           </Link>
           {/* <ThemeChanger /> */}
         </div>
-      </nav >
-    </div >
-
+      </nav>
+    </div>
   );
-}
+};
 
 export default Navbar;

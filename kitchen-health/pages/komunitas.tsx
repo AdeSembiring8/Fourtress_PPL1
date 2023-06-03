@@ -11,12 +11,22 @@ import { useRouter } from "next/router";
 import { getAccountDiseases, getAccountById } from "../lib/prisma/account";
 import { getDiscussions } from "../lib/prisma/discussion";
 
-
 function Komunitas({ userprof, discussions }: any) {
   const { user } = userprof;
   const [textContent, setTextContent] = useState({ content: "" });
   const router = useRouter();
-  const postbtnn = async () => {
+  const postbtnn = async (e: any) => {
+    const btn = e.target as HTMLButtonElement;
+    btn.disabled = true;
+    btn.style.opacity = "0.3";
+    if (
+      Object.values(textContent).some((value) => value === null || value === "")
+    ) {
+      alert("Cannot upload blank text");
+      btn.disabled = false;
+      btn.style.opacity = "1";
+      return null;
+    }
     const { discussion, error } = await fetch(serverurl + "/api/discussion", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -27,6 +37,8 @@ function Komunitas({ userprof, discussions }: any) {
     }).then((res) => res.json());
     if (error) {
       alert("Discussion cannot be uploaded!");
+      btn.disabled = false;
+      btn.style.opacity = "1";
     }
     if (discussion) {
       router.reload();
@@ -77,7 +89,7 @@ function Komunitas({ userprof, discussions }: any) {
           </div>
           <div className="bg-white border border-gray-200 rounded-lg shadow w-full my-4 p-4">
             <div className=" px-16 py-5 ">
-              {discussions.map((row: any) => (
+              {/* {discussions.map((row: any) => (
                 <>
                   <div
                     className=" flex justify-start items-center"
@@ -107,7 +119,7 @@ function Komunitas({ userprof, discussions }: any) {
                     </h1>
                   </div>
                 </>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
@@ -141,7 +153,7 @@ export async function getServerSideProps(context: any) {
     props: {
       session,
       userprof,
-      discussions,
+      discussions: null,
     },
   };
 }

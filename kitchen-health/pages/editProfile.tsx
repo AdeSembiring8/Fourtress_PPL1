@@ -25,6 +25,9 @@ function EditProfile({ userprof, diseases }: any) {
   const router = useRouter();
   const bttnpressed = async (event: FormEvent) => {
     event.preventDefault();
+    const linelem = event.target as HTMLLinkElement;
+    linelem.style.pointerEvents = "none";
+    linelem.style.opacity = "0.3";
     const splitted_first = userInfo.profile_name.split(" ", 1);
     const first_name = userInfo.profile_name.substring(
       0,
@@ -44,21 +47,28 @@ function EditProfile({ userprof, diseases }: any) {
     const sentdata = { ...userInfo, first_name, last_name };
     const record = { Diseases: checkedarr, AccountID: user.id };
 
-    const profdata = await fetch(serverurl + "/api/profile/update", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ sentdata, useracc: user }),
-    })
-      .then((res) => res.json())
-      .then((data) => data);
-    const profdisdata = await fetch(serverurl + "/api/auth/regisQ", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(record),
-    })
-      .then((res) => res.json())
-      .then((data) => data);
-    if (profdisdata && profdata) {
+    const { user: updatemsg, error: updaterrr } = await fetch(
+      serverurl + "/api/profile/update",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sentdata, useracc: user }),
+      }
+    ).then((res) => res.json());
+    const { message: regisqmsg, error: regisqerr } = await fetch(
+      serverurl + "/api/auth/regisQ",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(record),
+      }
+    ).then((res) => res.json());
+    if (updaterrr || regisqerr) {
+      alert("gagal update profile");
+      linelem.style.pointerEvents = "auto";
+      linelem.style.opacity = "1";
+    }
+    if (updatemsg && regisqmsg) {
       router.push({ pathname: "/profile" });
     }
   };

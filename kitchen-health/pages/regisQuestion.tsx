@@ -9,7 +9,11 @@ import { getDiseases } from "../lib/prisma/disease";
 function RegisQuestion({ diseases }: any) {
   const router = useRouter();
   const [checkboxError, setCheckboxError] = useState(false); // State untuk melacak kesalahan checkbox
-  const btnpressed = async () => {
+  const btnpressed = async (e: any) => {
+    e.preventDefault();
+    const btn = e.target as HTMLButtonElement;
+    btn.disabled = true;
+    btn.style.opacity = "0.3";
     const { id } = router.query;
     const checkbx = document.getElementsByName("optiona") as any;
     let checkedarr = new Array();
@@ -25,15 +29,22 @@ function RegisQuestion({ diseases }: any) {
     }
 
     const record = { Diseases: checkedarr, AccountID: id };
-    const result = await fetch(serverurl + "/api/auth/regisQ", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(record),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) router.push({ pathname: "/login" });
-      });
+    const { message: regisqmsg, error: regisqerr } = await fetch(
+      serverurl + "/api/auth/regisQ",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(record),
+      }
+    ).then((res) => res.json());
+    if (regisqerr) {
+      alert("gagal upload data");
+      btn.disabled = false;
+      btn.style.opacity = "1";
+    }
+    if (regisqmsg) {
+      router.push({ pathname: "/login" });
+    }
   };
   return (
     <>

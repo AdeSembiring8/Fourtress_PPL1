@@ -7,10 +7,10 @@ import Footer from "../components/footer";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import { getAccountDiseases, getAccountById } from "../lib/prisma/account";
-import { getDishes } from "../lib/prisma/dish";
+import { getDishes, searchDishes } from "../lib/prisma/dish";
 import { getDiseases } from "../lib/prisma/disease";
 
-function LandingPage2({ dishes, userprof, diseases }: any) {
+function LandingPage2({ dishes, userprof, diseases, searched_dishes }: any) {
   const { user } = userprof;
   return (
     <>
@@ -29,7 +29,11 @@ function LandingPage2({ dishes, userprof, diseases }: any) {
         Kamu mau jaga pola makan untuk apa ?
       </div>
 
-      <Card dishes={dishes} />
+      {dishes === null ? (
+        <Card dishes={searched_dishes} searched={true} />
+      ) : (
+        <Card dishes={dishes} />
+      )}
       <Footer />
     </>
   );
@@ -47,7 +51,6 @@ export async function getServerSideProps(context: any) {
   }
   const { user } = session;
   const { AccObj } = user as any;
-  const { dishes, error: disheserr } = await getDishes(10);
   const { user: userdata, error: usererror } = await getAccountById(AccObj);
   const { diseases: userdisease, error: userdiserr } = await getAccountDiseases(
     AccObj
@@ -56,8 +59,29 @@ export async function getServerSideProps(context: any) {
     user: userdata,
     diseases: userdisease,
   };
-
   const { diseases, error: diseaseserr } = await getDiseases();
+  if (context.query.searchq) {
+    const search_words = context.query.searchq.split("_");
+    const query_array = search_words.map((row: any) => ({
+      title: {
+        contains: row,
+        mode: "insensitive",
+      },
+    }));
+    const { dishes: searched_dishes, error: searcherr } = await searchDishes(
+      query_array
+    );
+    return {
+      props: {
+        session,
+        dishes: null,
+        diseases,
+        userprof,
+        searched_dishes,
+      },
+    };
+  }
+  const { dishes, error: disheserr } = await getDishes(10);
   return {
     props: {
       session,

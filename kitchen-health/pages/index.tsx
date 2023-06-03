@@ -6,10 +6,10 @@ import Card from "../components/card";
 import Footer from "../components/footer";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
-import { getDishes } from "../lib/prisma/dish";
+import { getDishes, searchDishes } from "../lib/prisma/dish";
 import { getDiseases } from "../lib/prisma/disease";
 
-function LandingPage({ dishes, diseases }: any) {
+function LandingPage({ dishes, diseases, searched_dishes }: any) {
   return (
     <>
       <Head>
@@ -27,7 +27,11 @@ function LandingPage({ dishes, diseases }: any) {
       <div className="mb-10 text-xl text-left text-black dark:text-black">
         Kamu mau jaga pola makan untuk apa ?
       </div>
-      <Card dishes={dishes} />
+      {dishes === null ? (
+        <Card dishes={searched_dishes} searched={true} />
+      ) : (
+        <Card dishes={dishes} />
+      )}
       <Footer />
     </>
   );
@@ -43,13 +47,33 @@ export async function getServerSideProps(context: any) {
       },
     };
   }
-  const { dishes, error: disheserr } = await getDishes(10);
   const { diseases, error: diseaseserr } = await getDiseases();
+  if (context.query.searchq) {
+    const search_words = context.query.searchq.split("_");
+    const query_array = search_words.map((row: any) => ({
+      title: {
+        contains: row,
+        mode: "insensitive",
+      },
+    }));
+    const { dishes: searched_dishes, error: searcherr } = await searchDishes(
+      query_array
+    );
+    return {
+      props: {
+        session,
+        dishes: null,
+        diseases,
+        searched_dishes,
+      },
+    };
+  }
+  const { dishes, error: disheserr } = await getDishes(10);
   return {
     props: {
       session,
       dishes,
-      diseases
+      diseases,
     },
   };
 }

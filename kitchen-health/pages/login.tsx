@@ -16,9 +16,12 @@ function Login() {
   const onLoginSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
+    
     const submitbttn = form.querySelector(
       `button[type="submit"]`
     ) as HTMLButtonElement;
+    console.log(submitbttn)
+    return null;
     const emailinput = form.querySelector(
       `input[name="email"]`
     ) as HTMLInputElement;
@@ -139,7 +142,6 @@ function Login() {
               <p style={{ color: "red", paddingTop: "20px" }} className="errorMessage">{errorMessage}</p> 
               <button
                 type="submit"
-                onClick={onLoginSubmit}
                 className="butt py-2 mt-10 bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "
               >
                 Login

@@ -16,7 +16,7 @@ function Login() {
   const onLoginSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
-    
+
     const submitbttn = form.querySelector(
       `button[type="submit"]`
     ) as HTMLButtonElement;
@@ -41,6 +41,12 @@ function Login() {
       callbackUrl: "/dashboard",
     });
     if (status?.error) {
+      submitbttn.disabled = false;
+      emailinput.disabled = false;
+      passinput.disabled = false;
+      submitbttn.style.opacity = "1";
+      emailinput.style.opacity = "1";
+      passinput.style.opacity = "1";
       setErrorMessage("Email atau password salah");
       return;
     }
@@ -99,7 +105,7 @@ function Login() {
                   placeholder="Masukkan email"
                 />
               </div>
-              
+
               <p className="fontForm">Password</p>
               <div className="passwordContainer but">
                 <input
@@ -137,7 +143,12 @@ function Login() {
                   />
                 </button>
               </div>
-              <p style={{ color: "red", paddingTop: "20px" }} className="errorMessage">{errorMessage}</p> 
+              <p
+                style={{ color: "red", paddingTop: "20px" }}
+                className="errorMessage"
+              >
+                {errorMessage}
+              </p>
               <button
                 type="submit"
                 className="butt py-2 mt-10 bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "

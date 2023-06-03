@@ -246,7 +246,7 @@ function Register() {
                           className="togglePasswordButton"
                         >
                           <img
-                            src="assets/loginRegisterPage/Show.png"
+                            src="assets/loginRegisterPage/show.png"
                             alt="Tampilkan Password"
                             className={`passwordIcon ${
                               showPassword ? "hidden" : ""

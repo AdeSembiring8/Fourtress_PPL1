@@ -89,7 +89,7 @@ function Komunitas({ userprof, discussions }: any) {
           </div>
           <div className="bg-white border border-gray-200 rounded-lg shadow w-full my-4 p-4">
             <div className=" px-16 py-5 ">
-              {/* {discussions.map((row: any) => (
+              {discussions.map((row: any) => (
                 <>
                   <div
                     className=" flex justify-start items-center"
@@ -119,7 +119,7 @@ function Komunitas({ userprof, discussions }: any) {
                     </h1>
                   </div>
                 </>
-              ))} */}
+              ))}
             </div>
           </div>
         </div>
@@ -153,7 +153,7 @@ export async function getServerSideProps(context: any) {
     props: {
       session,
       userprof,
-      discussions: null,
+      discussions,
     },
   };
 }

@@ -38,6 +38,14 @@ function LandingPage({ dishes, diseases, searched_dishes }: any) {
 export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, authOptions);
   if (session) {
+    if(context.query.searchq){
+        return {
+            redirect: {
+              destination: "/dashboard?searchq=" + context.query.searchq,
+              permanent: false,
+            },
+          };
+    }
     return {
       redirect: {
         destination: "/dashboard",

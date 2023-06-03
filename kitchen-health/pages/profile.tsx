@@ -30,14 +30,11 @@ function Profile({ userprof }: any) {
         <div className="h-[1200px]">
           <img
             src="/assets/bg/bg.png"
-            className="relative rounded-tl-lg w-full rounded-tr-lg h-96"
+            className="relative rounded-tl-lg w-full rounded-tr-lg   h-96"
           />
 
-          {/* <div className="bg-white rounded-lg shadow-xl pb-8 h-full ml-64 mr-64"> */}
-          {/* <div className="h-auto absolute border-2 bg-white ml-44 -mt-32 pl-96 pr-96  "> */}
-
           <div className="w-full h-screen flex items-center justify-center">
-            <div className="w-4/5 h-auto mx-auto ml-3 items-center absolute border-2 bg-white -mt-32">
+            <div className="w-4/5 h-auto mx-auto ml-3 items-center absolute border-2 bg-white 2xl:-mt-96 2xl:mb-36 -mt-32">
               <div className="flex flex-col items-center -mt-20">
                 <img
                   src={user.prof_pic}

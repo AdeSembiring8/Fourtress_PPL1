@@ -3,12 +3,13 @@ import Container from "./container";
 import Link from "next/link";
 
 const Card = ({ dishes }) => {
+
     return (
         <Container >
-            <div className="mt-28 ml-5  text-xl text-left text-black dark:text-black" >
+            <div className="mt-28 mb-12 ml-5  text-xl text-left text-black dark:text-black" >
                 Rekomendasi Resep Untukmu
             </div>
-            <div className=" flex flex-wrap  ">
+            <div className=" flex flex-wrap justify-center  ">
                 {dishes.map((dish) => (
                     <div
                         className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mx-4 my-4"

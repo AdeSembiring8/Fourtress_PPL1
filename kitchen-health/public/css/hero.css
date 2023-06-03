@@ -1,0 +1,12 @@
+@media (max-width: 414px) {
+    .custom-h1 {
+        font-size: 12px;
+        
+        /* Ganti dengan ukuran font yang lebih kecil */
+    }
+
+    .custom-p {
+        font-size: 1.5rem;
+        /* Ganti dengan ukuran font yang lebih kecil */
+    }
+}

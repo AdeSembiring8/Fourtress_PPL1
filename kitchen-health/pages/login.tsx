@@ -10,40 +10,32 @@ import { useRouter } from "next/router";
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
   const onLoginSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const status = await signIn("customSignIn", {
-      redirect: false, // Mengubah nilai redirect menjadi false untuk menangani penanganan kesalahan secara manual
+      redirect: false,
       email: userInfo.email,
       password: userInfo.password,
       callbackUrl: "/dashboard",
     });
 
     if (status?.error) {
-      alert("Email atau password salah"); // Menampilkan pesan kesalahan jika terjadi kesalahan saat login
+      setErrorMessage("Email atau password salah");
       return;
     }
 
     if (status?.ok) {
-      router.push("/dashboard"); // Redirect ke halaman dashboard jika login berhasil
+      router.push("/dashboard");
     }
   };
-
-  // const onLoginSubmit = async (event: FormEvent) => {
-  //   event.preventDefault();
-  //   const status = await signIn("customSignIn", {
-  //     redirect: true,
-  //     email: userInfo.email,
-  //     password: userInfo.password,
-  //     callbackUrl: "/dashboard",
-  //   });
-  // };
 
   async function lockedfeature() {
     router.push({ pathname: "_index" });
   }
+
   return (
     <>
       <Head>
@@ -77,7 +69,7 @@ function Login() {
           <div>
             <form>
               <p className="fontForm">Email</p>
-              <div className="">
+              <div className="but">
                 <input
                   value={userInfo.email}
                   onChange={({ target }) =>
@@ -89,9 +81,9 @@ function Login() {
                   placeholder="Masukkan email"
                 />
               </div>
-
+              
               <p className="fontForm">Password</p>
-              <div className="passwordContainer">
+              <div className="passwordContainer but">
                 <input
                   value={userInfo.password}
                   onChange={({ target }) =>
@@ -127,53 +119,22 @@ function Login() {
                   />
                 </button>
               </div>
-
-              {/* <div>
-                <table style={{ width: 420, height: 65 }}>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <input type="checkbox" name="optiona" id="opta" />
-                      </td>
-                      <td>
-                        <label className="checkboxtext">Remember Me</label>
-                      </td>
-                      <td
-                        style={{ textAlign: "right" }}
-                        className="checkboxtext"
-                      >
-                        <a style={{ textDecoration: "none" }} href="">
-                          Lupa Password
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div> */}
+              <p style={{ color: "red", paddingTop: "20px" }} className="errorMessage">{errorMessage}</p> 
               <button
                 type="submit"
                 onClick={onLoginSubmit}
-                style={{ width: "420px", height: "45px" }}
-                className="py-2 mt-10  bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "
+                className="butt py-2 mt-10 bg-[#389E0D] text-white hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "
               >
                 Login
               </button>
-
               <p className="atau">atau</p>
               <div className="">
                 <button
                   type="button"
                   onClick={lockedfeature}
                   style={{ width: "420px", height: "45px" }}
-                  className="py-2 px- bg-white text-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "
+                  className="py-2 min-w-12 bg-white text-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "
                 >
-                  {/* </button> */}
-                  {/* <button
-                  type="button"
-                  style={{ textDecoration: "none", color: "#389E0D" }}
-                  onClick={lockedfeature}
-                > */}
-                  {/* <img src="assets/loginRegisterPage/google.png" alt="" /> */}
                   Masuk dengan Google
                 </button>
               </div>

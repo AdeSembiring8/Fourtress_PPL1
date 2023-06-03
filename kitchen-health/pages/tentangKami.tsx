@@ -70,7 +70,7 @@ function AboutPage({ userprof }: any) {
       </Head>
       {user === null ? <Navbar /> : <Navbar2 user={user} />}
       <div
-        className="container mx-auto py-8"
+        className="container mx-auto py-8 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: "url('/assets/bg/bg2.png')",
         }}
@@ -78,21 +78,24 @@ function AboutPage({ userprof }: any) {
         <h1 className="text-4xl font-bold mb-4 text-center mt-20">
           Tentang Kami
         </h1>
-        <p className="text-center mt-9 font-normal ml-44 mr-44 pr-48 pl-48">
-          Kitchen Health merupakan platform yang menyediakan resep masakan sehat
-          sesuai kebutuhanmu. Kami juga menyediakan fitur pembelian bahan
-          masakan yang kamu butuhkan. Selamat menjelajah!
-        </p>
+        <div className="container mx-auto py-4 text-center">
+          <p className="font-normal mx-4 sm:px-8 lg:px-60">
+            Kitchen Health merupakan platform yang menyediakan resep masakan sehat
+            sesuai kebutuhanmu. Kami juga menyediakan fitur pembelian bahan
+            masakan yang kamu butuhkan. Selamat menjelajah!
+          </p>
+        </div>
+
         <h1 className="text-4xl font-bold text-center mt-20">Tim Pengembang</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 pt-8 p-32">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 pt-8 p-4 md:p-32">
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-lg p-none m-5"
+              className="bg-white rounded-xl shadow-lg p-4 m-2 md:m-5"
             >
               <div className="border-0 border-gray-200 rounded-3xl overflow-hidden">
                 <img
-                  className="w-full mb-4 rounded-none"
+                  className="w-full h-auto mb-4 rounded-none object-cover"
                   src={member.image}
                   alt={member.name}
                 />
@@ -108,15 +111,15 @@ function AboutPage({ userprof }: any) {
         </div>
         <h1 className="text-4xl font-bold text-center">Pembimbing</h1>
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-9 lg:grid-cols-3  gap-2 pt-8 px-48">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 pt-8 p-4 md:ml-52 ">
             {teamSupport.map((member, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-lg p-none m-5"
+                className="bg-white rounded-xl shadow-lg p-4 m-2 md:m-5"
               >
                 <div className="border-0 border-gray-200 rounded-3xl overflow-hidden">
                   <img
-                    className="w-full mb-4 rounded-none"
+                    className="w-full h-auto mb-4 rounded-none object-cover"
                     src={member.image}
                     alt={member.name}
                   />

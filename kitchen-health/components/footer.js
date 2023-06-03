@@ -9,28 +9,28 @@ export default function Footer() {
     "Rekomendasi",
     "Komunitas",
   ];
-  const legal = ["Tentang Kami", "My Profile"];
+  const legal = ["Tentang Kami", "Profil Saya"];
   return (
     <div className="bg-black">
       <Container>
-        
-        <div className="grid max-w-screen-2xl grid-cols-1 gap-10 pt-8 top-auto   dark:border-trueGray-700 lg:grid-cols-5">
-        <div className="flex flex-wrap w-full -mt-2 -ml-8 lg:ml-0">
-          {" "}
-          <Link href="/"  >
-            <Image
-              src="/assets/logo/logo.png"
-              alt=""
-              width="300"
-              height="300"
-              className="w-full px-4 py-2 text-gray-500 rounded-md"
-              
-            />
 
-          </Link>
-        </div>
+        <div className=" grid max-w-screen-2xl grid-cols-1 gap-10 pt-8 top-auto   dark:border-trueGray-700 lg:grid-cols-5">
+          <div className="flex flex-wrap w-full -mt-2 -ml-8 lg:ml-0">
+            {" "}
+            <Link href="/"  >
+              <Image
+                src="/assets/logo/logo.png"
+                alt=""
+                width="300"
+                height="300"
+                className="w-full px-4 py-2 text-gray-500 rounded-md"
 
-        <div>
+              />
+
+            </Link>
+          </div>
+
+          <div>
             <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
               <div className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 focus:text-[#389E0D] ">
                 <p>FOURTRESS</p>
@@ -131,17 +131,17 @@ const WhatsApp = ({ size = 24 }) => (
 );
 
 const Gmail = ({ size = 28 }) => (
-  <svg 
-  xmlns="http://www.w3.org/2000/svg" 
-  class="icon icon-tabler icon-tabler-brand-gmail" 
-  width={size} 
-  height={size} 
-  viewBox="0 0 24 24" 
-  stroke-width="2" 
-  stroke="currentColor" 
-  fill="none" stroke-linecap="round" stroke-linejoin="round" id="IconChangeColor"> 
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" id="mainIconPathAttribute"></path> <path d="M16 20h3a1 1 0 0 0 1 -1v-14a1 1 0 0 0 -1 -1h-3v16z" id="mainIconPathAttribute"></path> <path d="M5 20h3v-16h-3a1 1 0 0 0 -1 1v14a1 1 0 0 0 1 1z" id="mainIconPathAttribute"></path> <path d="M16 4l-4 4l-4 -4" id="mainIconPathAttribute"></path> <path d="M4 6.5l8 7.5l8 -7.5" id="mainIconPathAttribute"></path> </svg>
-  );
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="icon icon-tabler icon-tabler-brand-gmail"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke="currentColor"
+    fill="none" stroke-linecap="round" stroke-linejoin="round" id="IconChangeColor">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" id="mainIconPathAttribute"></path> <path d="M16 20h3a1 1 0 0 0 1 -1v-14a1 1 0 0 0 -1 -1h-3v16z" id="mainIconPathAttribute"></path> <path d="M5 20h3v-16h-3a1 1 0 0 0 -1 1v14a1 1 0 0 0 1 1z" id="mainIconPathAttribute"></path> <path d="M16 4l-4 4l-4 -4" id="mainIconPathAttribute"></path> <path d="M4 6.5l8 7.5l8 -7.5" id="mainIconPathAttribute"></path> </svg>
+);
 const Instagram = ({ size = 24 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

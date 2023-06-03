@@ -24,9 +24,6 @@ function LandingPage({ dishes, diseases }: any) {
       <Navbar />
       <Hero diseases={diseases} />
 
-      <div className="mb-10 text-xl text-left text-black dark:text-black">
-        Kamu mau jaga pola makan untuk apa ?
-      </div>
       <Card dishes={dishes} />
       <Footer />
     </>

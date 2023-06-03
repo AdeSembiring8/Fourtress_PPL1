@@ -29,7 +29,7 @@ const Card = ({ dishes, searched = false }) => {
         onLoad={
           searched === true
             ? (e) =>
-              e.target.scrollIntoView({ behavior: "smooth", block: "center" })
+              e.target.scrollIntoView({ behavior: "instant", block: "center" })
             : null
         }
       >

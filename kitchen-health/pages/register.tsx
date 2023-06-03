@@ -75,6 +75,8 @@ function Register() {
     }).then((res) => res.json());
     if (status.message || status.error) {
       alert(status.message || status.error);
+      submitbttn.disabled = false;
+      submitbttn.style.opacity = "1";
       return null;
     }
     router.push({

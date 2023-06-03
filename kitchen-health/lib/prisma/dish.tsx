@@ -10,6 +10,18 @@ export async function getDishes(limit: number) {
     return { error };
   }
 }
+export async function searchDishes(terms: any) {
+  try {
+    const dishes = await prisma.dish.findMany({
+      where: {
+        OR: terms
+      },
+    });
+    return { dishes };
+  } catch (error) {
+    return { error };
+  }
+}
 
 export async function createDish(dish: any) {
   try {

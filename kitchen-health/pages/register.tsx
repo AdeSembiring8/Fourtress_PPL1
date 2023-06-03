@@ -25,6 +25,14 @@ function Register() {
 
     setPasswordMismatch(false);
 
+    const form = event.target as HTMLFormElement;
+    const submitbttn = form.querySelector(
+      `button[type="submit"]`
+    ) as HTMLButtonElement;
+    if (submitbttn) {
+      submitbttn.disabled = true;
+      submitbttn.style.opacity = "0.3";
+    }
     // if (
     //   Object.values(userInfo).every((x) => x === null || x === "")) {
     //   //validasi form kosong
@@ -43,12 +51,20 @@ function Register() {
       Object.values(userInfo).some((value) => value === null || value === "")
     ) {
       alert("Harap isi semua field.");
+      if (submitbttn) {
+        submitbttn.disabled = false;
+        submitbttn.style.opacity = "1";
+      }
       return null;
     }
 
     // Validasi password tidak sama
     if (userInfo.password !== userInfo.val_pass) {
       setPasswordMismatch(true);
+      if (submitbttn) {
+        submitbttn.disabled = false;
+        submitbttn.style.opacity = "1";
+      }
       return null;
     }
 
@@ -74,7 +90,7 @@ function Register() {
     <>
       <Head>
         <title>Kitchen Health</title>
-        <link rel="stylesheet" href="css/RegisterPage.css" />
+        <link rel="stylesheet" href="css/registerPage.css" />
       </Head>
       <img
         src="assets/bg/background.png"
@@ -165,8 +181,9 @@ function Register() {
                           onChange={({ target }) =>
                             setUserInfo({ ...userInfo, password: target.value })
                           }
-                          className={`input ${showPassword ? "showPassword" : ""
-                            }`}
+                          className={`input ${
+                            showPassword ? "showPassword" : ""
+                          }`}
                           type={showPassword ? "text" : "password"}
                           name="pass"
                           placeholder="Masukkan password"
@@ -177,10 +194,11 @@ function Register() {
                           className="togglePasswordButton"
                         >
                           <img
-                            src="assets/loginRegisterPage/Show.png"
+                            src="assets/loginRegisterPage/show.png"
                             alt="Tampilkan Password"
-                            className={`passwordIcon ${showPassword ? "hidden" : ""
-                              }`}
+                            className={`passwordIcon ${
+                              showPassword ? "hidden" : ""
+                            }`}
                             style={{
                               width: "32px",
                               height: "28px",
@@ -196,8 +214,9 @@ function Register() {
                           <img
                             src="assets/loginRegisterPage/Hide.png"
                             alt="Sembunyikan Password"
-                            className={`passwordIcon ${showPassword ? "" : "hidden"
-                              }`}
+                            className={`passwordIcon ${
+                              showPassword ? "" : "hidden"
+                            }`}
                             style={{
                               width: "28px",
                               height: "18px",
@@ -214,8 +233,9 @@ function Register() {
                           onChange={({ target }) =>
                             setUserInfo({ ...userInfo, val_pass: target.value })
                           }
-                          className={`input ${showPassword ? "showPassword" : ""
-                            }`}
+                          className={`input ${
+                            showPassword ? "showPassword" : ""
+                          }`}
                           type={showPassword ? "text" : "password"}
                           name="pass"
                           placeholder="Masukkan password"
@@ -226,10 +246,11 @@ function Register() {
                           className="togglePasswordButton"
                         >
                           <img
-                            src="assets/loginRegisterPage/Show.png"
+                            src="assets/loginRegisterPage/show.png"
                             alt="Tampilkan Password"
-                            className={`passwordIcon ${showPassword ? "hidden" : ""
-                              }`}
+                            className={`passwordIcon ${
+                              showPassword ? "hidden" : ""
+                            }`}
                             style={{
                               width: "32px",
                               height: "28px",
@@ -245,8 +266,9 @@ function Register() {
                           <img
                             src="assets/loginRegisterPage/Hide.png"
                             alt="Sembunyikan Password"
-                            className={`passwordIcon ${showPassword ? "" : "hidden"
-                              }`}
+                            className={`passwordIcon ${
+                              showPassword ? "" : "hidden"
+                            }`}
                             style={{
                               width: "28px",
                               height: "18px",

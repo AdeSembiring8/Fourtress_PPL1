@@ -15,13 +15,30 @@ function Login() {
 
   const onLoginSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const submitbttn = form.querySelector(
+      `button[type="submit"]`
+    ) as HTMLButtonElement;
+    const emailinput = form.querySelector(
+      `input[name="email"]`
+    ) as HTMLInputElement;
+    const passinput = form.querySelector(
+      `input[name="pass"]`
+    ) as HTMLInputElement;
+    if (submitbttn && emailinput && passinput) {
+      submitbttn.disabled = true;
+      emailinput.disabled = true;
+      passinput.disabled = true;
+      submitbttn.style.opacity = "0.3";
+      emailinput.style.opacity = "0.3";
+      passinput.style.opacity = "0.3";
+    }
     const status = await signIn("customSignIn", {
       redirect: false,
       email: userInfo.email,
       password: userInfo.password,
       callbackUrl: "/dashboard",
     });
-
     if (status?.error) {
       setErrorMessage("Email atau password salah");
       return;
@@ -67,7 +84,7 @@ function Login() {
             </p>
           </div>
           <div>
-            <form>
+            <form onSubmit={onLoginSubmit}>
               <p className="fontForm">Email</p>
               <div className="but">
                 <input
@@ -100,7 +117,7 @@ function Login() {
                   className="togglePasswordButton"
                 >
                   <img
-                    src="assets/loginRegisterPage/Show.png"
+                    src="assets/loginRegisterPage/show.png"
                     alt="Tampilkan Password"
                     className={`passwordIcon ${showPassword ? "hidden" : ""}`}
                     style={{ width: "32px", height: "28px", marginLeft: "5px" }}

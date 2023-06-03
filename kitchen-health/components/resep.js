@@ -10,11 +10,14 @@ const Resep = ({ pagedish, user }) => {
   const tools = pagedish.tools.split(";");
   const compound = pagedish.containswith;
   const router = useRouter();
-  const pesanbttn = async () => {
+  const pesanbttn = async (e) => {
     if (!user) {
       router.push({ pathname: "/login" });
       return null;
     }
+    const btn = e.target;
+    btn.disabled = true;
+    btn.style.opacity = "0.3";
     const transaction = await fetch(serverurl + "/api/profile/purchasedish", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -22,7 +25,13 @@ const Resep = ({ pagedish, user }) => {
     }).then((res) => res.json());
     if (transaction.error) {
       alert("Gagal membeli makanan!");
+      btn.disabled = false;
+      btn.style.opacity = "1";
     } else {
+      /**
+       * LINK WA CHECKOUT
+       */
+      window.open("https://web.whatsapp.com/", "_blank");
       router.push({ pathname: "/pesananSaya" });
     }
   };

@@ -6,12 +6,7 @@ import { Disclosure } from "@headlessui/react";
 import { useState } from "react";
 
 const Navbar3 = ({ user }) => {
-  const navigation =
-    ["Beranda",
-      "Rekomendasi",
-      "Komunitas",
-      "Tentang Kami"
-    ];
+  const navigation = ["Beranda", "Rekomendasi", "Komunitas", "Tentang Kami"];
   const [searchTerm, setSearchTerm] = useState("");
   const [isInputFocused, setIsInputFocused] = useState(false);
 
@@ -27,6 +22,18 @@ const Navbar3 = ({ user }) => {
 
   const handleInputBlur = () => {
     setIsInputFocused(false);
+  };
+
+  const handleSearch = async (e) => {
+    if (e.key) {
+      if (e.key !== "Enter") {
+        return null;
+      }
+    }
+    router.push({
+      pathname: "/dashboard",
+      query: { searchq: searchTerm.replace(" ", "_") },
+    });
   };
 
   return (
@@ -88,12 +95,12 @@ const Navbar3 = ({ user }) => {
                           item === "Beranda"
                             ? "/dashboard"
                             : item === "Rekomendasi"
-                              ? "/rekomendasi"
-                              : item === "Komunitas"
-                                ? "/komunitas"
-                                : item === "Tentang Kami"
-                                  ? "/tentangKami"
-                                  : `/${item.replace(/\s/g, "").toLowerCase()}`
+                            ? "/rekomendasi"
+                            : item === "Komunitas"
+                            ? "/komunitas"
+                            : item === "Tentang Kami"
+                            ? "/tentangKami"
+                            : `/${item.replace(/\s/g, "").toLowerCase()}`
                         }
                         passHref
                         className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-[#389E0D] focus:text-[#389E0D]   focus:outline-none"
@@ -113,7 +120,7 @@ const Navbar3 = ({ user }) => {
             </>
           )}
         </Disclosure>
-       
+
         <div className="hidden text-center lg:flex lg:items-center">
           <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
             {navigation.map((item, index) => {
@@ -121,20 +128,21 @@ const Navbar3 = ({ user }) => {
                 item === "Beranda"
                   ? "/dashboard"
                   : item === "Rekomendasi"
-                    ? "/rekomendasi"
-                    : item === "Komunitas"
-                      ? "/komunitas"
-                      : item === "Tentang Kami"
-                        ? "/tentangKami"
-                        : `/${item.replace(/\s/g, "").toLowerCase()}`;
+                  ? "/rekomendasi"
+                  : item === "Komunitas"
+                  ? "/komunitas"
+                  : item === "Tentang Kami"
+                  ? "/tentangKami"
+                  : `/${item.replace(/\s/g, "").toLowerCase()}`;
 
               const isActive = router.pathname === itemPath;
 
               return (
                 <Link key={index} href={itemPath} passHref>
                   <div
-                    className={`inline-block py-2 text-lg font-normal no-underline rounded-md focus:bg-indigo-100 focus:outline-none group pr-12 ${isActive ? "text-[#6C894A] text-underline" : "text-black"
-                      }`}
+                    className={`inline-block py-2 text-lg font-normal no-underline rounded-md focus:bg-indigo-100 focus:outline-none group pr-12 ${
+                      isActive ? "text-[#6C894A] text-underline" : "text-black"
+                    }`}
                   >
                     {item}
                     <span className="block mx-auto max-w-0 group-hover:max-w-full transition-all duration-500 h-[3px] rounded bg-[#6C894A]"></span>
@@ -148,7 +156,9 @@ const Navbar3 = ({ user }) => {
         {/* search */}
         <div className=" mr-2 hidden lg:flex relative mx-auto text-gray-600">
           <input
-            className={`border-2 ${isInputFocused ? 'border-[#389E0D]' : 'border-gray-300'} bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none`}
+            className={`border-2 ${
+              isInputFocused ? "border-[#389E0D]" : "border-gray-300"
+            } bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none`}
             type="text"
             name="search"
             placeholder="Search"
@@ -156,8 +166,13 @@ const Navbar3 = ({ user }) => {
             onChange={handleInputChange}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
+            onKeyDown={handleSearch}
           />
-          <button type="submit" className="absolute right-0 top-0 mt-2.5 mr-4">
+          <button
+            type="submit"
+            className="absolute right-0 top-0 mt-2.5 mr-4"
+            onClick={handleSearch}
+          >
             <svg
               className="w-5 h-5 text-gray-500 dark:text-gray-400"
               fill="currentColor"
@@ -173,11 +188,11 @@ const Navbar3 = ({ user }) => {
           </button>
         </div>
         <div className="hidden mr-4 ml-4 space-x-4  lg:flex nav__item">
-          <Link
-            href="/profile"
-            className=" "
-          >
-            <img src={user.prof_pic} className="w-16 border-4 border-white rounded-full" />
+          <Link href="/profile" className=" ">
+            <img
+              src={user.prof_pic}
+              className="w-16 border-4 border-white rounded-full"
+            />
           </Link>
 
           {/* <ThemeChanger /> */}

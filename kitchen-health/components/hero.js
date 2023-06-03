@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Container from "./container";
+import { useState } from "react";
+import { useRouter } from "next/router";
+
 
 const Hero = ({ diseases }) => {
   let data = new Array();
@@ -8,6 +11,33 @@ const Hero = ({ diseases }) => {
       data.push(row);
     }
   }
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const router = useRouter();
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleInputFocus = () => {
+    setIsInputFocused(true);
+  };
+
+  const handleInputBlur = () => {
+    setIsInputFocused(false);
+  };
+
+  const handleSearch = async (e) => {
+    if (e.key) {
+      if (e.key !== "Enter") {
+        return null;
+      }
+    }
+    router.push({
+      pathname: "/",
+      query: { searchq: searchTerm.replace(" ", "_") },
+    });
+  };
   return (
     <>
       <div className="relative mt-20">
@@ -37,13 +67,19 @@ const Hero = ({ diseases }) => {
                 <div className="pt-2 relative mx-auto text-gray-600">
                   <input
                     className="border-2 border-gray-300 bg-white h-16 px-5 w-full rounded-lg text-sm focus:outline-none"
-                    type=""
-                    name=""
+                    type="text"
+                    name="search"
                     placeholder="Mau cari resep apa nih?"
+                    value={searchTerm}
+                    onChange={handleInputChange}
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
+                    onKeyDown={handleSearch}
                   />
                   <button
                     type="submit"
                     className="absolute right-0 top-0 mt-5"
+                    onClick={handleSearch}
                   ></button>
                 </div>
               </div>
@@ -75,7 +111,7 @@ const Hero = ({ diseases }) => {
             ))}
           </div>
           <div className="text-xl mt-32 ml-12 visual text-left text-black dark:text-black">
-              Resep sehat yang mudah di buat
+            Resep sehat yang mudah di buat
           </div>
         </div>
       </Container>

@@ -20,8 +20,6 @@ function Login() {
     const submitbttn = form.querySelector(
       `button[type="submit"]`
     ) as HTMLButtonElement;
-    console.log(submitbttn)
-    return null;
     const emailinput = form.querySelector(
       `input[name="email"]`
     ) as HTMLInputElement;

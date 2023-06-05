@@ -65,16 +65,16 @@ export async function getServerSideProps(context: any) {
     };
   }
   const { user } = session;
-  const { AccObj } = user as any;
-  const { user: userdata, error: usererror } = await getAccountById(AccObj);
+  const { sub } = user as any;
+  const { user: userdata, error: usererror } = await getAccountById(sub);
   const { diseases: userdisease, error: userdiserr } = await getAccountDiseases(
-    AccObj
+    sub
   );
   const userprof = {
     user: userdata,
     diseases: userdisease,
   };
-  const { transaction, error: trerr } = await getTransactions(AccObj);
+  const { transaction, error: trerr } = await getTransactions(sub);
   return {
     props: {
       session,

@@ -98,7 +98,7 @@ export async function getAccountGoogle(googleid: string) {
 export async function getAccountByEmail(email: any) {
   try {
     const user = await prisma.account.findFirst({
-      where: { email: email, googleid: null },
+      where: { email: email, password: { not: "" } },
     });
     return { user };
   } catch (error) {

@@ -56,11 +56,8 @@ function Login() {
     }
   };
 
-  async function googleSignIn() {
-    const status = await signIn("google");
-    if (status?.ok) {
-      router.push("/dashboard");
-    }
+  async function lockedfeature() {
+    router.push({ pathname: "_index" });
   }
 
   return (
@@ -162,7 +159,7 @@ function Login() {
               <div className="">
                 <button
                   type="button"
-                  onClick={googleSignIn}
+                  onClick={lockedfeature}
                   style={{ width: "420px", height: "45px" }}
                   className="py-2 min-w-12 bg-white text-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D]  text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150  duration-300 rounded-md "
                 >

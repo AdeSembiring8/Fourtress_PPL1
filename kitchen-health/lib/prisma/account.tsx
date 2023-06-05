@@ -23,41 +23,7 @@ export async function createAccount(user: any) {
   }
 }
 
-export async function createGoogleAccount(user: any) {
-  try {
-    const userFromDB = await prisma.account.upsert({
-      where: {
-        googleid: user.id,
-      },
-      update: {
-        email: user.email,
-        profile_name: user.profile_name,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        prof_pic: user.prof_pic,
-      },
-      create: {
-        username: "",
-        password: "",
-        email: user.email,
-        profile_name: user.profile_name,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        address: "",
-        tel: "",
-        gender: "",
-        birth_date: "",
-        prof_pic: user.prof_pic,
-        googleid: user.id,
-      },
-    });
-    return { userFromDB };
-  } catch (error) {
-    return { error };
-  }
-}
-
-export async function getAccountById(id: string) {
+export async function getAccountById(id: any) {
   try {
     const user = await prisma.account.findUnique({
       select: {
@@ -73,21 +39,7 @@ export async function getAccountById(id: string) {
         birth_date: true,
         prof_pic: true,
       },
-      where: { id: id },
-    });
-    return { user };
-  } catch (error) {
-    return { error };
-  }
-}
-
-export async function getAccountGoogle(googleid: string) {
-  try {
-    const user = await prisma.account.findUnique({
-      select: {
-        id: true,
-      },
-      where: { googleid: googleid },
+      where: { id },
     });
     return { user };
   } catch (error) {
@@ -98,7 +50,7 @@ export async function getAccountGoogle(googleid: string) {
 export async function getAccountByEmail(email: any) {
   try {
     const user = await prisma.account.findFirst({
-      where: { email: email, googleid: null },
+      where: { email: email },
     });
     return { user };
   } catch (error) {

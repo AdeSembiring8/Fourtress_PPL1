@@ -25,6 +25,7 @@ function LandingPage2({ dishes, userprof, diseases, searched_dishes }: any) {
 
       <Navbar user={user} />
       <Hero diseases={diseases} />
+      
 
       {dishes === null ? (
         <Card dishes={searched_dishes} searched={true} />
@@ -47,10 +48,10 @@ export async function getServerSideProps(context: any) {
     };
   }
   const { user } = session;
-  const { sub } = user as any;
-  const { user: userdata, error: usererror } = await getAccountById(sub);
+  const { AccObj } = user as any;
+  const { user: userdata, error: usererror } = await getAccountById(AccObj);
   const { diseases: userdisease, error: userdiserr } = await getAccountDiseases(
-    sub
+    AccObj
   );
   const userprof = {
     user: userdata,

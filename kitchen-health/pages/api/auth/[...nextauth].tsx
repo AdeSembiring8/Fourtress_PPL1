@@ -1,11 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import {
-  getAccountByEmail,
-  createGoogleAccount,
-  getAccountGoogle,
-} from "../../../lib/prisma/account";
+import { getAccountByEmail } from "../../../lib/prisma/account";
 import { compare } from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
@@ -47,10 +43,10 @@ export const authOptions: NextAuthOptions = {
         return null;
       },
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as any,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as any,
-    }),
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_CLIENT_ID,
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    // }),
     // ...add more providers here
   ],
   secret: process.env.NEXTAUTH_SECRET,
@@ -59,45 +55,17 @@ export const authOptions: NextAuthOptions = {
     maxAge: 60 * 10,
   },
   callbacks: {
-    async jwt({ token, user, account, profile }) {
-      if (account?.provider === "google") {
-        const { user, error } = await getAccountGoogle(
-          account.providerAccountId
-        );
-        token.sub = user?.id;
+    async jwt({ token, user }) {
+      if (user) {
+        const { id } = user as any;
+        return { token, AccObj: id };
+      } else {
+        return token;
       }
-      return token;
     },
     async session({ session, token }) {
       session.user = token as any;
       return session;
-    },
-    async signIn({ user, account, profile }) {
-      const isAllowedToSignIn = true;
-      if (account?.provider === "google") {
-        const { given_name, family_name } = profile as any;
-        const data = {
-          id: user.id,
-          email: user.email,
-          profile_name: user.name,
-          first_name: given_name,
-          last_name: family_name,
-          prof_pic: user.image,
-        };
-        const { userFromDB, error } = await createGoogleAccount(data);
-        if (userFromDB) {
-          return true;
-        }
-        return "/";
-      }
-      if (isAllowedToSignIn) {
-        return true;
-      } else {
-        // Return false to display a default error message
-        return false;
-        // Or you can return a URL to redirect to:
-        // return '/unauthorized'
-      }
     },
   },
 };

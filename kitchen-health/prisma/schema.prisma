@@ -23,9 +23,12 @@ model account {
     gender       String
     birth_date   String
     prof_pic     String
+    googleid     String?
     sufferfrom   sufferFrom[]
     transaction  transaction[]
     discussion   discussion[]
+
+    @@unique([googleid])
 }
 
 model sufferFrom {

@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { serverurl } from "../lib/prisma/server";
@@ -85,8 +86,12 @@ function Register() {
     });
   };
 
-  async function lockedfeature() {
-    router.push({ pathname: "_index" });
+  async function googleSignIn(e: any) {
+    e.preventDefault();
+    const status = await signIn("google");
+    if (status?.ok) {
+      router.push("/dashboard");
+    }
   }
   return (
     <>
@@ -102,7 +107,9 @@ function Register() {
 
       <div>
         <div className="kotakPutih" style={{ marginBottom: "72px" }}>
-          <img src="assets/logo/logo.png" alt="logo kitchen health" />
+          <a href="/">
+            <img src="assets/logo/logo.png" alt="logo kitchen health" />
+          </a>
           <div>
             <p className="fontDaftar">Daftar</p>
             <p className="fontBuatAkun">
@@ -298,7 +305,7 @@ function Register() {
               <div className="">
                 <button
                   className="py-2  bg-white text-[#389E0D] hover:bg-[#298403] border-2 border-[#389E0D] text-lg hover:text-neutral-50 rounded-40 transition ease-in-out delay-150 duration-300 rounded-md"
-                  onClick={lockedfeature}
+                  onClick={googleSignIn}
                   // href="/_index"
                   style={{ width: "450px", height: "45px" }}
                 >

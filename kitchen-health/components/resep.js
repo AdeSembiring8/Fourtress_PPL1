@@ -53,7 +53,7 @@ const Resep = ({ pagedish, user }) => {
                 <div className="flex items-center">
                   <h2 className=" text-2xl font-bold ">Rp {pagedish.price}</h2>
                   <button
-                    className=" bg-green-500 text-white py-2 px-4 rounded ml-3"
+                    className=" bg-[#389E0D]  hover:bg-[#298403] focus:outline-none text-white py-2 px-4 rounded ml-3"
                     onClick={pesanbttn}
                   >
                     {" "}
